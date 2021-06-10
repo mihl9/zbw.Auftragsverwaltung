@@ -1,0 +1,5 @@
+site_name: zbw.Auftragsverwaltung
+theme:
+  name: material
+plugins:
+    - drawio-exporter
