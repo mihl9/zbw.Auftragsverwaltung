@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "QJDTPD9bzPQ2yXpa8p5ykKUSf4R0qnqsVoeAPPWCp5PqF2u7uPx0KF6M4f79T8i6+/JVfUxJuWuqWeTeFndg6w==",
+  "success": true,
+  "projectFilePath": "D:\\Schule\\PrgAdvanced\\Projektarbeit\\zbw.Auftragsverwaltung\\backend\\backend\\backend.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Simon Scherer\\.nuget\\packages\\microsoft.visualstudio.azure.containers.tools.targets\\1.10.9\\microsoft.visualstudio.azure.containers.tools.targets.1.10.9.nupkg.sha512",
+    "C:\\Users\\Simon Scherer\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.13\\microsoft.netcore.app.host.win-x64.3.1.13.nupkg.sha512"
+  ],
+  "logs": []
+}
