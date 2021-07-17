@@ -12,18 +12,18 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
 {
     public class CustomerBll : ICustomerBll
     {
-        private readonly IRepository<Customer> _customeRepository;
+        private readonly IRepository<Customer> _customerRepository;
         private readonly IMapper _mapper;
 
-        public CustomerBll(IRepository<Customer> customeRepository, IMapper mapper)
+        public CustomerBll(IRepository<Customer> customerRepository, IMapper mapper)
         {
-            _customeRepository = customeRepository;
+            _customerRepository = customerRepository;
             _mapper = mapper;
         }
 
         public async Task<CustomerDto> Get(Guid id)
         {
-            var customer = await _customeRepository.GetByIdAsync(id);
+            var customer = await _customerRepository.GetByIdAsync(id);
             return _mapper.Map<CustomerDto>(customer);
         }
     }
