@@ -5,9 +5,8 @@ using System.Threading.Tasks;
 
 namespace zbw.Auftragsverwaltung.Api.Common.Models
 {
-    public class BaseMessage
+    public class SuccessMessage : BaseMessage
     {
-        public virtual string Status { get; protected set; }
-        public string Message { get; set; }
+        public override string Status { get; protected set; } = "Success";
     }
 }

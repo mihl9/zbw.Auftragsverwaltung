@@ -44,7 +44,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure
 
             services.AddIdentity<User, IdentityRole<Guid>>(o =>
             {
-                o.SignIn.RequireConfirmedAccount = true;
+                o.SignIn.RequireConfirmedAccount = false;
             }).AddEntityFrameworkStores<UserIdentityContext>();
 
             var jwtSection = configuration.GetSection("JwtBearerSettings");

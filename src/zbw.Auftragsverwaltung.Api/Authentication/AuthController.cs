@@ -26,11 +26,13 @@ namespace zbw.Auftragsverwaltung.Api.Authentication
     {
         private readonly JwtBearerSettings _jwtBearerSettings;
         private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AuthController(IOptions<JwtBearerSettings> jwtBearerSettings, UserManager<User> userManager)
+        public AuthController(IOptions<JwtBearerSettings> jwtBearerSettings, UserManager<User> userManager, SignInManager<User> signInManager)
         {
             _jwtBearerSettings = jwtBearerSettings.Value;
             _userManager = userManager;
+            _signInManager = signInManager;
         }
 
         [HttpPost("Register")]
@@ -61,35 +63,44 @@ namespace zbw.Auftragsverwaltung.Api.Authentication
             if (!ModelState.IsValid || credentials == null)
                 return new BadRequestResult();
 
-            var user =
-                await ValidateLogin(credentials);
+            var user = await _userManager.FindByNameAsync(credentials.Username);
 
-            if(user == null)
-                return new BadRequestObjectResult(new BaseMessage() { Message = "Failed" });
+            if (user == null)
+                return new BadRequestObjectResult(new ErrorMessage() { });
 
-            var token = GenerateToken(user);
 
-            return Ok(new AuthenticatedMessage() {Message = "Success", Token = token});
+            var signinResult = await _signInManager.PasswordSignInAsync(user, credentials.Password, false, true);
+            
+            if (signinResult.Succeeded)
+            {
+                var token = GenerateToken(user);
+
+                return Ok(new AuthenticatedMessage() { Token = token });
+            }
+            if(signinResult.IsNotAllowed)
+            {
+                if (!user.EmailConfirmed)
+                {
+                    return new BadRequestObjectResult(new ErrorMessage() { Message = "Email is not Confirmed" });
+                }
+                return new BadRequestObjectResult(new ErrorMessage(){ Message = signinResult.ToString() });
+            }
+            
+            if(signinResult.RequiresTwoFactor)
+                return new BadRequestObjectResult(new ErrorMessage() { Message = "Requires Two Factor" });
+            
+            return new BadRequestObjectResult(new ErrorMessage() { Message = signinResult.ToString() });
+            
         }
 
         [HttpPost("Logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            return Ok(new { Message = "Success" });
+            await _signInManager.SignOutAsync();
+            return Ok(new SuccessMessage());
         }
 
         #region Helpers
-
-        private async Task<User> ValidateLogin(Credentials credentials)
-        {
-            var user = await _userManager.FindByNameAsync(credentials.Username);
-            
-            if (user == null) return null;
-            
-            var result = _userManager.PasswordHasher.VerifyHashedPassword(user, user.PasswordHash, credentials.Password);
-            return result == PasswordVerificationResult.Failed ? null : user;
-
-        }
 
         private object GenerateToken(User user)
         {
