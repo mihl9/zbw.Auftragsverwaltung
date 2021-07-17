@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,6 +37,7 @@ namespace zbw.Auftragsverwaltung.Api.Authentication
         }
 
         [HttpPost("Register")]
+        [ProducesResponseType(typeof(SuccessMessage), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Register([FromBody] UserDetails userDetails)
         {
             if(!ModelState.IsValid || userDetails == null)
@@ -54,10 +56,12 @@ namespace zbw.Auftragsverwaltung.Api.Authentication
                 return new BadRequestObjectResult(new ErrorMessage() { Message = "Registration Failed", Errors = states });
             }
 
-            return Ok(new BaseMessage() {Message = "Success"});
+            return Ok(new SuccessMessage() {Message = "Registration Complete"});
         }
 
         [HttpPost("Login")]
+        [ProducesResponseType(typeof(AuthenticatedMessage), (int)HttpStatusCode.OK)]
+        [ProducesErrorResponseType(typeof(ErrorMessage))]
         public async Task<IActionResult> Login([FromBody] Credentials credentials)
         {
             if (!ModelState.IsValid || credentials == null)
