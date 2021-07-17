@@ -16,5 +16,7 @@ namespace zbw.Auftragsverwaltung.Core.Customers.Entities
         public string Lastname { get; set; }
 
         public string Website { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }
