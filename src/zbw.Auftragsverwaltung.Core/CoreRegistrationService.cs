@@ -5,6 +5,7 @@ using System.Text;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using zbw.Auftragsverwaltung.Core.Customers.BLL;
+using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
 
 namespace zbw.Auftragsverwaltung.Core
 {
@@ -14,7 +15,7 @@ namespace zbw.Auftragsverwaltung.Core
         {
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
-            services.AddScoped<CustomerBll>();
+            services.AddScoped<ICustomerBll, CustomerBll>();
 
             return services;
         }

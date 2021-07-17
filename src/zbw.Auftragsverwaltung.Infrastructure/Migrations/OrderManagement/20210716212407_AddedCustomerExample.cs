@@ -1,7 +1,7 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace zbw.Auftragsverwaltung.Infrastructure.Migrations
+namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
 {
     public partial class AddedCustomerExample : Migration
     {

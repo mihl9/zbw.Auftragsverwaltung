@@ -5,9 +5,9 @@ using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using zbw.Auftragsverwaltung.Core.Common.Contracts;
 using zbw.Auftragsverwaltung.Core.Common.DTO;
 using zbw.Auftragsverwaltung.Core.Common.Interfaces;
-using zbw.Auftragsverwaltung.Core.Contracts.Infrastructure;
 
 namespace zbw.Auftragsverwaltung.Infrastructure.Common.Repositories
 {

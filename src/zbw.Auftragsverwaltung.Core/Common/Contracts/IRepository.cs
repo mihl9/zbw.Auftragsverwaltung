@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using zbw.Auftragsverwaltung.Core.Common.DTO;
 using zbw.Auftragsverwaltung.Core.Common.Interfaces;
 
-namespace zbw.Auftragsverwaltung.Core.Contracts.Infrastructure
+namespace zbw.Auftragsverwaltung.Core.Common.Contracts
 {
     public interface IRepository<TI> where TI : IEntity
     {
