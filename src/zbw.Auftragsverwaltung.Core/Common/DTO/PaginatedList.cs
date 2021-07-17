@@ -1,36 +1,39 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using zbw.Auftragsverwaltung.Core.Common.Dto;
 
 namespace zbw.Auftragsverwaltung.Core.Common.DTO
 {
-    public class PaginatedList<TI> : IReadOnlyList<TI>
+    public class PaginatedList<T> : PagedResultBase where T : class
     {
-        private readonly IEnumerable<TI> _enumerable;
-        public int CurrentPage { get; }
-        public int PageSize { get; }
-        public int MaxElements { get; }
+		public List<T> Results { get; set; } = new List<T>();
 
-        public PaginatedList(IEnumerable<TI> enumerator, int pageSize, int currentPage, int maxElements)
+        public PaginatedList(IEnumerable<T> items, int totalCount, int pageNumber, int pageSize) : base(totalCount, pageNumber, pageSize)
         {
-            _enumerable = enumerator;
-            PageSize = pageSize;
-            CurrentPage = currentPage;
-            MaxElements = maxElements;
+
+            Results.AddRange(items);
         }
 
-        public IEnumerator<TI> GetEnumerator()
+        public PaginatedList() : base()
+        { }
+
+        public static PaginatedList<T> ToPagedResult(IEnumerable<T> source, int page, int size)
         {
-            return _enumerable.GetEnumerator();
+            var count = source.Count();
+            if (size != 0)
+            {
+                var items = source.Skip((page - 1) * size)
+                    .Take(size).ToList();
+                return new PaginatedList<T>(items, count, page, size);
+            }
+            else
+            {
+                return new PaginatedList<T>(source, count, 1, size);
+            }
+
         }
 
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
-
-        public int Count => _enumerable.Count();
-        
-        public TI this[int index] => _enumerable.ElementAt(index);
+		public T this[int index] => Results.ElementAt(index);
     }
 }

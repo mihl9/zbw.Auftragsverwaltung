@@ -7,7 +7,7 @@ using zbw.Auftragsverwaltung.Core.Common.Interfaces;
 
 namespace zbw.Auftragsverwaltung.Core.Common.Contracts
 {
-    public interface IRepository<TI> where TI : IEntity
+    public interface IRepository<TI> where TI : class, IEntity
     {
         Task<TI> GetByIdAsync(Guid id);
         Task<IReadOnlyList<TI>> ListAsync();

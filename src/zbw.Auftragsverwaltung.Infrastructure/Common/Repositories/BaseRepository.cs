@@ -58,12 +58,13 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Common.Repositories
 
         public virtual async Task<PaginatedList<TI>> GetPagedResponseAsync(int page, int size)
         {
-            return new PaginatedList<TI>(await _dbContext.Set<TI>().Skip((page - 1) * size).Take(size).AsNoTracking().ToListAsync(), size, page, 0);
+            return PaginatedList<TI>.ToPagedResult(await _dbContext.Set<TI>().AsNoTracking().ToListAsync(), page, size);
         }
 
         public virtual async Task<PaginatedList<TI>> GetPagedResponseAsync(int page, int size, Expression<Func<TI, bool>> predicate)
         {
-            return new PaginatedList<TI>(await _dbContext.Set<TI>().Where(predicate).Skip((page - 1) * size).Take(size).AsNoTracking().ToListAsync(), size, page, 0);
+            return PaginatedList<TI>.ToPagedResult(
+                await _dbContext.Set<TI>().Where(predicate).AsNoTracking().ToListAsync(), page, size);
         }
     }
 }

@@ -15,5 +15,7 @@ namespace zbw.Auftragsverwaltung.Core.Customers.Dto
         public string Lastname { get; set; }
 
         public string Website { get; set; }
+
+        public string UserId { get; set; }
     }
 }

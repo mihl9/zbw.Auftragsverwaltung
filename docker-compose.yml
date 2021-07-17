@@ -6,13 +6,16 @@ services:
     build:
       context: .
       dockerfile: src/zbw.Auftragsverwaltung.Api/Dockerfile
-
+    depends_on:
+     - db
   zbw.auftragsverwaltung.webapp:
     image: ${DOCKER_REGISTRY-}zbwauftragsverwaltungwebapp
     build:
       context: .
       dockerfile: src/zbw.Auftragsverwaltung.WebApp/Dockerfile
-
+    depends_on:
+     - db
+     - zbw.auftragsverwaltung.api
   db:
     image: "mcr.microsoft.com/mssql/server"
     environment:
