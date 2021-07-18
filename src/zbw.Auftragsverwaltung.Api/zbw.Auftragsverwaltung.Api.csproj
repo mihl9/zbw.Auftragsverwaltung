@@ -18,4 +18,8 @@
     <ProjectReference Include="..\zbw.Auftragsverwaltung.Infrastructure\zbw.Auftragsverwaltung.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Order\" />
+  </ItemGroup>
+
 </Project>

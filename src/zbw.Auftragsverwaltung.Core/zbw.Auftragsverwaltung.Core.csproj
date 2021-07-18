@@ -20,6 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Orders\BLL\" />
+    <Folder Include="Orders\Interfaces\" />
+    <Folder Include="Orders\Profiles\" />
     <Folder Include="Users\Interfaces\" />
     <Folder Include="Users\Models\" />
   </ItemGroup>
