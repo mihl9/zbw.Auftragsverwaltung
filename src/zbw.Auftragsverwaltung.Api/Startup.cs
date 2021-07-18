@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.AzureAD.UI;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -37,8 +36,9 @@ namespace zbw.Auftragsverwaltung.Api
 
             services.AddCoreServices();
             services.AddInfrastructurServices(Configuration);
-            services.AddInfrastructureAuthenticationService(Configuration);
 
+            services.AddInfrastructureAuthenticationService(Configuration);
+            
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -55,14 +55,9 @@ namespace zbw.Auftragsverwaltung.Api
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-                IdentityModelEventSource.ShowPII = true;
-            }
-
+            
             app.MigrateOrderDatabase();
             app.MigrateUserIdentityDatabase();
             app.UseHttpsRedirection();
@@ -73,6 +68,15 @@ namespace zbw.Auftragsverwaltung.Api
                 c.RoutePrefix = string.Empty;
             });
             app.UseRouting();
+
+            app.UseDefaultRoles(services);
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDevUser(services);
+                IdentityModelEventSource.ShowPII = true;
+            }
 
             app.UseAuthentication();
             app.UseAuthorization();
