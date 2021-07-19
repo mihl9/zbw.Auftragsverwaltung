@@ -35,8 +35,8 @@ namespace zbw.Auftragsverwaltung.Api
             services.AddOptions();
 
             services.AddCoreServices();
-            services.AddInfrastructurServices(Configuration);
 
+            services.AddInfrastructurServices(Configuration);
             services.AddInfrastructureAuthenticationService(Configuration);
             
             services.AddControllers();

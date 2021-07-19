@@ -34,7 +34,7 @@ namespace zbw.Auftragsverwaltung.Api.Customer
             _userManager = userManager;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [ProducesResponseType(typeof(CustomerDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(Guid id)
         {
