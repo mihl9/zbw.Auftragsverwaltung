@@ -3,7 +3,7 @@ version: '3.4'
 services:
   zbw.auftragsverwaltung.api:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Development-Docker
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
       - "80"
@@ -13,7 +13,7 @@ services:
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
   zbw.auftragsverwaltung.webapp:
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Development-Docker
       - ASPNETCORE_URLS=https://+:443;http://+:80
     ports:
       - "80"
@@ -21,3 +21,9 @@ services:
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  zbw.auftragsverwaltung.db:
+    environment:
+        SA_PASSWORD: "Your_password123"
+        ACCEPT_EULA: "Y"
+    ports:
+     - 1433:1433
