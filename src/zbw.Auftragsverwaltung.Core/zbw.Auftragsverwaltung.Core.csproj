@@ -20,6 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ArticleGroups\Profiles\" />
     <Folder Include="Users\Interfaces\" />
     <Folder Include="Users\Models\" />
   </ItemGroup>
