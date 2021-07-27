@@ -6,6 +6,8 @@ using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
 using zbw.Auftragsverwaltung.Core.Customers.BLL;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
+using zbw.Auftragsverwaltung.Core.Orders.Interfaces;
+using zbw.Auftragsverwaltung.Core.Orders.BLL;
 
 namespace zbw.Auftragsverwaltung.Core
 {
@@ -16,6 +18,7 @@ namespace zbw.Auftragsverwaltung.Core
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddScoped<ICustomerBll, CustomerBll>();
+            services.AddScoped<IOrderBll, OrderBll>();
 
             return services;
         }

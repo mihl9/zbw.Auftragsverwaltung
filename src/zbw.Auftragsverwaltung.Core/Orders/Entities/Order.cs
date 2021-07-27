@@ -16,5 +16,7 @@ namespace zbw.Auftragsverwaltung.Core.Orders.Entities
         public int CustomerNr { get; set; }
 
         public DateTime Date { get; set; }
+
+        public Guid UserId { get; set; }
     }
 }
