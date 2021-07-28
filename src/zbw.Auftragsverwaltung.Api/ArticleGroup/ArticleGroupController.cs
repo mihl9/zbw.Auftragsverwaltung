@@ -29,6 +29,13 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
         private readonly UserManager<User> _userManager;
 
 
+        public ArticleGroupController(IArticleGroupBll articleGroupBll, ILogger<ArticleGroupController> logger, UserManager<User> userManager)
+        {
+            _articleGroupBll = articleGroupBll;
+            _logger = logger;
+            _userManager = userManager;
+        }
+
         // GET: api/<ArticleGroupController>
         [HttpGet]
         [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
