@@ -4,6 +4,8 @@ using System.Reflection;
 using System.Text;
 using AutoMapper;
 using Microsoft.Extensions.DependencyInjection;
+using zbw.Auftragsverwaltung.Core.ArticleGroups.BLL;
+using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
 using zbw.Auftragsverwaltung.Core.Customers.BLL;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
 
@@ -16,6 +18,8 @@ namespace zbw.Auftragsverwaltung.Core
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddScoped<ICustomerBll, CustomerBll>();
+
+            services.AddScoped<IArticleGroupBll, ArticleGroupBll>();
 
             return services;
         }

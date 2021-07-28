@@ -2,8 +2,18 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Logging;
+using zbw.Auftragsverwaltung.Api.Common.Models;
+using zbw.Auftragsverwaltung.Core.ArticleGroups.Dto;
+using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
+using zbw.Auftragsverwaltung.Core.Common.DTO;
+using zbw.Auftragsverwaltung.Core.Users.Entities;
+using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,36 +24,107 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
     [ApiController]
     public class ArticleGroupController : ControllerBase
     {
+        private readonly IArticleGroupBll _articleGroupBll;
+        private readonly ILogger<ArticleGroupController> _logger;
+        private readonly UserManager<User> _userManager;
+
+
         // GET: api/<ArticleGroupController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> GetList(int size = 10, int page = 1, bool deleted = false)
         {
-            return new string[] { "value1", "value2" };
+            if (!User.IsInRole(Roles.Administrator.ToString()))
+            {
+                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (!Guid.TryParse(rawUserId, out var userId))
+                {
+                    return Forbid();
+                }
+
+                return new JsonResult(await _articleGroupBll.GetList(x => x.UserId.Equals(userId), size, page));
+            }
+
+            return new JsonResult(await _articleGroupBll.GetList(deleted, size, page));
         }
 
         // GET api/<ArticleGroupController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Get(Guid id)
         {
-            return "value";
+            if (!User.IsInRole(Roles.Administrator.ToString()))
+            {
+                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (!Guid.TryParse(rawUserId, out var userId))
+                {
+                    return Forbid();
+                }
+
+                var result = await _articleGroupBll.Get(id);
+
+                if (!result.UserId.Equals(userId.ToString()))
+                {
+                    return Forbid();
+                }
+
+                return new JsonResult(result);
+            }
+            
+            return new JsonResult(await _articleGroupBll.Get(id));
         }
 
         // POST api/<ArticleGroupController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        [Authorize(Policy = Policies.RequireAdministratorRole)]
+        public async Task<ArticleGroupDto> Add([FromBody] ArticleGroupDto articleGroup)
         {
+            if (!User.IsInRole(Roles.Administrator.ToString()))
+            {
+                var cust = await _articleGroupBll.Get(articleGroup.Id);
+                                                
+            }
+            
+            return await _articleGroupBll.Add(articleGroup);
         }
 
         // PUT api/<ArticleGroupController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        [HttpPatch]
+        [ProducesResponseType(typeof(ArticleGroupDto), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Update([FromBody] ArticleGroupDto articleGroup)
         {
+            if (!User.IsInRole(Roles.Administrator.ToString()))
+            {
+                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                if (!Guid.TryParse(rawUserId, out var userId))
+                {
+                    return Forbid();
+                }
+
+                var result = await _articleGroupBll.Get(articleGroup.Id);
+
+                if (!result.UserId.Equals(userId.ToString()))
+                {
+                    return Forbid();
+                }
+
+                return new JsonResult(await _articleGroupBll.Update(articleGroup));
+            }
+            return new JsonResult(await _articleGroupBll.Update(articleGroup));
         }
 
         // DELETE api/<ArticleGroupController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete]
+        [Authorize(Policy = Policies.RequireAdministratorRole)]
+        public async Task<IActionResult> Delete(Guid id)
         {
+            var dto = new ArticleGroupDto(){Id = id};
+
+            var result = await _articleGroupBll.Delete(dto);
+            if (result)
+                return Ok(new SuccessMessage());
+
+            return new BadRequestObjectResult(new ErrorMessage(){Message = $"Failed to delete the ArticleGroup with the ID: {id}"});
         }
     }
 }

@@ -7,7 +7,6 @@
   <ItemGroup>
     <Folder Include="Common\Services\" />
     <Folder Include="Customers\Services\" />
-    <Folder Include="ArticleGroup\" />
     <Folder Include="Users\Services\" />
   </ItemGroup>
 

@@ -22,34 +22,49 @@ namespace zbw.Auftragsverwaltung.Core.ArticleGroups.BLL
             _articleGroupRepository = articleGroupRepository;
         }
 
-        public Task<ArticleGroupDto> Add(ArticleGroupDto dto)
+        public async Task<ArticleGroupDto> Add(ArticleGroupDto dto)
         {
-            throw new NotImplementedException();
+            var articleGroup = _mapper.Map<ArticleGroup>(dto);
+            articleGroup = await _articleGroupRepository.AddAsync(articleGroup);
+
+            return _mapper.Map<ArticleGroupDto>(articleGroup);
         }
 
-        public Task<bool> Delete(ArticleGroupDto dto)
+        public async Task<bool> Delete(ArticleGroupDto dto)
         {
-            throw new NotImplementedException();
+            //uc
+            var articleGroup = _mapper.Map<ArticleGroup>(dto);
+            //articleGroup = await _articleGroupRepository.DeleteAsync(articleGroup);
+
+            return true;
         }
 
-        public Task<ArticleGroupDto> Get(Guid id)
+        public async Task<ArticleGroupDto> Get(Guid id)
         {
-            throw new NotImplementedException();
+            var articleGroup = await _articleGroupRepository.GetByIdAsync(id);
+            return _mapper.Map<ArticleGroupDto>(articleGroup);
         }
 
-        public Task<PaginatedList<ArticleGroupDto>> GetList(Expression<Func<ArticleGroup, bool>> predicate, int size = 10, int page = 1)
+        public async Task<PaginatedList<ArticleGroupDto>> GetList(Expression<Func<ArticleGroup, bool>> predicate, int size = 10, int page = 1)
         {
-            throw new NotImplementedException();
+            var articleGroups = await _articleGroupRepository.GetPagedResponseAsync(page, size, predicate);
+
+            return _mapper.Map<PaginatedList<ArticleGroupDto>>(articleGroups);
         }
 
-        public Task<PaginatedList<ArticleGroupDto>> GetList(bool deleted = false, int size = 10, int page = 1)
+        public async Task<PaginatedList<ArticleGroupDto>> GetList(bool deleted = false, int size = 10, int page = 1)
         {
-            throw new NotImplementedException();
+            var articleGroups = await _articleGroupRepository.GetPagedResponseAsync(page, size);
+
+            return _mapper.Map<PaginatedList<ArticleGroupDto>>(articleGroups);
         }
 
-        public Task<ArticleGroupDto> Update(ArticleGroupDto dto)
+        public async Task<ArticleGroupDto> Update(ArticleGroupDto dto)
         {
-            throw new NotImplementedException();
+            var articleGroup = _mapper.Map<ArticleGroup>(dto);
+            await _articleGroupRepository.UpdateAsync(articleGroup);
+
+            return _mapper.Map<ArticleGroupDto>(articleGroup);
         }
     }
 }
