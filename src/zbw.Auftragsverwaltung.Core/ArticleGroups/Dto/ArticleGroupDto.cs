@@ -12,6 +12,5 @@ namespace zbw.Auftragsverwaltung.Core.ArticleGroups.Dto
 
         public ArticleGroupDto Articlegroupdto { get; set; }
 
-        public string UserId { get; set; }
     }
 }

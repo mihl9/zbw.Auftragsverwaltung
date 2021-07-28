@@ -34,8 +34,7 @@ namespace zbw.Auftragsverwaltung.Core.ArticleGroups.BLL
         {
             //uc
             var articleGroup = _mapper.Map<ArticleGroup>(dto);
-            //articleGroup = await _articleGroupRepository.DeleteAsync(articleGroup);
-
+            await _articleGroupRepository.DeleteAsync(articleGroup);
             return true;
         }
 

@@ -12,7 +12,5 @@ namespace zbw.Auftragsverwaltung.Core.ArticleGroups.Entities
         public string Name { get; set; }
 
         public ArticleGroup Articlegroup { get; set; }
-
-        public Guid UserId { get; set; }
     }
 }

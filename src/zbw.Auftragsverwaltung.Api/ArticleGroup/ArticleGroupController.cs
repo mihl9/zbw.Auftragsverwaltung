@@ -41,16 +41,6 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
         [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetList(int size = 10, int page = 1, bool deleted = false)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
-            {
-                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (!Guid.TryParse(rawUserId, out var userId))
-                {
-                    return Forbid();
-                }
-
-                return new JsonResult(await _articleGroupBll.GetList(x => x.UserId.Equals(userId), size, page));
-            }
 
             return new JsonResult(await _articleGroupBll.GetList(deleted, size, page));
         }
@@ -60,24 +50,6 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
         [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(Guid id)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
-            {
-                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (!Guid.TryParse(rawUserId, out var userId))
-                {
-                    return Forbid();
-                }
-
-                var result = await _articleGroupBll.Get(id);
-
-                if (!result.UserId.Equals(userId.ToString()))
-                {
-                    return Forbid();
-                }
-
-                return new JsonResult(result);
-            }
-            
             return new JsonResult(await _articleGroupBll.Get(id));
         }
 
@@ -100,23 +72,7 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
         [ProducesResponseType(typeof(ArticleGroupDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update([FromBody] ArticleGroupDto articleGroup)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
-            {
-                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (!Guid.TryParse(rawUserId, out var userId))
-                {
-                    return Forbid();
-                }
 
-                var result = await _articleGroupBll.Get(articleGroup.Id);
-
-                if (!result.UserId.Equals(userId.ToString()))
-                {
-                    return Forbid();
-                }
-
-                return new JsonResult(await _articleGroupBll.Update(articleGroup));
-            }
             return new JsonResult(await _articleGroupBll.Update(articleGroup));
         }
 
