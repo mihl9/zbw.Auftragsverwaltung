@@ -1,2 +1,3 @@
-site_name: zbw.Auftragsverwaltung
-site_url: https://elbeachboy.github.io/zbw.Auftragsverwaltung/
+site_name: Auftragsverwaltung
+theme:
+    name: material
