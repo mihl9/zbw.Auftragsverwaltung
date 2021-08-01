@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace zbw.Auftragsverwaltung.Infrastructure.Common.Configurations
+﻿namespace zbw.Auftragsverwaltung.Core.Common.Configurations
 {
     public class JwtBearerSettings
     {

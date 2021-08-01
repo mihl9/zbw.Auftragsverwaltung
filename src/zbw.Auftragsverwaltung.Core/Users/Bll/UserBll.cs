@@ -73,5 +73,21 @@ namespace zbw.Auftragsverwaltung.Core.Users.Bll
             user = await _userManager.FindByIdAsync(user.Id.ToString());
             return _mapper.Map<UserDto>(user);
         }
+
+        public async Task<IdentityResult> AddToRole(User user, string role)
+        {
+            return await _userManager.AddToRoleAsync(user, role);
+        }
+
+        public async Task<IdentityResult> RemoveFromRole(User user, string role)
+        {
+            return await _userManager.RemoveFromRoleAsync(user, role);
+        }
+
+        public async Task<IdentityResult> ChangeUserPassword(User user, string currentPassword, string newPassword)
+        {
+            var result = await _userManager.ChangePasswordAsync(user, currentPassword, newPassword);
+            return result;
+        }
     }
 }

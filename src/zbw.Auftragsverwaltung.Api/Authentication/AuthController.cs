@@ -16,9 +16,9 @@ using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using zbw.Auftragsverwaltung.Api.Authentication.Models;
 using zbw.Auftragsverwaltung.Api.Common.Models;
+using zbw.Auftragsverwaltung.Core.Common.Configurations;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
-using zbw.Auftragsverwaltung.Infrastructure.Common.Configurations;
 
 namespace zbw.Auftragsverwaltung.Api.Authentication
 {

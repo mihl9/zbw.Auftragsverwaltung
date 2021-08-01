@@ -20,7 +20,7 @@ namespace zbw.Auftragsverwaltung.Api.UserManagement
         private readonly ILogger<UserController> _logger;
         private readonly UserBll _userBll;
 
-        public UserController(LoggerFactory logger, UserBll userBll)
+        public UserController(ILoggerFactory logger, UserBll userBll)
         {
             _logger = logger.CreateLogger<UserController>();
             _userBll = userBll;
@@ -29,7 +29,7 @@ namespace zbw.Auftragsverwaltung.Api.UserManagement
         [HttpGet]
         public async Task<IActionResult> Get(string id = null)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
+            if (!User.IsInRole(Roles.Administrator.ToString()) || id == null)
             {
                 id = User.FindFirstValue(ClaimTypes.NameIdentifier);
             }
@@ -37,7 +37,7 @@ namespace zbw.Auftragsverwaltung.Api.UserManagement
             if (Guid.TryParse(id, out var parsedId))
                 return BadRequest(new ErrorMessage() { Message = "Invalid Guid"});
 
-            var user = await _userBll.Get(parsedId));
+            var user = await _userBll.Get(parsedId);
 
             return new JsonResult(user);
 
