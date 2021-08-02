@@ -34,10 +34,11 @@ namespace zbw.Auftragsverwaltung.Api
         {
             services.AddOptions();
 
-            services.AddCoreServices();
+
             services.AddInfrastructurServices(Configuration);
 
-            services.AddInfrastructureAuthenticationService(Configuration);
+            services.AddCoreServices();
+            services.AddAuthenticationService(Configuration);
             
             services.AddControllers();
             services.AddSwaggerGen(c =>

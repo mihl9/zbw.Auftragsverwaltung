@@ -6,19 +6,21 @@ using System.Threading.Tasks;
 using AutoMapper;
 using zbw.Auftragsverwaltung.Core.Common.Contracts;
 using zbw.Auftragsverwaltung.Core.Common.DTO;
+using zbw.Auftragsverwaltung.Core.Customers.Contracts;
 using zbw.Auftragsverwaltung.Core.Customers.Dto;
 using zbw.Auftragsverwaltung.Core.Customers.Entities;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
+using zbw.Auftragsverwaltung.Core.Users.Dto;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 
 namespace zbw.Auftragsverwaltung.Core.Customers.BLL
 {
     public class CustomerBll : ICustomerBll
     {
-        private readonly IRepository<Customer> _customerRepository;
+        private readonly ICustomerRepository _customerRepository;
         private readonly IMapper _mapper;
 
-        public CustomerBll(IRepository<Customer> customerRepository, IMapper mapper)
+        public CustomerBll(ICustomerRepository customerRepository, IMapper mapper)
         {
             _customerRepository = customerRepository;
             _mapper = mapper;
@@ -65,9 +67,9 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
             return _mapper.Map<CustomerDto>(customer);
         }
 
-        public async Task<IEnumerable<CustomerDto>> GetForUser(User user)
+        public async Task<IEnumerable<CustomerDto>> GetForUser(UserDto user)
         {
-            return (await GetList(x => x.UserId == user.Id, 0, 1)).Results;
+            return (await GetList(x => x.UserId.Equals(user.Id), 0, 1)).Results;
         }
     }
 }

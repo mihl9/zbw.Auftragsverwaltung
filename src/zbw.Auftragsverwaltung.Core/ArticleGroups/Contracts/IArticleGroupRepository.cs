@@ -9,7 +9,7 @@ using zbw.Auftragsverwaltung.Core.Common.DTO;
 
 namespace zbw.Auftragsverwaltung.Core.ArticleGroups.Contracts
 {
-    public interface IArticleGroupRepository : IRepository<ArticleGroup>
+    public interface IArticleGroupRepository : IRepository<ArticleGroup, Guid>
     {
     }
 }

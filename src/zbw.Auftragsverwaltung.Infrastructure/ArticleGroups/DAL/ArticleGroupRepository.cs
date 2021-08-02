@@ -7,7 +7,7 @@ using zbw.Auftragsverwaltung.Infrastructure.Common.Repositories;
 
 namespace zbw.Auftragsverwaltung.Infrastructure.ArticleGroups.DAL
 {
-    public class ArticleGroupRepository : BaseRepository<ArticleGroup>,IArticleGroupRepository
+    public class ArticleGroupRepository : BaseRepository<ArticleGroup, Guid, OrderManagementContext>,IArticleGroupRepository
     {
         public ArticleGroupRepository(OrderManagementContext dbContext) : base(dbContext)
         {
