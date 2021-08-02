@@ -10,6 +10,7 @@ using zbw.Auftragsverwaltung.Core.Customers.Contracts;
 using zbw.Auftragsverwaltung.Core.Customers.Dto;
 using zbw.Auftragsverwaltung.Core.Customers.Entities;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
+using zbw.Auftragsverwaltung.Core.Users.Dto;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 
 namespace zbw.Auftragsverwaltung.Core.Customers.BLL
@@ -66,9 +67,9 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
             return _mapper.Map<CustomerDto>(customer);
         }
 
-        public async Task<IEnumerable<CustomerDto>> GetForUser(User user)
+        public async Task<IEnumerable<CustomerDto>> GetForUser(UserDto user)
         {
-            return (await GetList(x => x.UserId == user.Id, 0, 1)).Results;
+            return (await GetList(x => x.UserId.Equals(user.Id), 0, 1)).Results;
         }
     }
 }
