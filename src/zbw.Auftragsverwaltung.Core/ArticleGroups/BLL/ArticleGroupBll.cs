@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System;
 using System.Linq.Expressions;
 using AutoMapper;
+using zbw.Auftragsverwaltung.Core.ArticleGroups.Contracts;
 
 namespace zbw.Auftragsverwaltung.Core.ArticleGroups.BLL
 {
@@ -14,9 +15,9 @@ namespace zbw.Auftragsverwaltung.Core.ArticleGroups.BLL
 
     {
         private readonly IMapper _mapper;
-        private readonly IRepository<ArticleGroup> _articleGroupRepository;
+        private readonly IArticleGroupRepository _articleGroupRepository;
 
-        public ArticleGroupBll(IRepository<ArticleGroup> articleGroupRepository,IMapper mapper)
+        public ArticleGroupBll(IArticleGroupRepository articleGroupRepository,IMapper mapper)
         {
             _mapper = mapper;
             _articleGroupRepository = articleGroupRepository;
