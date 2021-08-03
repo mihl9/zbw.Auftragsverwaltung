@@ -72,7 +72,7 @@ namespace zbw.Auftragsverwaltung.Core.Users.Bll
             var customers = await GetCustomersForUser(dto);
             foreach (var customer in customers)
             {
-                await _customer.Delete(customer);
+                await _customer.Delete(customer, dto.Id);
             }
             return result.Succeeded;
         }
@@ -104,7 +104,7 @@ namespace zbw.Auftragsverwaltung.Core.Users.Bll
 
         private async Task<IEnumerable<CustomerDto>> GetCustomersForUser(UserDto user)
         {
-            var result = await _customer.GetForUser(user);
+            var result = await _customer.GetForUser(user, user.Id);
             return result;
         }
     }

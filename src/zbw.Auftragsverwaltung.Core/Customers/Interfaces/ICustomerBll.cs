@@ -10,8 +10,8 @@ using zbw.Auftragsverwaltung.Core.Users.Entities;
 
 namespace zbw.Auftragsverwaltung.Core.Customers.Interfaces
 {
-    public interface ICustomerBll : ICrudBll<CustomerDto, Customer, Guid>
+    public interface ICustomerBll : ICrudAuthorizedBll<CustomerDto, Customer, Guid, Guid>
     {
-        public Task<IEnumerable<CustomerDto>> GetForUser(UserDto user);
+        public Task<IEnumerable<CustomerDto>> GetForUser(UserDto user, Guid userId);
     }
 }

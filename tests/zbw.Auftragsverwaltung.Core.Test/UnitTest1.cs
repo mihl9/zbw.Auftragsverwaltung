@@ -1,4 +1,6 @@
 using System;
+using FluentAssertions;
+using FluentAssertions.Common;
 using Xunit;
 
 namespace zbw.Auftragsverwaltung.Core.Test
@@ -8,7 +10,7 @@ namespace zbw.Auftragsverwaltung.Core.Test
         [Fact]
         public void Test1()
         {
-
+            true.IsSameOrEqualTo(true);
         }
     }
 }

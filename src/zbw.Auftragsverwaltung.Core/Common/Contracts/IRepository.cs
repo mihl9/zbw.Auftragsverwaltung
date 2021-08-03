@@ -13,8 +13,8 @@ namespace zbw.Auftragsverwaltung.Core.Common.Contracts
         Task<IReadOnlyList<TI>> ListAsync();
         Task<IReadOnlyList<TI>> ListAsync(Expression<Func<TI, bool>> predicate);
         Task<TI> AddAsync(TI entity);
-        Task UpdateAsync(TI entity);
-        Task DeleteAsync(TI entity);
+        Task<bool> UpdateAsync(TI entity);
+        Task<bool> DeleteAsync(TI entity);
         Task<PaginatedList<TI>> GetPagedResponseAsync(int page, int size);
         Task<PaginatedList<TI>> GetPagedResponseAsync(int page, int size, Expression<Func<TI, bool>> predicate);
     }

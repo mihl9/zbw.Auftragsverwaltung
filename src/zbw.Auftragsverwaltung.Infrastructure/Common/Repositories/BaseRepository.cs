@@ -44,16 +44,32 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Common.Repositories
             return entity;
         }
 
-        public virtual async Task UpdateAsync(TI entity)
+        public virtual async Task<bool> UpdateAsync(TI entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(entity).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public virtual async Task DeleteAsync(TI entity)
+        public virtual async Task<bool> DeleteAsync(TI entity)
         {
-            _dbContext.Set<TI>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Set<TI>().Remove(entity);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public virtual async Task<PaginatedList<TI>> GetPagedResponseAsync(int page, int size)
