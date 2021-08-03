@@ -5,6 +5,25 @@ on:
   workflow_dispatch:
 jobs:
   deploy:
+    strategy:
+      # Allow other matrix jobs to continue after one fails, allowing us to
+      # isolate platform-specific issues.
+      fail-fast: false
+
+      matrix:
+        drawio-version: [14.5.1]
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+        include:
+          - os: ubuntu-latest
+            drawio-version: 14.5.1
+            drawio-arch: amd64
+            drawio-sha256sum: 0cabdf1e9a051fc38672a9233b1b2d5368d2a776fe3d3f5e09a823278b899976
+          - os: windows-latest
+            drawio-version: 14.5.1
+            drawio-sha256sum: 6f5ff0aa7ef5bd4b71d1c38ba37fbe9a6afcf9eaa9e5bb648669c93e18f98dc1
     runs-on: ubuntu-latest
     steps:
       - name: Check Out
