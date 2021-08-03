@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check Out
-      - uses: actions/checkout@v2
+        uses: actions/checkout@v2
       
       - name: Install Draw.io Desktop (macOS)
         if: runner.os == 'macOS'
@@ -42,7 +42,7 @@ jobs:
           $proc | Wait-Process
       
       - name: Setup Phyton
-      - uses: actions/setup-python@v2
+        uses: actions/setup-python@v2
         with:
           python-version: 3.x
       - run: pip install mkdocs-material
