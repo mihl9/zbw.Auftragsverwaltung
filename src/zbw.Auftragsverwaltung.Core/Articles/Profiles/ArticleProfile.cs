@@ -1,0 +1,19 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Text;
+using AutoMapper;
+using zbw.Auftragsverwaltung.Core.Articles.Dto;
+using zbw.Auftragsverwaltung.Core.Articles.Entities;
+using zbw.Auftragsverwaltung.Core.Common.DTO;
+
+namespace zbw.Auftragsverwaltung.Core.Articles.Profiles
+{
+    public class ArticleProfile : Profile
+    {
+        public ArticleProfile()
+        {
+            CreateMap<Article, ArticleDto>().ReverseMap();
+            CreateMap<PaginatedList<Article>, PaginatedList<ArticleDto>>();
+        }
+    }
+}
