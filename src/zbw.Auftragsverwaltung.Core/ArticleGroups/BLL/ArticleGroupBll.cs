@@ -24,6 +24,7 @@ namespace zbw.Auftragsverwaltung.Core.ArticleGroups.BLL
 
         public async Task<ArticleGroupDto> Add(ArticleGroupDto dto)
         {
+            dto.Id = new Guid();
             var articleGroup = _mapper.Map<ArticleGroup>(dto);
             articleGroup = await _articleGroupRepository.AddAsync(articleGroup);
 
@@ -32,10 +33,8 @@ namespace zbw.Auftragsverwaltung.Core.ArticleGroups.BLL
 
         public async Task<bool> Delete(ArticleGroupDto dto)
         {
-            //uc
             var articleGroup = _mapper.Map<ArticleGroup>(dto);
-            await _articleGroupRepository.DeleteAsync(articleGroup);
-            return true;
+            return await _articleGroupRepository.UpdateAsync(articleGroup);
         }
 
         public async Task<ArticleGroupDto> Get(Guid id)
