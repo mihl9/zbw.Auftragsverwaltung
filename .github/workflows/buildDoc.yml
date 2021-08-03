@@ -1,0 +1,50 @@
+name: Generate Doc
+
+
+on:
+  workflow_dispatch:
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check Out
+      - uses: actions/checkout@v2
+      
+      - name: Install Draw.io Desktop (macOS)
+        if: runner.os == 'macOS'
+        run: brew install drawio
+      - name: Install Draw.io Desktop (Linux)
+        if: runner.os == 'Linux'
+        run: |
+          set -euo pipefail
+          drawio_deb="drawio-${{ matrix.drawio-arch }}-${{ matrix.drawio-version }}.deb"
+          drawio_url="https://github.com/jgraph/drawio-desktop/releases/download/v${{ matrix.drawio-version }}/drawio-${{ matrix.drawio-arch }}-${{ matrix.drawio-version }}.deb"
+          curl -L -o "$drawio_deb" "$drawio_url"
+          sha256sum --check <<<"${{ matrix.drawio-sha256sum }}  $drawio_deb"
+          sudo apt-get install -y libasound2 xvfb ./"$drawio_deb"
+      - name: Install Draw.io Desktop (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          Set-StrictMode -Version Latest
+          $ErrorActionPreference = "Stop"
+          $drawioUrl = "https://github.com/jgraph/drawio-desktop/releases/download/v${{ matrix.drawio-version }}/draw.io-${{ matrix.drawio-version }}.exe"
+          $drawioExe = "draw.io-${{ matrix.drawio-version }}.exe"
+          $expectedChecksum = "${{ matrix.drawio-sha256sum }}".ToUpper()
+          $client = New-Object System.Net.WebClient
+          $client.DownloadFile($drawioUrl, $drawioExe)
+          $checksum = (Get-FileHash -Path $drawioExe -Algorithm SHA256).Hash
+          if ($checksum -ne $expectedChecksum) {
+            Write-Error "Expected and actual checksums didn't match"
+            exit 1
+          }
+          $proc = Start-Process  "./${drawioExe}" "/S", "/allusers"
+          $proc | Wait-Process
+      
+      - name: Setup Phyton
+      - uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+      - run: pip install mkdocs-material
+      - run: sudo apt install libasound2 xvfb
+      - run: xvfb-run -a mkdocs gh-deploy --force

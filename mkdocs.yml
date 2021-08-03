@@ -1,3 +1,5 @@
 site_name: Auftragsverwaltung
 theme:
     name: material
+plugins:
+    - drawio-exporter
