@@ -28,5 +28,6 @@ jobs:
           python-version: 3.x
       - run: pip install mkdocs-material
       - run: pip install mkdocs-drawio-exporter
+      - run: pip install mkdocs-git-revision-date-plugin
       - run: sudo apt install libasound2 xvfb
       - run: xvfb-run -a mkdocs gh-deploy --force
