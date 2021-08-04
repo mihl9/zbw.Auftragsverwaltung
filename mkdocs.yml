@@ -35,6 +35,7 @@ repo_url: https://github.com/elbeachboy/zbw.Auftragsverwaltung
 repo_name: zbw/Auftragsverwaltung
 edit_uri: edit/main/docs/
 markdown_extensions:
+  - pymdownx.smartsymbols
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg

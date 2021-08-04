@@ -1,1 +1,4 @@
 # Glossar
+
+Term | Definition
+:----------- | -------------
