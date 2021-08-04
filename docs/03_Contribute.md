@@ -2,7 +2,8 @@
 
 ## Task Management
 The Taskmanagement is conducted on a Trello Board [Here](https://trello.com/b/JtoMNw8M/zbwprogadvauftragsverwaltung).
-Contact **Michael Huber** to gain access to the board!
+
+Contact [**Michael Huber**](https://github.com/mihl9) to gain access to the board!
 
 ## Project Structure
     .github/workflows                           # CI / CD Action files for Github
