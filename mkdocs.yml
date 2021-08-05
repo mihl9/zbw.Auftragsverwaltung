@@ -42,6 +42,8 @@ markdown_extensions:
   - pymdownx.superfences
   - pymdownx.snippets
   - pymdownx.details
+  - pymdownx.tabbed
+  - attr_list
   - pymdownx.tasklist:
       custom_checkbox: true
   - admonition

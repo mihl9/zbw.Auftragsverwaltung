@@ -91,6 +91,34 @@ This Project will be testet in part of the Integration Tests
     TODO
     
 ## Database Migrations
+When you made changes for the database model you need to perfom the Migrations to apply the changes for EF Core
+To Ensure a safe way to safely evolve the schema without dropping the entire database.
+
+!!! information "Requirements"
+    You'll have to install the [EF Core Command-line tools](https://docs.microsoft.com/en-us/ef/core/cli/)
+    
+    - It is recommended to use the *.Net Core CLI tools*, which works on all platforms
+    - If you want to only work with Visual Studio you can use the [Package Manager Console tools](https://docs.microsoft.com/en-us/ef/core/cli/powershell)
+
+### Create Migration
+To create a migration you have the following options to use
+
+=== ".Net Core CLI"
+    
+    ```
+    $ dotnet ef migrations add SpecificMigration -c YourDBContext
+    ```
+=== "Visual Studio"
+    
+    To use the Packet Manager Console you need to set the default project to *src\zbw.Auftragsverwaltung.Infrastructure*
+    
+    ![Packet_Manager](03_Contribute/Visual_Studio_Packet_Manager_001.png)
+
+    then you can run the following command
+    
+    ```
+    $ add-migration SpecificMigration -c YourDbContext
+    ```
 
 ## Development Test Users
 When the Project is run in Debug Mode there will be some default Users available.
