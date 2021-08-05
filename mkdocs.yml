@@ -15,7 +15,7 @@ theme:
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: deep orange
-      accent: pink
+      accent: red
       toggle:
         icon: material/toggle-switch
         name: Switch to light mode
@@ -36,6 +36,17 @@ repo_name: zbw/Auftragsverwaltung
 edit_uri: edit/main/docs/
 markdown_extensions:
   - pymdownx.smartsymbols
+  - pymdownx.keys
+  - pymdownx.inlinehilite
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.snippets
+  - pymdownx.details
+  - pymdownx.tabbed
+  - attr_list
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - admonition
   - pymdownx.emoji:
       emoji_index: !!python/name:materialx.emoji.twemoji
       emoji_generator: !!python/name:materialx.emoji.to_svg
