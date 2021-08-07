@@ -13,7 +13,5 @@ namespace zbw.Auftragsverwaltung.Core.Orders.Dto
         public int CustomerNr { get; set; }
 
         public DateTime Date { get; set; }
-
-        public string UserId { get; set; }
     }
 }

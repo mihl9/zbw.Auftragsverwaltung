@@ -36,24 +36,6 @@ namespace zbw.Auftragsverwaltung.Api
         [ProducesResponseType(typeof(OrderDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(Guid id)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
-            {
-                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (!Guid.TryParse(rawUserId, out var userId))
-                {
-                    return Forbid();
-                }
-
-                var result = await _orderBll.Get(id);
-
-                if (!result.UserId.Equals(userId.ToString()))
-                {
-                    return Forbid();
-                }
-
-                return new JsonResult(result);
-            }
-
             return new JsonResult(await _orderBll.Get(id));
         }
 
@@ -61,17 +43,6 @@ namespace zbw.Auftragsverwaltung.Api
         [ProducesResponseType(typeof(PaginatedList<OrderDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetList(int size = 10, int page = 1, bool deleted = false)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
-            {
-                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (!Guid.TryParse(rawUserId, out var userId))
-                {
-                    return Forbid();
-                }
-
-                return new JsonResult(await _orderBll.GetList(x => x.UserId.Equals(userId), size, page));
-            }
-
             return new JsonResult(await _orderBll.GetList(deleted, size, page));
         }
 
@@ -92,23 +63,6 @@ namespace zbw.Auftragsverwaltung.Api
         [ProducesResponseType(typeof(OrderDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update([FromBody] OrderDto order)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
-            {
-                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (!Guid.TryParse(rawUserId, out var userId))
-                {
-                    return Forbid();
-                }
-
-                var result = await _orderBll.Get(order.Id);
-
-                if (!result.UserId.Equals(userId.ToString()))
-                {
-                    return Forbid();
-                }
-
-                return new JsonResult(await _orderBll.Update(order));
-            }
             return new JsonResult(await _orderBll.Update(order));
         }
 
