@@ -19,6 +19,25 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.ArticleGroups.Entities.ArticleGroup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ArticlegroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticlegroupId");
+
+                    b.ToTable("ArticleGroups");
+                });
+
             modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Customers.Entities.Customer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -43,6 +62,15 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.ArticleGroups.Entities.ArticleGroup", b =>
+                {
+                    b.HasOne("zbw.Auftragsverwaltung.Core.ArticleGroups.Entities.ArticleGroup", "Articlegroup")
+                        .WithMany()
+                        .HasForeignKey("ArticlegroupId");
+
+                    b.Navigation("Articlegroup");
                 });
 #pragma warning restore 612, 618
         }

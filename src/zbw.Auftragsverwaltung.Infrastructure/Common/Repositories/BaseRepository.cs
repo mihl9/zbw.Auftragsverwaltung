@@ -11,17 +11,17 @@ using zbw.Auftragsverwaltung.Core.Common.Interfaces;
 
 namespace zbw.Auftragsverwaltung.Infrastructure.Common.Repositories
 {
-    public class BaseRepository<TI> : IRepository<TI> where TI : class, IEntity
+    public class BaseRepository<TI, TKey, TDbContext> : IRepository<TI, TKey> where TI : class where TDbContext : DbContext
     {
 
-        protected readonly OrderManagementContext _dbContext;
+        protected readonly TDbContext _dbContext;
 
-        public BaseRepository(OrderManagementContext dbContext)
+        public BaseRepository(TDbContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public virtual async Task<TI> GetByIdAsync(Guid id)
+        public virtual async Task<TI> GetByIdAsync(TKey id)
         {
             return await _dbContext.Set<TI>().FindAsync(id);
         }
@@ -44,16 +44,32 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Common.Repositories
             return entity;
         }
 
-        public virtual async Task UpdateAsync(TI entity)
+        public virtual async Task<bool> UpdateAsync(TI entity)
         {
-            _dbContext.Entry(entity).State = EntityState.Modified;
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Entry(entity).State = EntityState.Modified;
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
-        public virtual async Task DeleteAsync(TI entity)
+        public virtual async Task<bool> DeleteAsync(TI entity)
         {
-            _dbContext.Set<TI>().Remove(entity);
-            await _dbContext.SaveChangesAsync();
+            try
+            {
+                _dbContext.Set<TI>().Remove(entity);
+                await _dbContext.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
         }
 
         public virtual async Task<PaginatedList<TI>> GetPagedResponseAsync(int page, int size)

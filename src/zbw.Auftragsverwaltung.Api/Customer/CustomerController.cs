@@ -10,6 +10,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Extensions;
 using zbw.Auftragsverwaltung.Api.Common.Models;
 using zbw.Auftragsverwaltung.Core.Common.DTO;
+using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 using zbw.Auftragsverwaltung.Core.Customers.Dto;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
@@ -34,97 +35,158 @@ namespace zbw.Auftragsverwaltung.Api.Customer
             _userManager = userManager;
         }
 
-        [HttpGet("{id}")]
+        [HttpGet]
         [ProducesResponseType(typeof(CustomerDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(Guid id)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(rawUserId, out var userId))
             {
-                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (!Guid.TryParse(rawUserId, out var userId))
-                {
-                    return Forbid();
-                }
+                return Forbid();
+            }
 
-                var result = await _customerBll.Get(id);
-
-                if (!result.UserId.Equals(userId.ToString()))
-                {
-                    return Forbid();
-                }
-
-                return new JsonResult(result);
+            try
+            {
+                var result = await _customerBll.Get(id, userId);
+                return Ok(result);
+            }
+            catch (InvalidRightsException e)
+            {
+                return Forbid();
+            }
+            catch (UserNotFoundException e)
+            {
+                return Forbid();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessage() { Message = e.Message });
             }
             
-            return new JsonResult(await _customerBll.Get(id));
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(PaginatedList<CustomerDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetList(int size = 10, int page = 1, bool deleted = false)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
-            {
-                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (!Guid.TryParse(rawUserId, out var userId))
-                {
-                    return Forbid();
-                }
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-                return new JsonResult(await _customerBll.GetList(x => x.UserId.Equals(userId), size, page));
+            if (!Guid.TryParse(rawUserId, out var userId))
+            {
+                return Forbid();
             }
 
-            return new JsonResult(await _customerBll.GetList(deleted, size, page));
+            try
+            {
+                var result = await _customerBll.GetList(userId, deleted, size, page);
+                return Ok(result);
+            }
+            catch (InvalidRightsException)
+            {
+                return Forbid();
+            }
+            catch (UserNotFoundException)
+            {
+                return Forbid();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessage() { Message = e.Message });
+            }
+
         }
 
         [HttpPost]
         [Authorize(Policy = Policies.RequireAdministratorRole)]
-        public async Task<CustomerDto> Add([FromBody] CustomerDto customer)
+        [ProducesResponseType(typeof(PaginatedList<CustomerDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Add([FromBody] CustomerDto customer)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(rawUserId, out var userId))
             {
-                var cust = await _customerBll.Get(customer.Id);
-                                                
+                return Forbid();
             }
-            
-            return await _customerBll.Add(customer);
+
+            try
+            {
+                var result = await _customerBll.Add(customer, userId);
+                return Ok(result);
+            }
+            catch (InvalidRightsException)
+            {
+                return Forbid();
+            }
+            catch (UserNotFoundException)
+            {
+                return Forbid();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessage() { Message = e.Message });
+            }
         }
 
         [HttpPatch]
         [ProducesResponseType(typeof(CustomerDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update([FromBody] CustomerDto customer)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(rawUserId, out var userId))
             {
-                var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (!Guid.TryParse(rawUserId, out var userId))
-                {
-                    return Forbid();
-                }
-
-                var result = await _customerBll.Get(customer.Id);
-
-                if (!result.UserId.Equals(userId.ToString()))
-                {
-                    return Forbid();
-                }
-
-                return new JsonResult(await _customerBll.Update(customer));
+                return Forbid();
             }
-            return new JsonResult(await _customerBll.Update(customer));
+
+            try
+            {
+                var result = await _customerBll.Update(customer, userId);
+                return Ok(result);
+            }
+            catch (InvalidRightsException)
+            {
+                return Forbid();
+            }
+            catch (UserNotFoundException)
+            {
+                return Forbid();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessage() { Message = e.Message });
+            }
         }
 
         [HttpDelete]
         [Authorize(Policy = Policies.RequireAdministratorRole)]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var dto = new CustomerDto(){Id = id};
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var dto = new CustomerDto() { Id = id };
 
-            var result = await _customerBll.Delete(dto);
-            if (result)
-                return Ok(new SuccessMessage());
+            if (!Guid.TryParse(rawUserId, out var userId))
+            {
+                return Forbid();
+            }
 
-            return new BadRequestObjectResult(new ErrorMessage(){Message = $"Failed to delete the Customer with the ID: {id}"});
+            try
+            {
+                var result = await _customerBll.Delete(dto, userId);
+                return Ok();
+            }
+            catch (InvalidRightsException)
+            {
+                return Forbid();
+            }
+            catch (UserNotFoundException)
+            {
+                return Forbid();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessage() { Message = e.Message });
+            }
         }
     }
 }
