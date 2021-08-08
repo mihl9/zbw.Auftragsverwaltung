@@ -11,6 +11,5 @@ namespace zbw.Auftragsverwaltung.Core.Orders.Interfaces
 {
     public interface IOrderBll : ICrudBll<OrderDto, Order, Guid>
     {
-        public Task<IEnumerable<OrderDto>> GetForUser(User user);
     }
 }

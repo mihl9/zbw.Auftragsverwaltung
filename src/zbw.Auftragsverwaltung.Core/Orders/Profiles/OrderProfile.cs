@@ -8,7 +8,7 @@ using zbw.Auftragsverwaltung.Core.Orders.Entities;
 
 namespace zbw.Auftragsverwaltung.Core.Orders.Profiles
 {
-    class OrderProfile : Profile
+    public class OrderProfile : Profile
     {
         public OrderProfile()
         {

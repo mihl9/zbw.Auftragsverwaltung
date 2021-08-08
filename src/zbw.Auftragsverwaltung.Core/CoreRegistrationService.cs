@@ -14,6 +14,10 @@ using Microsoft.IdentityModel.Tokens;
 using zbw.Auftragsverwaltung.Core.Common.Configurations;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.BLL;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
+using zbw.Auftragsverwaltung.Core.Orders.BLL;
+using zbw.Auftragsverwaltung.Core.Orders.Interfaces;
+using zbw.Auftragsverwaltung.Core.Positions.BLL;
+using zbw.Auftragsverwaltung.Core.Positions.Interfaces;
 using zbw.Auftragsverwaltung.Core.Customers.BLL;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
 using zbw.Auftragsverwaltung.Core.Users.Bll;
@@ -31,7 +35,8 @@ namespace zbw.Auftragsverwaltung.Core
 
             services.AddScoped<ICustomerBll, CustomerBll>();
             services.AddScoped<IUserBll, UserBll>();
-
+            services.AddScoped<IOrderBll, OrderBll>();
+            services.AddScoped<IPositionBll, PositionBll>();
             services.AddScoped<IArticleGroupBll, ArticleGroupBll>();
 
             return services;

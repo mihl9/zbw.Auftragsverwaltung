@@ -2,6 +2,7 @@
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
 using zbw.Auftragsverwaltung.Core.Customers.Entities;
 using zbw.Auftragsverwaltung.Core.Orders.Entities;
+using zbw.Auftragsverwaltung.Core.Positions.Entities;
 
 namespace zbw.Auftragsverwaltung.Infrastructure
 {
@@ -9,8 +10,8 @@ namespace zbw.Auftragsverwaltung.Infrastructure
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ArticleGroup> ArticleGroups { get; set; }
-
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Position> Positions { get; set; }
 
         public OrderManagementContext(DbContextOptions<OrderManagementContext> options) : base(options)
         {

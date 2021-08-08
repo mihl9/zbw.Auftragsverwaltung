@@ -9,7 +9,7 @@ using zbw.Auftragsverwaltung.Core.Orders.Contracts;
 
 namespace zbw.Auftragsverwaltung.Infrastructure.Orders.DAL
 {
-    public class OrderRepository : BaseRepository<Order>, IOrderRepository
+    public class OrderRepository : BaseRepository<Order, Guid, OrderManagementContext>, IOrderRepository
     {
         public OrderRepository(OrderManagementContext dbContext) : base(dbContext)
         {

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Identity;
 using AutoMapper;
 using zbw.Auftragsverwaltung.Core.Common.Contracts;
 using zbw.Auftragsverwaltung.Core.Common.DTO;
@@ -10,15 +11,19 @@ using zbw.Auftragsverwaltung.Core.Orders.Dto;
 using zbw.Auftragsverwaltung.Core.Orders.Entities;
 using zbw.Auftragsverwaltung.Core.Orders.Interfaces;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
+using zbw.Auftragsverwaltung.Core.Common.Helpers;
+using zbw.Auftragsverwaltung.Core.Users.Dto;
+using zbw.Auftragsverwaltung.Core.Users.Enumerations;
+using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 
 namespace zbw.Auftragsverwaltung.Core.Orders.BLL
 {
     public class OrderBll : IOrderBll
     {
-        private readonly IRepository<Order> _orderRepository;
+        private readonly IRepository<Order, Guid> _orderRepository;
         private readonly IMapper _mapper;
 
-        public OrderBll(IRepository<Order> orderRepository, IMapper mapper)
+        public OrderBll(IRepository<Order, Guid> orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;
@@ -52,9 +57,10 @@ namespace zbw.Auftragsverwaltung.Core.Orders.BLL
             return _mapper.Map<OrderDto>(order);
         }
 
-        public Task<bool> Delete(OrderDto dto)
+        public async Task<bool> Delete(OrderDto dto)
         {
-            throw new NotImplementedException();
+            var order = _mapper.Map<Order>(dto);
+            return await _orderRepository.DeleteAsync(order);
         }
 
         public async Task<OrderDto> Update(OrderDto dto)
@@ -63,11 +69,6 @@ namespace zbw.Auftragsverwaltung.Core.Orders.BLL
             await _orderRepository.UpdateAsync(customer);
 
             return _mapper.Map<OrderDto>(customer);
-        }
-
-        public async Task<IEnumerable<OrderDto>> GetForUser(User user)
-        {
-            return (await GetList(x => x.UserId == user.Id, 0, 1)).Results;
         }
     }
 }
