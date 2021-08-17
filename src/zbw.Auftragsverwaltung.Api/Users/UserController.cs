@@ -9,7 +9,7 @@ using zbw.Auftragsverwaltung.Core.Users.Bll;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Domain.Users;
 
-namespace zbw.Auftragsverwaltung.Api.UserManagement
+namespace zbw.Auftragsverwaltung.Api.Users
 {
     [Route("api/[controller]")]
     [Authorize]
