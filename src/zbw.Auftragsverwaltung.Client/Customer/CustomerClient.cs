@@ -4,6 +4,7 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 using Microsoft.Extensions.Options;
 using zbw.Auftragsverwaltung.Client.Common.Configuration;
 using zbw.Auftragsverwaltung.Domain.Customers;
@@ -25,7 +26,12 @@ namespace zbw.Auftragsverwaltung.Client.Customer
 
         public async Task<CustomerDto> Get(Guid id)
         {
-            var request = new HttpRequestMessage(HttpMethod.Get, $"{_baseUrl}/api/customer?id={id}");
+            var builder = new UriBuilder(_baseUrl);
+            builder.Path = "api/customer";
+
+            var query = HttpUtility.ParseQueryString(builder.Query);
+            query.Add("id", id.ToString());
+            var request = new HttpRequestMessage(HttpMethod.Get, builder.Uri);
             //TODO: Implement Authentication
             var response = await _httpClient.SendAsync(request);
             
