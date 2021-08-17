@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace zbw.Auftragsverwaltung.Core.Customers.Dto
+namespace zbw.Auftragsverwaltung.Domain.Customers
 {
     public class CustomerDto
     {

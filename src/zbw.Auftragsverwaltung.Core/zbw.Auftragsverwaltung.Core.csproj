@@ -27,4 +27,8 @@
     <Folder Include="Users\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\zbw.Auftragsverwaltung.Domain\zbw.Auftragsverwaltung.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

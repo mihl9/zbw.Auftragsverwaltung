@@ -2,19 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
-using zbw.Auftragsverwaltung.Core.Common.Interfaces;
-using zbw.Auftragsverwaltung.Core.Customers.Contracts;
-using zbw.Auftragsverwaltung.Core.Customers.Dto;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
-using zbw.Auftragsverwaltung.Core.Users.Dto;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Interfaces;
+using zbw.Auftragsverwaltung.Domain.Common;
+using zbw.Auftragsverwaltung.Domain.Customers;
+using zbw.Auftragsverwaltung.Domain.Users;
 
 namespace zbw.Auftragsverwaltung.Core.Users.Bll
 {

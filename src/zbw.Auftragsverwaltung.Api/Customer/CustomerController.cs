@@ -5,16 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Extensions;
 using zbw.Auftragsverwaltung.Api.Common.Models;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
 using zbw.Auftragsverwaltung.Core.Common.Exceptions;
-using zbw.Auftragsverwaltung.Core.Customers.Dto;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
+using zbw.Auftragsverwaltung.Domain.Common;
+using zbw.Auftragsverwaltung.Domain.Customers;
 
 namespace zbw.Auftragsverwaltung.Api.Customer
 {
