@@ -42,8 +42,6 @@ namespace zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Configuration
 
         internal bool TryMapProblemDetails(Exception exception, out ProblemDetails problem)
         {
-            problem = default;
-
             var exType = exception.GetType();
             if (Mappers.ContainsKey(exType))
             {

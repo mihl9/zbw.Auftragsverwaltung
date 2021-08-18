@@ -7,16 +7,10 @@ using zbw.Auftragsverwaltung.Lib.ErrorHandling.Domain.Exceptions;
 
 namespace zbw.Auftragsverwaltung.Core.Common.Exceptions
 {
-    public class UserNotFoundException : Exception
+    public class NotFoundByIdException : Exception
     {
-        public UserNotFoundException() : this(string.Empty)
+        public NotFoundByIdException(string message) : base(message)
         {
         }
-
-        public UserNotFoundException(string message) : base(message)
-        {
-        }
-
-       
     }
 }

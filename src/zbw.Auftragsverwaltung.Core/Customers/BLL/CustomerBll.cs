@@ -14,6 +14,7 @@ using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Domain.Customers;
 using zbw.Auftragsverwaltung.Domain.Users;
+using zbw.Auftragsverwaltung.Lib.ErrorHandling.Domain.Exceptions;
 
 namespace zbw.Auftragsverwaltung.Core.Customers.BLL
 {
@@ -37,13 +38,13 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
             var customer = await _customerRepository.GetByIdAsync(id);
 
             if (customer == null)
-                return new CustomerDto();
+                throw new NotFoundByIdException($"Customer Id: {id} Not Found!");
 
             if (!await _userManager.IsInRoleAsync(user, Roles.Administrator.ToString()))
             {
                 if (!customer.UserId.Equals(userId))
                 {
-                    throw new InvalidRightsException();
+                    throw new InvalidRightsException(user);
                 }
             }
             
@@ -100,7 +101,7 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
             if (!await _userManager.IsInRoleAsync(user, Roles.Administrator.ToString()))
             {
                 if (!customer.UserId.Equals(userId))
-                    throw new InvalidRightsException();
+                    throw new InvalidRightsException(user);
             }
 
             return await _customerRepository.DeleteAsync(customer);
@@ -114,7 +115,7 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
             if (!await _userManager.IsInRoleAsync(user, Roles.Administrator.ToString()))
             {
                 if (!customer.UserId.Equals(userId))
-                    throw new InvalidRightsException();
+                    throw new InvalidRightsException(user);
             }
 
             await _customerRepository.UpdateAsync(customer);

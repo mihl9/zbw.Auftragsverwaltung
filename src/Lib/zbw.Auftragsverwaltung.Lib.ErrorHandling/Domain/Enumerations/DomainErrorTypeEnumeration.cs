@@ -12,7 +12,7 @@ namespace zbw.Auftragsverwaltung.Lib.ErrorHandling.Domain.Enumerations
             if (name == null) throw new ArgumentNullException(nameof(name));
         }
 
-        public static Uri BaseUri { get; } = new Uri("./");
+        public static Uri BaseUri { get; } = new Uri("http://localhost/");
 
         public static DomainErrorTypeEnumeration InternalServerError =>
             new DomainErrorTypeEnumeration(50000, new Uri(BaseUri, "internal-server-error"));

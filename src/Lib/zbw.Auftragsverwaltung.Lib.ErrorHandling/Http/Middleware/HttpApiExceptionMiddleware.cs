@@ -30,7 +30,6 @@ namespace zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Middleware
             _next = next;
             _options = options?.Value ?? new ApiExceptionMiddlewareOptions<HttpContext>();
         }
-
         public async Task InvokeAsync(HttpContext httpContext)
         {
             try
@@ -132,5 +131,6 @@ namespace zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Middleware
         }
 
 
+        
     }
 }

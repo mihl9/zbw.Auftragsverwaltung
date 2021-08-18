@@ -33,7 +33,7 @@ namespace zbw.Auftragsverwaltung.Api.Customer
             _userManager = userManager;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(CustomerDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -44,24 +44,9 @@ namespace zbw.Auftragsverwaltung.Api.Customer
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _customerBll.Get(id, userId);
-                return Ok(result);
-            }
-            catch (InvalidRightsException e)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException e)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
-            
+            var result = await _customerBll.Get(id, userId);
+            return Ok(result);
+
         }
 
         [HttpGet]
@@ -75,23 +60,8 @@ namespace zbw.Auftragsverwaltung.Api.Customer
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _customerBll.GetList(userId, deleted, size, page);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _customerBll.GetList(userId, deleted, size, page);
+            return Ok(result);
 
         }
 
@@ -107,23 +77,9 @@ namespace zbw.Auftragsverwaltung.Api.Customer
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _customerBll.Add(customer, userId);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _customerBll.Add(customer, userId);
+            return Ok(result);
+
         }
 
         [HttpPatch]
@@ -137,23 +93,9 @@ namespace zbw.Auftragsverwaltung.Api.Customer
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _customerBll.Update(customer, userId);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _customerBll.Update(customer, userId);
+            return Ok(result);
+            
         }
 
         [HttpDelete]
@@ -168,23 +110,9 @@ namespace zbw.Auftragsverwaltung.Api.Customer
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _customerBll.Delete(dto, userId);
-                return Ok();
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _customerBll.Delete(dto, userId);
+            return Ok();
+
         }
     }
 }

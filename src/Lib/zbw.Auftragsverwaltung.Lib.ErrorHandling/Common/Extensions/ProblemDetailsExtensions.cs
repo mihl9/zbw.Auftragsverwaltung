@@ -7,7 +7,7 @@ namespace zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Extensions
         public static ProblemDetails AddExtension(this ProblemDetails details, string key, object content,
             bool overwrite)
         {
-            if (details.Extensions.ContainsKey(key))
+            if (!details.Extensions.ContainsKey(key))
             {
                 details.Extensions.Add(key, content);
             }else if (overwrite)

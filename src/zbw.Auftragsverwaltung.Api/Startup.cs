@@ -17,6 +17,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Logging;
 using Microsoft.OpenApi.Models;
 using zbw.Auftragsverwaltung.Core;
+using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 using zbw.Auftragsverwaltung.Infrastructure;
 using zbw.Auftragsverwaltung.Infrastructure.Migrators;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Extensions;
@@ -45,6 +46,9 @@ namespace zbw.Auftragsverwaltung.Api
                 c.IncludeExceptionName = ctx => true;
                 c.Map<ArgumentException>(StatusCodes.Status400BadRequest);
                 c.Map<JsonException>(StatusCodes.Status400BadRequest);
+                c.Map<InvalidRightsException>(StatusCodes.Status403Forbidden);
+                c.Map<UserNotFoundException>(StatusCodes.Status401Unauthorized);
+                c.Map<NotFoundByIdException>(StatusCodes.Status404NotFound);
             });
 
             services.AddInfrastructurServices(Configuration);
@@ -86,7 +90,7 @@ namespace zbw.Auftragsverwaltung.Api
 
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                //app.UseDeveloperExceptionPage();
                 app.UseDevUser(services);
                 IdentityModelEventSource.ShowPII = true;
             }
