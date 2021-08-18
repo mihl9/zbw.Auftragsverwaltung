@@ -11,7 +11,15 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Lib\zbw.Auftragsverwaltung.Lib.ErrorHandling\zbw.Auftragsverwaltung.Lib.ErrorHandling.csproj" />
+    <ProjectReference Include="..\Lib\zbw.Auftragsverwaltung.Lib.HttpClient\zbw.Auftragsverwaltung.Lib.HttpClient.csproj" />
     <ProjectReference Include="..\zbw.Auftragsverwaltung.Domain\zbw.Auftragsverwaltung.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Common\Extensions\" />
+    <Folder Include="Common\Helper\" />
+    <Folder Include="Common\Model\" />
   </ItemGroup>
 
 </Project>

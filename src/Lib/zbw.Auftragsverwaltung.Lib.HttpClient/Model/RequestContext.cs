@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace zbw.Auftragsverwaltung.Client.Common.Model
+namespace zbw.Auftragsverwaltung.Lib.HttpClient.Model
 {
     public class RequestContext
     {

@@ -1,17 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Net.Http;
-using System.Text;
 using Microsoft.AspNetCore.Http;
-using zbw.Auftragsverwaltung.Client.Common.Model;
+using zbw.Auftragsverwaltung.Lib.HttpClient.Model;
 
-namespace zbw.Auftragsverwaltung.Client.Common.Helper
+namespace zbw.Auftragsverwaltung.Lib.HttpClient.Helper
 {
-    public class RequestDataService : IRequestDataService
+    public class HttpContextDataService : IContextDataService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public RequestDataService(IHttpContextAccessor httpContextAccessor)
+        public HttpContextDataService(IHttpContextAccessor httpContextAccessor)
         {
             _httpContextAccessor = httpContextAccessor;
         }
@@ -24,7 +22,7 @@ namespace zbw.Auftragsverwaltung.Client.Common.Helper
 
         public string GetAuthorizationHeader()
         {
-            throw new NotImplementedException();
+            return GetHeaderValue("Authorization");
         }
 
         public RequestContext GetRequestContext()
@@ -36,9 +34,5 @@ namespace zbw.Auftragsverwaltung.Client.Common.Helper
 
         }
 
-        public void AddToHttpRequest(HttpRequestMessage httpRequestMessage)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

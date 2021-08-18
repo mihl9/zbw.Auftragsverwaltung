@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -17,6 +19,7 @@ using Microsoft.OpenApi.Models;
 using zbw.Auftragsverwaltung.Core;
 using zbw.Auftragsverwaltung.Infrastructure;
 using zbw.Auftragsverwaltung.Infrastructure.Migrators;
+using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Extensions;
 
 namespace zbw.Auftragsverwaltung.Api
 {
@@ -34,6 +37,15 @@ namespace zbw.Auftragsverwaltung.Api
         {
             services.AddOptions();
 
+            services.AddHttpApiExceptionMiddleware(c =>
+            {
+                c.RequestPathFilter = (ctx) => "";
+                c.IncludeTraceIdentifier = (ctx) => false;
+                c.OverwriteExistingExtensions = ctx => false;
+                c.IncludeExceptionName = ctx => true;
+                c.Map<ArgumentException>(StatusCodes.Status400BadRequest);
+                c.Map<JsonException>(StatusCodes.Status400BadRequest);
+            });
 
             services.AddInfrastructurServices(Configuration);
 
@@ -58,7 +70,7 @@ namespace zbw.Auftragsverwaltung.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IServiceProvider services)
         {
-            
+            app.UseHttpApiExceptionMiddleware();
             app.MigrateOrderDatabase();
             app.MigrateUserIdentityDatabase();
             app.UseHttpsRedirection();
