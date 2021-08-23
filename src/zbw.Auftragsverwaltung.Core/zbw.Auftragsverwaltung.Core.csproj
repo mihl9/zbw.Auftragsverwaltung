@@ -27,4 +27,9 @@
     <Folder Include="Users\Models\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Lib\zbw.Auftragsverwaltung.Lib.ErrorHandling\zbw.Auftragsverwaltung.Lib.ErrorHandling.csproj" />
+    <ProjectReference Include="..\zbw.Auftragsverwaltung.Domain\zbw.Auftragsverwaltung.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

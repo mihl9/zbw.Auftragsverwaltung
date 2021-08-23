@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace zbw.Auftragsverwaltung.Core.ArticleGroups.Dto
+namespace zbw.Auftragsverwaltung.Domain.ArticleGroups
 {
     public class ArticleGroupDto
     {

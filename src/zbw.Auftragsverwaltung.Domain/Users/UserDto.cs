@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
-using zbw.Auftragsverwaltung.Core.Customers.Dto;
+using zbw.Auftragsverwaltung.Domain.Customers;
 
-namespace zbw.Auftragsverwaltung.Core.Users.Dto
+namespace zbw.Auftragsverwaltung.Domain.Users
 {
     public class UserDto
     {

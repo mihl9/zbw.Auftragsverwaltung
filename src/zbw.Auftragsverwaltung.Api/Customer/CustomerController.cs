@@ -5,16 +5,14 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Razor.Language.CodeGeneration;
 using Microsoft.Extensions.Logging;
-using Microsoft.OpenApi.Extensions;
 using zbw.Auftragsverwaltung.Api.Common.Models;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
 using zbw.Auftragsverwaltung.Core.Common.Exceptions;
-using zbw.Auftragsverwaltung.Core.Customers.Dto;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
+using zbw.Auftragsverwaltung.Domain.Common;
+using zbw.Auftragsverwaltung.Domain.Customers;
 
 namespace zbw.Auftragsverwaltung.Api.Customer
 {
@@ -35,7 +33,7 @@ namespace zbw.Auftragsverwaltung.Api.Customer
             _userManager = userManager;
         }
 
-        [HttpGet]
+        [HttpGet("{id}")]
         [ProducesResponseType(typeof(CustomerDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -46,24 +44,9 @@ namespace zbw.Auftragsverwaltung.Api.Customer
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _customerBll.Get(id, userId);
-                return Ok(result);
-            }
-            catch (InvalidRightsException e)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException e)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
-            
+            var result = await _customerBll.Get(id, userId);
+            return Ok(result);
+
         }
 
         [HttpGet]
@@ -77,23 +60,8 @@ namespace zbw.Auftragsverwaltung.Api.Customer
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _customerBll.GetList(userId, deleted, size, page);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _customerBll.GetList(userId, deleted, size, page);
+            return Ok(result);
 
         }
 
@@ -109,23 +77,9 @@ namespace zbw.Auftragsverwaltung.Api.Customer
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _customerBll.Add(customer, userId);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _customerBll.Add(customer, userId);
+            return Ok(result);
+
         }
 
         [HttpPatch]
@@ -139,23 +93,9 @@ namespace zbw.Auftragsverwaltung.Api.Customer
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _customerBll.Update(customer, userId);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _customerBll.Update(customer, userId);
+            return Ok(result);
+            
         }
 
         [HttpDelete]
@@ -170,23 +110,9 @@ namespace zbw.Auftragsverwaltung.Api.Customer
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _customerBll.Delete(dto, userId);
-                return Ok();
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _customerBll.Delete(dto, userId);
+            return Ok();
+
         }
     }
 }

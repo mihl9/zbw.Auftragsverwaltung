@@ -1,19 +1,16 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
-using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using zbw.Auftragsverwaltung.Api.Common.Models;
-using zbw.Auftragsverwaltung.Core.ArticleGroups.Dto;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
+using zbw.Auftragsverwaltung.Domain.ArticleGroups;
+using zbw.Auftragsverwaltung.Domain.Common;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 

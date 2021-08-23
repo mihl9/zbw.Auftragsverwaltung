@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using zbw.Auftragsverwaltung.Core.Common.Interfaces;
-using zbw.Auftragsverwaltung.Core.Users.Dto;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
+using zbw.Auftragsverwaltung.Domain.Users;
 
 namespace zbw.Auftragsverwaltung.Core.Users.Interfaces
 {

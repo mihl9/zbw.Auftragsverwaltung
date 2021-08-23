@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace zbw.Auftragsverwaltung.Core.Common.Dto
+namespace zbw.Auftragsverwaltung.Domain.Common
 {
 	public abstract class PagedResultBase
     {

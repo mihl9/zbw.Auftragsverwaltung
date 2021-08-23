@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using zbw.Auftragsverwaltung.Core.Common.Contracts;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
 using zbw.Auftragsverwaltung.Core.Users.Contracts;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Infrastructure.Common.Repositories;

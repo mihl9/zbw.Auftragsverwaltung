@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using zbw.Auftragsverwaltung.Core.Common.Dto;
 
-namespace zbw.Auftragsverwaltung.Core.Common.DTO
+namespace zbw.Auftragsverwaltung.Domain.Common
 {
     public class PaginatedList<T> : PagedResultBase where T : class
     {

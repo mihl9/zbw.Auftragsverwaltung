@@ -2,17 +2,14 @@
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.Extensions.Logging;
 using zbw.Auftragsverwaltung.Api.Common.Models;
 using zbw.Auftragsverwaltung.Core.Users.Bll;
-using zbw.Auftragsverwaltung.Core.Users.Dto;
-using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
+using zbw.Auftragsverwaltung.Domain.Users;
 
-namespace zbw.Auftragsverwaltung.Api.UserManagement
+namespace zbw.Auftragsverwaltung.Api.Users
 {
     [Route("api/[controller]")]
     [Authorize]

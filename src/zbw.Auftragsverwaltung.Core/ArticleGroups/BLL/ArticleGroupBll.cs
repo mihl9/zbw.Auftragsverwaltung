@@ -1,13 +1,12 @@
-﻿using zbw.Auftragsverwaltung.Core.Common.Contracts;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
-using zbw.Auftragsverwaltung.Core.ArticleGroups.Dto;
-using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
+﻿using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
 using System.Threading.Tasks;
 using System;
 using System.Linq.Expressions;
 using AutoMapper;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Contracts;
+using zbw.Auftragsverwaltung.Domain.ArticleGroups;
+using zbw.Auftragsverwaltung.Domain.Common;
 
 namespace zbw.Auftragsverwaltung.Core.ArticleGroups.BLL
 {
