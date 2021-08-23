@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using zbw.Auftragsverwaltung.Api.Common.Models;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
 using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;

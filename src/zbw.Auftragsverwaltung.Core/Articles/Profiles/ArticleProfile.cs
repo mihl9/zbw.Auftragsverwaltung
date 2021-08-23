@@ -4,7 +4,7 @@ using System.Text;
 using AutoMapper;
 using zbw.Auftragsverwaltung.Core.Articles.Dto;
 using zbw.Auftragsverwaltung.Core.Articles.Entities;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
+using zbw.Auftragsverwaltung.Domain.Common;
 
 namespace zbw.Auftragsverwaltung.Core.Articles.Profiles
 {
