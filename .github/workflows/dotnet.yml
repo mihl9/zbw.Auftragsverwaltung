@@ -23,3 +23,14 @@ jobs:
       run: dotnet build zbw.Auftragsverwaltung.sln --no-restore
     - name: Test
       run: dotnet test zbw.Auftragsverwaltung.sln --no-build --verbosity normal
+  
+  semantic_release:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - uses: brpaz/action-semantic-release@v1
+        with:
+          dry_run: "false"
+          install_plugins: "semantic-release-docker semantic-release-gcr"
+          branch: master
+    
