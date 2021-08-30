@@ -48,8 +48,6 @@ jobs:
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v3
-        with:
-          images: huberit/auftragsverwaltung.backend
        
       - uses: mr-smithers-excellent/docker-build-push@v5
         name: Publish Backend
