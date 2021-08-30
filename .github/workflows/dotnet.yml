@@ -43,14 +43,14 @@ jobs:
     needs: [build, semantic_release]
     steps:
       - uses: actions/checkout@v2
-      - name: Install doctl
-        uses: digitalocean/action-doctl@v2
+        name: Checkout
+       
+      - uses: mr-smithers-excellent/docker-build-push@v5
+        name: Publish Backend
         with:
-          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
-      - uses: ripplr-io/docr-docker-publish@v1
-        with:
-          # Image path in the format registry-name/image-name
-          image_path: huberit/zbw.auftragsverwaltung.backend
-          # The path + name of the Dockerfile you want to build (-f flag)
+          image: huberit/zbw.auftragsverwaltung.backend
+          registry: registry-url.io
           dockerfile: src/zbw.Auftragsverwaltung.Api/Dockerfile
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
     
