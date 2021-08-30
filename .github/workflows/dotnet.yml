@@ -40,7 +40,6 @@ jobs:
   publish_release_backend:
     runs-on: ubuntu-latest
     name: Publish Backend
-    if: ${{ semantic_release.env.NEW_RELEASE_PUBLISHED }} == 'true'
     needs: [build, semantic_release]
     steps:
       - uses: actions/checkout@v2
