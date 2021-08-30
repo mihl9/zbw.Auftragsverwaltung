@@ -40,6 +40,7 @@ jobs:
     name: Publish Backend
     needs: [build, semantic_release]
     steps:
+      - uses: actions/checkout@v2
       - uses: ripplr-io/docr-docker-publish@v1
         with:
           # Image path in the format registry-name/image-name
