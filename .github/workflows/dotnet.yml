@@ -40,6 +40,7 @@ jobs:
   publish_release_backend:
     runs-on: ubuntu-latest
     name: Publish Backend
+    if: ${{ env.NEW_RELEASE_PUBLISHED }}
     needs: [build, semantic_release]
     steps:
       - uses: actions/checkout@v2
@@ -53,7 +54,8 @@ jobs:
           dockerfile: src/zbw.Auftragsverwaltung.Api/Dockerfile
           username: ${{ env.DUNAME }}
           password: ${{ env.DPW }}
-          addLatest: true
+          addLatest: true 
+          tags: ${{ RELEASE_VERSION }} , 'latest'
         env:
           DUNAME: ${{ secrets.DOCKER_USERNAME }}
           DPW: ${{ secrets.DOCKER_PASSWORD }}
