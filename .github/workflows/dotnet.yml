@@ -46,6 +46,12 @@ jobs:
       - uses: actions/checkout@v2
         name: Checkout
        
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: huberit/auftragsverwaltung.backend
+       
       - uses: mr-smithers-excellent/docker-build-push@v5
         name: Publish Backend
         with:
@@ -54,9 +60,8 @@ jobs:
           dockerfile: src/zbw.Auftragsverwaltung.Api/Dockerfile
           username: ${{ env.DUNAME }}
           password: ${{ env.DPW }}
-          addLatest: true 
-          tags: $TAG , 'latest'
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
         env:
           DUNAME: ${{ secrets.DOCKER_USERNAME }}
           DPW: ${{ secrets.DOCKER_PASSWORD }}
-          TAG: v${{ semantic_release.env.RELEASE_VERSION }}
