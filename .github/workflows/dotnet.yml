@@ -43,7 +43,7 @@ jobs:
       - uses: ripplr-io/docr-docker-publish@v1
         with:
           # Image path in the format registry-name/image-name
-          image_path: huberit/zbw.Auftragsverwaltung.backend
+          image_path: huberit/zbw.auftragsverwaltung.backend
           # The path + name of the Dockerfile you want to build (-f flag)
           dockerfile: src/zbw.Auftragsverwaltung.Api/Dockerfile
     
