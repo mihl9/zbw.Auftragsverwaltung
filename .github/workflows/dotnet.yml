@@ -29,11 +29,15 @@ jobs:
     name: Semantic Release
     needs: build
     steps:
-      - uses: brpaz/action-semantic-release@v1
-        with:
-          dry_run: "false"
-          install_plugins: "semantic-release-docker commit-analyzer release-notes-generator"
-          branch: master
+      
+      - uses: actions/checkout@v1
+      
+      - uses: docker://ghcr.io/codfish/semantic-release-action:v1
+      
+      - uses: codfish/semantic-release-action@v1
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
           
   publish_release_backend:
     runs-on: ubuntu-latest
