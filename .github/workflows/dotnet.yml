@@ -26,11 +26,12 @@ jobs:
   
   semantic_release:
     runs-on: ubuntu-latest
-    
+    name: Semantic Release
+    needs: build
     steps:
       - uses: brpaz/action-semantic-release@v1
         with:
           dry_run: "false"
-          install_plugins: "semantic-release-docker semantic-release-gcr"
+          install_plugins: "semantic-release-docker"
           branch: master
     
