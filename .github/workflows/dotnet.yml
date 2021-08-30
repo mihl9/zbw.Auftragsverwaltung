@@ -32,7 +32,7 @@ jobs:
       - uses: brpaz/action-semantic-release@v1
         with:
           dry_run: "false"
-          install_plugins: "semantic-release-docker semantic-release-commit-analyzer"
+          install_plugins: "semantic-release-docker"
           branch: master
           
   publish_release_backend:
