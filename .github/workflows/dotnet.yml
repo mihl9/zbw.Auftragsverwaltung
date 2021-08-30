@@ -40,7 +40,7 @@ jobs:
   publish_release_backend:
     runs-on: ubuntu-latest
     name: Publish Backend
-    if: ${{ NEW_RELEASE_PUBLISHED }}
+    if: steps.semantic.outputs.new-release-published == 'true'
     needs: [build, semantic_release]
     steps:
       - uses: actions/checkout@v2
@@ -55,7 +55,8 @@ jobs:
           username: ${{ env.DUNAME }}
           password: ${{ env.DPW }}
           addLatest: true 
-          tags: ${{ RELEASE_VERSION }} , 'latest'
+          tags: $TAG , 'latest'
         env:
           DUNAME: ${{ secrets.DOCKER_USERNAME }}
           DPW: ${{ secrets.DOCKER_PASSWORD }}
+          TAG: v$RELEASE_VERSION
