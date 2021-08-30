@@ -53,6 +53,7 @@ jobs:
           dockerfile: src/zbw.Auftragsverwaltung.Api/Dockerfile
           username: ${{ env.DUNAME }}
           password: ${{ env.DPW }}
+          addLatest: true
         env:
           DUNAME: ${{ secrets.DOCKER_USERNAME }}
           DPW: ${{ secrets.DOCKER_PASSWORD }}
