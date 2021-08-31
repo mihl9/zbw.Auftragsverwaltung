@@ -100,7 +100,7 @@ namespace zbw.Auftragsverwaltung.Core.Users.Bll
 
         private async Task<IEnumerable<CustomerDto>> GetCustomersForUser(UserDto user)
         {
-            var result = await _customer.GetForUser(user, user.Id);
+            var result = await _customer.GetForUser(user.Id, user.Id);
             return result;
         }
     }

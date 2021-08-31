@@ -11,6 +11,6 @@ namespace zbw.Auftragsverwaltung.Core.Customers.Interfaces
 {
     public interface ICustomerBll : ICrudAuthorizedBll<CustomerDto, Customer, Guid, Guid>
     {
-        public Task<IEnumerable<CustomerDto>> GetForUser(UserDto user, Guid userId);
+        public Task<IEnumerable<CustomerDto>> GetForUser(Guid id, Guid userId);
     }
 }

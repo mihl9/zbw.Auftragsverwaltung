@@ -11,6 +11,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using zbw.Auftragsverwaltung.Core.Addresses.BLL;
+using zbw.Auftragsverwaltung.Core.Addresses.Interfaces;
 using zbw.Auftragsverwaltung.Core.Common.Configurations;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.BLL;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
@@ -30,6 +32,7 @@ namespace zbw.Auftragsverwaltung.Core
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddScoped<ICustomerBll, CustomerBll>();
+            services.AddScoped<IAddressBll, AddressBll>();
             services.AddScoped<IUserBll, UserBll>();
 
             services.AddScoped<IArticleGroupBll, ArticleGroupBll>();
