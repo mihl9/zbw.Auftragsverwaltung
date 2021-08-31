@@ -55,7 +55,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/mihl9/zbw.Auftragsverwaltung.backend
+          images: ghcr.io/elbeachboy/zbw.Auftragsverwaltung.backend
       
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
