@@ -24,18 +24,7 @@ jobs:
     - name: Test
       run: dotnet test zbw.Auftragsverwaltung.sln --no-build --verbosity normal
   
-  semantic_release:
-    runs-on: ubuntu-latest
-    name: Semantic Release
-    needs: build
-    steps:
-      
-      - uses: actions/checkout@v1
-      
-      - uses: codfish/semantic-release-action@v1
-        id: semantic
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
           
   
         
