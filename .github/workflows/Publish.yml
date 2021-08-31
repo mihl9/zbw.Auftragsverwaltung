@@ -37,17 +37,30 @@ jobs:
     - name: Test
       run: dotnet test zbw.Auftragsverwaltung.sln --no-build --verbosity normal
   
+  semantic_release:
+    runs-on: ubuntu-latest
+    name: Semantic Release
+    needs: build
+    steps:
+      
+      - uses: actions/checkout@v1
+      
+      - uses: codfish/semantic-release-action@v1
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
   publish_libs:
     runs-on: ubuntu-latest
     name: publish Libraries
-    needs: [build]
+    needs: [build, semantic_release]
     steps:
       - uses: actions/checkout@v2
       - name: Setup .NET
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.x
-          source-url: https://nuget.pkg.github.com/<organization>/index.json
+          source-url: https://nuget.pkg.github.com/elbeachboy/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           
@@ -78,7 +91,7 @@ jobs:
   publish_release_backend:
     runs-on: ubuntu-latest
     name: Publish Backend
-    needs: [build]
+    needs: [build, semantic_release]
     steps:
       - uses: actions/checkout@v2
         name: Checkout
