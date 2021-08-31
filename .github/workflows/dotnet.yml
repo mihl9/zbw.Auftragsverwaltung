@@ -55,7 +55,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: huberit/auftragsverwaltung.backend,ghcr.io/huberit/auftragsverwaltung.backend,registry.digitalocean.com/huberit/auftragsverwaltung.backend
+          images: ghcr.io/huberit/auftragsverwaltung.backend,registry.digitalocean.com/huberit/auftragsverwaltung.backend
       
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
