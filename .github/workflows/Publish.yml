@@ -27,17 +27,71 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
+        source-url: https://nuget.pkg.github.com/<organization>/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Restore dependencies
       run: dotnet restore zbw.Auftragsverwaltung.sln
     - name: Build
       run: dotnet build zbw.Auftragsverwaltung.sln --no-restore
     - name: Test
       run: dotnet test zbw.Auftragsverwaltung.sln --no-build --verbosity normal
-  # This workflow contains a single job called "build"
+  
+  semantic_release:
+    runs-on: ubuntu-latest
+    name: Semantic Release
+    needs: build
+    steps:
+      
+      - uses: actions/checkout@v1
+      
+      - uses: codfish/semantic-release-action@v1
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+  publish_libs:
+    runs-on: ubuntu-latest
+    name: publish Libraries
+    needs: [build, semantic_release]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+          source-url: https://nuget.pkg.github.com/elbeachboy/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          
+      - name: Build Error Handler Library
+        run: |  
+          cd ./src/Lib/zbw.Auftragsverwaltung.Lib.ErrorHandling
+          dotnet pack -c Release -o out  
+
+      - name: Push generated Error Handler Library
+        run: dotnet nuget push ./src/Lib/zbw.Auftragsverwaltung.Lib.ErrorHandling/out/*.nupkg --skip-duplicate --no-symbols true
+  
+      - name: Build HttpClient Library
+        run: |  
+          cd ./src/Lib/zbw.Auftragsverwaltung.Lib.HttpClient
+          dotnet pack -c Release -o out  
+
+      - name: Push generated HttpClient Library
+        run: dotnet nuget push ./src/Lib/zbw.Auftragsverwaltung.Lib.HttpClient/out/*.nupkg --skip-duplicate --no-symbols true
+        
+      - name: Build Client Library
+        run: |  
+          cd ./src/zbw.Auftragsverwaltung.Client
+          dotnet pack -c Release -o out  
+
+      - name: Push generated Client Library
+        run: dotnet nuget push ./src/zbw.Auftragsverwaltung.Client/out/*.nupkg --skip-duplicate --no-symbols true
+        
   publish_release_backend:
     runs-on: ubuntu-latest
     name: Publish Backend
-    needs: [build]
+    needs: [build, semantic_release]
     steps:
       - uses: actions/checkout@v2
         name: Checkout
