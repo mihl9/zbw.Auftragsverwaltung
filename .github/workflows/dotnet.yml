@@ -55,7 +55,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/mihl9/zbw.Auftragsverwaltung.backend,registry.digitalocean.com/huberit/auftragsverwaltung.backend
+          images: ghcr.io/mihl9/zbw.Auftragsverwaltung.backend
       
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
@@ -63,16 +63,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-      
-      - name: Login to Digital Ocean
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ env.DOUNAME }}
-          password: ${{ env.DOPW }}
-          registry: registry.digitalocean.com
-        env:
-          DOUNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOPW: ${{ secrets.DOCKER_PASSWORD }}
        
       - name: Build and publish
         uses: docker/build-push-action@v2
