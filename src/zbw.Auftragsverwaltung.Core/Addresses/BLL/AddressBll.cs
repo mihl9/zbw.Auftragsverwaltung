@@ -61,19 +61,28 @@ namespace zbw.Auftragsverwaltung.Core.Addresses.BLL
             return _mapper.Map<PaginatedList<AddressDto>>(addresses);
         }
 
-        public Task<PaginatedList<AddressDto>> GetList(Guid userId, bool deleted = false, int size = 10, int page = 1)
+        public async Task<PaginatedList<AddressDto>> GetList(Guid userId, bool deleted = false, int size = 10, int page = 1)
         {
-            throw new NotImplementedException();
+            return await GetList(PredicateBuilder.True<Address>(), userId, size, page);
         }
 
-        public Task<AddressDto> Add(AddressDto dto, Guid userId)
+        public async Task<AddressDto> Add(AddressDto dto, Guid userId)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.GetUser(userId);
+            var customer = await _customerBll.Get(dto.CustomerId, userId);
+            var address = _mapper.Map<Address>(dto);
+            address = await _addressRepository.AddAsync(address);
+
+            return _mapper.Map<AddressDto>(address);
         }
 
-        public Task<bool> Delete(AddressDto dto, Guid userId)
+        public async Task<bool> Delete(AddressDto dto, Guid userId)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.GetUser(userId);
+            var customer = await _customerBll.Get(dto.CustomerId, userId);
+            var address = _mapper.Map<Address>(dto);
+
+            return await _addressRepository.DeleteAsync(address);
         }
 
         public Task<AddressDto> Update(AddressDto dto, Guid userId)
