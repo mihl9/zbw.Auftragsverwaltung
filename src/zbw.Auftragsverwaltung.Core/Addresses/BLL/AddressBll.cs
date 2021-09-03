@@ -42,8 +42,9 @@ namespace zbw.Auftragsverwaltung.Core.Addresses.BLL
 
             var address = await _addressRepository.GetByIdAsync(id);
             var customer = await _customerBll.Get(address.CustomerId, userId);
-
-            return _mapper.Map<AddressDto>(address);
+            var dto = _mapper.Map<AddressDto>(address);
+            CalculateFields(dto);
+            return dto;
         }
 
         public async Task<PaginatedList<AddressDto>> GetList(Expression<Func<Address, bool>> predicate, Guid userId, int size = 10, int page = 1)
@@ -85,9 +86,18 @@ namespace zbw.Auftragsverwaltung.Core.Addresses.BLL
             return await _addressRepository.DeleteAsync(address);
         }
 
-        public Task<AddressDto> Update(AddressDto dto, Guid userId)
+        public async Task<AddressDto> Update(AddressDto dto, Guid userId)
         {
-            throw new NotImplementedException();
+            var user = await _userManager.GetUser(userId);
+            var customer = await _customerBll.Get(dto.CustomerId, userId);
+
+            var address = _mapper.Map<Address>(dto);
+
+            await _addressRepository.UpdateAsync(address);
+
+            address = await _addressRepository.GetByIdAsync(address.Id);
+
+            return _mapper.Map<AddressDto>(address);
         }
 
         private void CalculateFields(AddressDto address)
