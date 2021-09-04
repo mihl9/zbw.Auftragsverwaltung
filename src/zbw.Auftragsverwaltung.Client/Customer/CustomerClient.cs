@@ -21,7 +21,7 @@ namespace zbw.Auftragsverwaltung.Client.Customer
         private readonly string _baseUrl;
         private readonly IContextDataService _contextDataService;
         private readonly HttpExceptionMapper _exceptionMapper;
-        public CustomerClient(string baseUrl, HttpClient httpClient, IContextDataService contextDataService, HttpExceptionMapper exceptionMapper)
+        public CustomerClient(HttpClient httpClient, string baseUrl, IContextDataService contextDataService, HttpExceptionMapper exceptionMapper)
         {
             _httpClient = httpClient;
             _contextDataService = contextDataService;

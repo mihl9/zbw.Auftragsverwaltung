@@ -16,6 +16,7 @@ namespace zbw.Auftragsverwaltung.Client
     public class AuftragsverwaltungClient : IAuftragsverwaltungClient
     {
         private readonly IAuthenticationClient _authenticationClient;
+        private readonly ICustomerClient _customerClient;
 
         public AuftragsverwaltungClient(IHttpClientFactory httpClientFactory,
             IOptions<AuftragsverwaltungClientConfiguration> configuration, IContextDataService contextDataService, HttpExceptionMapper exceptionMapper)
@@ -24,6 +25,9 @@ namespace zbw.Auftragsverwaltung.Client
 
             _authenticationClient = new AuthenticationClient(client, configuration.Value.BackendServiceEndpoint,
                 contextDataService, exceptionMapper);
+
+            _customerClient = new CustomerClient(client, configuration.Value.BackendServiceEndpoint, contextDataService,
+                exceptionMapper);
         }
 
         public IArticleGroupClient ArticleGroup()
@@ -38,7 +42,7 @@ namespace zbw.Auftragsverwaltung.Client
 
         public ICustomerClient Customer()
         {
-            throw new NotImplementedException();
+            return _customerClient;
         }
 
         public IUserClient User()
