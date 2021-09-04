@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication.OAuth;
 using zbw.Auftragsverwaltung.Client;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Helper;
 using zbw.Auftragsverwaltung.WebApp.Data;
@@ -34,6 +35,8 @@ namespace zbw.Auftragsverwaltung.WebApp
 
             services.AddHttpContextAccessor();
             services.AddAuftragsverwaltungClientService<HttpContextDataService>();
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
