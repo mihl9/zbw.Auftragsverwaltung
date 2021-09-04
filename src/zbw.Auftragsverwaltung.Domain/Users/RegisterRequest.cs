@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace zbw.Auftragsverwaltung.Api.Authentication.Models
+namespace zbw.Auftragsverwaltung.Domain.Users
 {
-    public class UserDetails
+    public class RegisterRequest
     {
         [Required]
         public string UserName { get; set; }

@@ -1,6 +1,6 @@
-﻿namespace zbw.Auftragsverwaltung.Api.Authentication.Models
+﻿namespace zbw.Auftragsverwaltung.Domain.Users
 {
-    public class Credentials
+    public class AuthenticateRequest
     {
         public string Username { get; set; }
 

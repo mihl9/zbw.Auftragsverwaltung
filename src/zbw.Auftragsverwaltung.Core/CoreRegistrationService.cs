@@ -19,6 +19,7 @@ using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
 using zbw.Auftragsverwaltung.Core.Customers.BLL;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
 using zbw.Auftragsverwaltung.Core.Users.Bll;
+using zbw.Auftragsverwaltung.Core.Users.Contracts;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Core.Users.Interfaces;
@@ -40,10 +41,11 @@ namespace zbw.Auftragsverwaltung.Core
             return services;
         }
 
-        public static IServiceCollection AddAuthenticationService(this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddAuthenticationService<TTokenService>(this IServiceCollection services,
+            IConfiguration configuration) where TTokenService : class, ITokenService
         {
 
+            services.AddScoped<ITokenService, TTokenService>();
 
             var jwtSection = configuration.GetSection("JwtBearerSettings");
 

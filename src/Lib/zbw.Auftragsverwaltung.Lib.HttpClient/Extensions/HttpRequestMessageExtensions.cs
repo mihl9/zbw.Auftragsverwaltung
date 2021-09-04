@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Http;
+﻿using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Text;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Helper;
 
-namespace zbw.Auftragsverwaltung.Client.Common.Extensions
+namespace zbw.Auftragsverwaltung.Lib.HttpClient.Extensions
 {
     public static class HttpRequestMessageExtensions
     {

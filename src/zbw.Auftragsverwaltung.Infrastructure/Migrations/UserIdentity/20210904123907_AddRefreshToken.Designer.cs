@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using zbw.Auftragsverwaltung.Infrastructure;
 
 namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.UserIdentity
 {
     [DbContext(typeof(UserIdentityContext))]
-    partial class UserIdentityContextModelSnapshot : ModelSnapshot
+    [Migration("20210904123907_AddRefreshToken")]
+    partial class AddRefreshToken
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

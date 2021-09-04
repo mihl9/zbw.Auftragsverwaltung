@@ -13,6 +13,7 @@ using zbw.Auftragsverwaltung.Core.Addresses.Interfaces;
 using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 using zbw.Auftragsverwaltung.Core.Common.Helpers;
 using zbw.Auftragsverwaltung.Core.Customers.BLL;
+using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Domain.Addresses;
@@ -26,9 +27,9 @@ namespace zbw.Auftragsverwaltung.Core.Addresses.BLL
         private readonly IAddressRepository _addressRepository;
         private readonly IMapper _mapper;
         private readonly UserManager<User> _userManager;
-        private readonly CustomerBll _customerBll;
+        private readonly ICustomerBll _customerBll;
 
-        public AddressBll(IAddressRepository addressRepository, IMapper mapper, UserManager<User> userManager, CustomerBll customerBll)
+        public AddressBll(IAddressRepository addressRepository, IMapper mapper, UserManager<User> userManager, ICustomerBll customerBll)
         {
             _addressRepository = addressRepository;
             _mapper = mapper;
