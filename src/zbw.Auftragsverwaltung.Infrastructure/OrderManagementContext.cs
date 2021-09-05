@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using zbw.Auftragsverwaltung.Core.Addresses.Entities;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
 using zbw.Auftragsverwaltung.Core.Articles.Entities;
 using zbw.Auftragsverwaltung.Core.Customers.Entities;
@@ -9,6 +10,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure
     {
         public DbSet<Customer> Customers { get; set; }
         public DbSet<ArticleGroup> ArticleGroups { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         public DbSet<Article> Articles { get; set; }
 

@@ -15,5 +15,6 @@ namespace zbw.Auftragsverwaltung.Core.Users.Contracts
 
         public Task<bool> SetUserPassword(User user, string password);
 
+        public Task<User> GetUserByRefreshToken(object token);
     }
 }

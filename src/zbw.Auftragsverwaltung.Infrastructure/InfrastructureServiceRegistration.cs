@@ -14,6 +14,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
+using zbw.Auftragsverwaltung.Core.Addresses.Contracts;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Contracts;
 using zbw.Auftragsverwaltung.Core.Articles.Contracts;
 using zbw.Auftragsverwaltung.Core.Common.Contracts;
@@ -21,6 +22,7 @@ using zbw.Auftragsverwaltung.Core.Customers.Contracts;
 using zbw.Auftragsverwaltung.Core.Users.Contracts;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
+using zbw.Auftragsverwaltung.Infrastructure.Addresses.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.ArticleGroups.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.Articles.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.Common.Repositories;
@@ -39,6 +41,8 @@ namespace zbw.Auftragsverwaltung.Infrastructure
                 o.UseSqlServer(configuration.GetConnectionString("OrderManagementConnectionString")));
             
             services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+            services.AddScoped<IAddressRepository, AddressRepository>();
 
             services.AddScoped<IUserRepository, UserRepository>();
 

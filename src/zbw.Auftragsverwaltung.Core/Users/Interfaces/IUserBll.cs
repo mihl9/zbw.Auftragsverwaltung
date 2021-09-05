@@ -14,5 +14,15 @@ namespace zbw.Auftragsverwaltung.Core.Users.Interfaces
         public Task<IdentityResult> RemoveFromRole(User user, string role);
 
         public Task<IdentityResult> ChangeUserPassword(User user, string currentPassword, string newPassword);
+
+        public Task<bool> Register(RegisterRequest request);
+
+        public Task<AuthenticateResponse> Authenticate(AuthenticateRequest request, string ipAddress);
+
+        public Task<bool> Logout();
+        public Task<AuthenticateResponse> RefreshToken(object token, string ipAddress);
+
+        public Task<bool> RevokeToken(object token, string ipAddress);
+
     }
 }

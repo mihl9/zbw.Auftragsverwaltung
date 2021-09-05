@@ -34,10 +34,14 @@ Each commit must comply with these specifications:
 - Reference issues and pull requests liberally after the first line
 - When only changing documentation, include [ci skip] in the commit title
 - Consider starting the commit message with an applicable shortcut:
-    * feat: when adding new features
-    * fix:  when fixing a bug
-    * doc:  when writing documentation
-    * refac: when refactoring code or project structure
+	* feat: A new feature
+    * fix: A bug fix
+    * docs: Documentation only changes
+    * style: Changes that do not affect the meaning of the code (white-space, formatting, missing semi-colons, etc)
+    * refactor: A code change that neither fixes a bug nor adds a feature
+    * perf: A code change that improves performance
+    * test: Adding missing or correcting existing tests
+    * chore: Changes to the build process or auxiliary tools and libraries such as documentation generation
 
 ## Push Requests
 
