@@ -20,6 +20,7 @@ using zbw.Auftragsverwaltung.Core;
 using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 using zbw.Auftragsverwaltung.Infrastructure;
 using zbw.Auftragsverwaltung.Infrastructure.Migrators;
+using zbw.Auftragsverwaltung.Infrastructure.Users.Services;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Extensions;
 
 namespace zbw.Auftragsverwaltung.Api
@@ -54,7 +55,7 @@ namespace zbw.Auftragsverwaltung.Api
             services.AddInfrastructurServices(Configuration);
 
             services.AddCoreServices();
-            services.AddAuthenticationService(Configuration);
+            services.AddAuthenticationService<DefaultTokenService>(Configuration);
             
             services.AddControllers();
             services.AddSwaggerGen(c =>

@@ -19,5 +19,8 @@ namespace zbw.Auftragsverwaltung.Lib.ErrorHandling.Domain.Enumerations
 
         public static DomainErrorTypeEnumeration EntityNotFoundById =>
             new DomainErrorTypeEnumeration(50100, new Uri(BaseUri, "entity-not-found-by-id"));
+
+        public static DomainErrorTypeEnumeration CustomServerError =>
+            new DomainErrorTypeEnumeration(9999, new Uri(BaseUri, "custom-server-error"));
     }
 }

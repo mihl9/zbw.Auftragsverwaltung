@@ -12,4 +12,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\zbw.Auftragsverwaltung.Lib.ErrorHandling\zbw.Auftragsverwaltung.Lib.ErrorHandling.csproj" />
+  </ItemGroup>
+
 </Project>

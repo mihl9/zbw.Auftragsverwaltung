@@ -123,9 +123,9 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
             return _mapper.Map<CustomerDto>(customer);
         }
 
-        public async Task<IEnumerable<CustomerDto>> GetForUser(UserDto user, Guid userId)
+        public async Task<IEnumerable<CustomerDto>> GetForUser(Guid id, Guid userId)
         {
-            return (await GetList(x => x.UserId.Equals(user.Id), userId, 0, 1)).Results;
+            return (await GetList(x => x.UserId.Equals(id), userId, 0, 1)).Results;
         }
 
         private async Task<User> GetUser(Guid userId, bool throwIfNotFound = true)

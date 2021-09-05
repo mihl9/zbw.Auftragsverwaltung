@@ -8,7 +8,7 @@ namespace zbw.Auftragsverwaltung.Client
 {
     public static class ClientRegistrationService
     {
-        public static IServiceCollection AddClientService<TContext>(this IServiceCollection services) where TContext : class, IContextDataService
+        public static IServiceCollection AddAuftragsverwaltungClientService<TContext>(this IServiceCollection services) where TContext : class, IContextDataService
         {
             services.AddScoped<IContextDataService, TContext>();
             services.AddScoped<IAuftragsverwaltungClient, AuftragsverwaltungClient>();

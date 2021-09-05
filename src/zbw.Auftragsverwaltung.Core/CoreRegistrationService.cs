@@ -11,12 +11,15 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using zbw.Auftragsverwaltung.Core.Addresses.BLL;
+using zbw.Auftragsverwaltung.Core.Addresses.Interfaces;
 using zbw.Auftragsverwaltung.Core.Common.Configurations;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.BLL;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
 using zbw.Auftragsverwaltung.Core.Customers.BLL;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
 using zbw.Auftragsverwaltung.Core.Users.Bll;
+using zbw.Auftragsverwaltung.Core.Users.Contracts;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Core.Users.Interfaces;
@@ -30,6 +33,7 @@ namespace zbw.Auftragsverwaltung.Core
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
 
             services.AddScoped<ICustomerBll, CustomerBll>();
+            services.AddScoped<IAddressBll, AddressBll>();
             services.AddScoped<IUserBll, UserBll>();
 
             services.AddScoped<IArticleGroupBll, ArticleGroupBll>();
@@ -37,10 +41,11 @@ namespace zbw.Auftragsverwaltung.Core
             return services;
         }
 
-        public static IServiceCollection AddAuthenticationService(this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddAuthenticationService<TTokenService>(this IServiceCollection services,
+            IConfiguration configuration) where TTokenService : class, ITokenService
         {
 
+            services.AddScoped<ITokenService, TTokenService>();
 
             var jwtSection = configuration.GetSection("JwtBearerSettings");
 

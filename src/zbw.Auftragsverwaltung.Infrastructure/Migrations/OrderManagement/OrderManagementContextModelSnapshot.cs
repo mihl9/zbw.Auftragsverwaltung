@@ -19,6 +19,34 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                 .HasAnnotation("ProductVersion", "5.0.7")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Addresses.Entities.Address", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Location")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Zip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Addresses");
+                });
+
             modelBuilder.Entity("zbw.Auftragsverwaltung.Core.ArticleGroups.Entities.ArticleGroup", b =>
                 {
                     b.Property<Guid>("Id")
@@ -62,6 +90,17 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                     b.HasKey("Id");
 
                     b.ToTable("Customers");
+                });
+
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Addresses.Entities.Address", b =>
+                {
+                    b.HasOne("zbw.Auftragsverwaltung.Core.Customers.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("zbw.Auftragsverwaltung.Core.ArticleGroups.Entities.ArticleGroup", b =>

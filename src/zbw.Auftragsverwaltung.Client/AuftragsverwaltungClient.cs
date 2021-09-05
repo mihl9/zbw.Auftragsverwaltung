@@ -8,16 +8,26 @@ using zbw.Auftragsverwaltung.Client.Authentication;
 using zbw.Auftragsverwaltung.Client.Common.Configuration;
 using zbw.Auftragsverwaltung.Client.Customer;
 using zbw.Auftragsverwaltung.Client.User;
+using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Helpers;
+using zbw.Auftragsverwaltung.Lib.HttpClient.Helper;
 
 namespace zbw.Auftragsverwaltung.Client
 {
     public class AuftragsverwaltungClient : IAuftragsverwaltungClient
     {
+        private readonly IAuthenticationClient _authenticationClient;
+        private readonly ICustomerClient _customerClient;
+
         public AuftragsverwaltungClient(IHttpClientFactory httpClientFactory,
-            IOptions<AuftragsverwaltungClientConfiguration> configuration)
+            IOptions<AuftragsverwaltungClientConfiguration> configuration, IContextDataService contextDataService, HttpExceptionMapper exceptionMapper)
         {
             var client = httpClientFactory.CreateClient(configuration.Value.ClientName);
 
+            _authenticationClient = new AuthenticationClient(client, configuration.Value.BackendServiceEndpoint,
+                contextDataService, exceptionMapper);
+
+            _customerClient = new CustomerClient(client, configuration.Value.BackendServiceEndpoint, contextDataService,
+                exceptionMapper);
         }
 
         public IArticleGroupClient ArticleGroup()
@@ -27,12 +37,12 @@ namespace zbw.Auftragsverwaltung.Client
 
         public IAuthenticationClient Authentication()
         {
-            throw new NotImplementedException();
+            return _authenticationClient;
         }
 
         public ICustomerClient Customer()
         {
-            throw new NotImplementedException();
+            return _customerClient;
         }
 
         public IUserClient User()
