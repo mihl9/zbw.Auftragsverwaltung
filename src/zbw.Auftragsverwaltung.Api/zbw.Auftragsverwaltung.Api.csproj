@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Lib\zbw.Auftragsverwaltung.Lib.ErrorHandling\zbw.Auftragsverwaltung.Lib.ErrorHandling.csproj" />
     <ProjectReference Include="..\zbw.Auftragsverwaltung.Core\zbw.Auftragsverwaltung.Core.csproj" />
     <ProjectReference Include="..\zbw.Auftragsverwaltung.Infrastructure\zbw.Auftragsverwaltung.Infrastructure.csproj" />
   </ItemGroup>

@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using zbw.Auftragsverwaltung.Core.ArticleGroups.Dto;
+﻿using AutoMapper;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
+using zbw.Auftragsverwaltung.Domain.ArticleGroups;
 
 namespace zbw.Auftragsverwaltung.Core.ArticleGroups.Profiles
 {

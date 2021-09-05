@@ -4,6 +4,7 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -14,11 +15,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using zbw.Auftragsverwaltung.Api.Authentication.Models;
 using zbw.Auftragsverwaltung.Api.Common.Models;
 using zbw.Auftragsverwaltung.Core.Common.Configurations;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
+using zbw.Auftragsverwaltung.Core.Users.Interfaces;
+using zbw.Auftragsverwaltung.Domain.Users;
 
 namespace zbw.Auftragsverwaltung.Api.Authentication
 {
@@ -27,125 +29,77 @@ namespace zbw.Auftragsverwaltung.Api.Authentication
     [Route("api/[controller]")]
     public class AuthController : ControllerBase
     {
-        private readonly JwtBearerSettings _jwtBearerSettings;
-        private readonly UserManager<User> _userManager;
-        private readonly SignInManager<User> _signInManager;
-        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
+        private readonly IUserBll _userBll;
 
-        public AuthController(IOptions<JwtBearerSettings> jwtBearerSettings, UserManager<User> userManager, SignInManager<User> signInManager, RoleManager<IdentityRole<Guid>> roleManager)
+        public AuthController(IUserBll userBll)
         {
-            _jwtBearerSettings = jwtBearerSettings.Value;
-            _userManager = userManager;
-            _signInManager = signInManager;
-            _roleManager = roleManager;
+            _userBll = userBll;
         }
 
         [HttpPost("Register")]
         [AllowAnonymous]
         [ProducesResponseType(typeof(SuccessMessage), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Register([FromBody] UserDetails userDetails)
+        public async Task<IActionResult> Register([FromBody] RegisterRequest userDetails)
         {
             if(!ModelState.IsValid || userDetails == null)
                 return new BadRequestResult();
 
-            var user = new User(){UserName = userDetails.UserName, Email =  userDetails.Email};
-            
-            var result = await _userManager.CreateAsync(user, userDetails.Password);
-            if (!result.Succeeded)
+            if (await _userBll.Register(userDetails))
             {
-                var states = new ModelStateDictionary();
-                foreach (var identityError in result.Errors)
-                {
-                    states.AddModelError(identityError.Code, identityError.Description);
-                }
-
-                return new BadRequestObjectResult(new ErrorMessage() { Message = "Registration Failed", Errors = states });
+                return Ok();
             }
 
-            await _userManager.AddToRoleAsync(user, Roles.User.ToString());
-            return Ok(new SuccessMessage() {Message = "Registration Complete"});
+            return BadRequest();
         }
 
         [HttpPost("Login")]
         [AllowAnonymous]
-        [ProducesResponseType(typeof(AuthenticatedMessage), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(AuthenticateResponse), (int)HttpStatusCode.OK)]
         [ProducesErrorResponseType(typeof(ErrorMessage))]
-        public async Task<IActionResult> Login([FromBody] Credentials credentials)
+        public async Task<IActionResult> Login([FromBody] AuthenticateRequest credentials)
         {
             if (!ModelState.IsValid || credentials == null)
-                return new BadRequestResult();
+                return new BadRequestObjectResult(ModelState);
 
-            var user = await _userManager.FindByNameAsync(credentials.Username);
+            return Ok(await _userBll.Authenticate(credentials, GetIpAddress()));
 
-            if (user == null)
-                return new BadRequestObjectResult(new ErrorMessage() { });
-
-
-            var signinResult = await _signInManager.PasswordSignInAsync(user, credentials.Password, false, true);
-            
-            if (signinResult.Succeeded)
-            {
-                var token = await GenerateToken(user);
-
-                return Ok(new AuthenticatedMessage() { Token = token });
-            }
-            if(signinResult.IsNotAllowed)
-            {
-                if (!user.EmailConfirmed)
-                {
-                    return new BadRequestObjectResult(new ErrorMessage() { Message = "Email is not Confirmed" });
-                }
-                return new BadRequestObjectResult(new ErrorMessage(){ Message = signinResult.ToString() });
-            }
-            
-            if(signinResult.RequiresTwoFactor)
-                return new BadRequestObjectResult(new ErrorMessage() { Message = "Requires Two Factor" });
-            
-            return new BadRequestObjectResult(new ErrorMessage() { Message = signinResult.ToString() });
-            
         }
 
         [HttpPost("Logout")]
         public async Task<IActionResult> Logout()
         {
-            await _signInManager.SignOutAsync();
+            await _userBll.Logout();
             return Ok(new SuccessMessage());
+        }
+
+        [HttpPost("refresh-token")]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenRequest token)
+        {
+            var response = await _userBll.RefreshToken(token.Token, GetIpAddress());
+
+            return Ok(response);
+        }
+        [HttpPost("revoke-token")]
+        public async Task<IActionResult> RevokeToken([FromBody] RevokeTokenRequest request)
+        {
+            var response = await _userBll.RevokeToken(request, GetIpAddress());
+
+            if (response)
+            {
+                return Ok();
+            }
+
+            return BadRequest();
         }
 
         #region Helpers
 
-        private async Task<object> GenerateToken(User user)
+        private string GetIpAddress()
         {
-            var handler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwtBearerSettings.Secret);
-            var userClaims = await _userManager.GetClaimsAsync(user);
-            var tokenDescriptor = new SecurityTokenDescriptor()
-            {
-                Subject = new ClaimsIdentity(new Claim[]
-                {
-                    new Claim(ClaimTypes.Email, user.Email ?? string.Empty),
-                    new Claim(ClaimTypes.Name, user.UserName),
-                    new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                }),
-                Expires = DateTime.UtcNow.AddSeconds(_jwtBearerSettings.ExpiryTimeInSeconds),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature),
-                Audience = _jwtBearerSettings.Audience,
-                Issuer = _jwtBearerSettings.Issuer
-            };
-            var userRoles = await _userManager.GetRolesAsync(user);
-            foreach (var userRole in userRoles)
-            {
-                tokenDescriptor.Subject.AddClaim(new Claim(ClaimTypes.Role, userRole));
-                var role = await _roleManager.FindByNameAsync(userRole);
-                if (role != null)
-                {
-                    var roleClaims = await _roleManager.GetClaimsAsync(role);
-                    tokenDescriptor.Subject.AddClaims(roleClaims);
-                }
-            }
-            tokenDescriptor.Subject.AddClaims(userClaims);
-            var token = handler.CreateToken(tokenDescriptor);
-            return handler.WriteToken(token);
+            if (Request.Headers.ContainsKey("X-Forwarded-For"))
+                return Request.Headers["X-Forwarded-For"];
+            else
+                return HttpContext.Connection.RemoteIpAddress.MapToIPv4().ToString();
         }
         #endregion
     }

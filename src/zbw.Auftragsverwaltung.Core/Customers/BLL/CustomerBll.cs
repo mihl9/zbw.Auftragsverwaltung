@@ -1,25 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Security.Claims;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using zbw.Auftragsverwaltung.Core.Common.Contracts;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
 using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 using zbw.Auftragsverwaltung.Core.Common.Helpers;
 using zbw.Auftragsverwaltung.Core.Customers.Contracts;
-using zbw.Auftragsverwaltung.Core.Customers.Dto;
 using zbw.Auftragsverwaltung.Core.Customers.Entities;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
-using zbw.Auftragsverwaltung.Core.Users.Dto;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
+using zbw.Auftragsverwaltung.Domain.Common;
+using zbw.Auftragsverwaltung.Domain.Customers;
+using zbw.Auftragsverwaltung.Domain.Users;
+using zbw.Auftragsverwaltung.Lib.ErrorHandling.Domain.Exceptions;
 
 namespace zbw.Auftragsverwaltung.Core.Customers.BLL
 {
@@ -43,13 +38,13 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
             var customer = await _customerRepository.GetByIdAsync(id);
 
             if (customer == null)
-                return new CustomerDto();
+                throw new NotFoundByIdException($"Customer Id: {id} Not Found!");
 
             if (!await _userManager.IsInRoleAsync(user, Roles.Administrator.ToString()))
             {
                 if (!customer.UserId.Equals(userId))
                 {
-                    throw new InvalidRightsException();
+                    throw new InvalidRightsException(user);
                 }
             }
             
@@ -106,7 +101,7 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
             if (!await _userManager.IsInRoleAsync(user, Roles.Administrator.ToString()))
             {
                 if (!customer.UserId.Equals(userId))
-                    throw new InvalidRightsException();
+                    throw new InvalidRightsException(user);
             }
 
             return await _customerRepository.DeleteAsync(customer);
@@ -120,7 +115,7 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
             if (!await _userManager.IsInRoleAsync(user, Roles.Administrator.ToString()))
             {
                 if (!customer.UserId.Equals(userId))
-                    throw new InvalidRightsException();
+                    throw new InvalidRightsException(user);
             }
 
             await _customerRepository.UpdateAsync(customer);
@@ -128,9 +123,9 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
             return _mapper.Map<CustomerDto>(customer);
         }
 
-        public async Task<IEnumerable<CustomerDto>> GetForUser(UserDto user, Guid userId)
+        public async Task<IEnumerable<CustomerDto>> GetForUser(Guid id, Guid userId)
         {
-            return (await GetList(x => x.UserId.Equals(user.Id), userId, 0, 1)).Results;
+            return (await GetList(x => x.UserId.Equals(id), userId, 0, 1)).Results;
         }
 
         private async Task<User> GetUser(Guid userId, bool throwIfNotFound = true)

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using zbw.Auftragsverwaltung.Core.Common.Interfaces;
-using zbw.Auftragsverwaltung.Core.Users.Dto;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
+using zbw.Auftragsverwaltung.Domain.Users;
 
 namespace zbw.Auftragsverwaltung.Core.Users.Interfaces
 {
@@ -16,5 +14,15 @@ namespace zbw.Auftragsverwaltung.Core.Users.Interfaces
         public Task<IdentityResult> RemoveFromRole(User user, string role);
 
         public Task<IdentityResult> ChangeUserPassword(User user, string currentPassword, string newPassword);
+
+        public Task<bool> Register(RegisterRequest request);
+
+        public Task<AuthenticateResponse> Authenticate(AuthenticateRequest request, string ipAddress);
+
+        public Task<bool> Logout();
+        public Task<AuthenticateResponse> RefreshToken(object token, string ipAddress);
+
+        public Task<bool> RevokeToken(object token, string ipAddress);
+
     }
 }

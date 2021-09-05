@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using zbw.Auftragsverwaltung.Core.Addresses.Entities;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
 using zbw.Auftragsverwaltung.Core.Customers.Entities;
 using zbw.Auftragsverwaltung.Core.Orders.Entities;
@@ -12,6 +13,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure
         public DbSet<ArticleGroup> ArticleGroups { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<Address> Addresses { get; set; }
 
         public OrderManagementContext(DbContextOptions<OrderManagementContext> options) : base(options)
         {

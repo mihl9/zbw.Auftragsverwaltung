@@ -1,0 +1,126 @@
+# This is a basic workflow to help you get started with Actions
+
+name: Publish
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+    tags:
+      - 'v*'
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 3.1.x
+        source-url: https://nuget.pkg.github.com/<organization>/index.json
+      env:
+        NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+    - name: Restore dependencies
+      run: dotnet restore zbw.Auftragsverwaltung.sln
+    - name: Build
+      run: dotnet build zbw.Auftragsverwaltung.sln --no-restore
+    - name: Test
+      run: dotnet test zbw.Auftragsverwaltung.sln --no-build --verbosity normal
+  
+  semantic_release:
+    runs-on: ubuntu-latest
+    name: Semantic Release
+    needs: build
+    steps:
+      
+      - uses: actions/checkout@v1
+      
+      - uses: codfish/semantic-release-action@v1
+        id: semantic
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    
+  publish_libs:
+    runs-on: ubuntu-latest
+    name: publish Libraries
+    needs: [build, semantic_release]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 3.1.x
+          source-url: https://nuget.pkg.github.com/elbeachboy/index.json
+        env:
+          NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          
+      - name: Build Error Handler Library
+        run: |  
+          cd ./src/Lib/zbw.Auftragsverwaltung.Lib.ErrorHandling
+          dotnet pack -c Release -o out  
+
+      - name: Push generated Error Handler Library
+        run: dotnet nuget push ./src/Lib/zbw.Auftragsverwaltung.Lib.ErrorHandling/out/*.nupkg --skip-duplicate --no-symbols true
+  
+      - name: Build HttpClient Library
+        run: |  
+          cd ./src/Lib/zbw.Auftragsverwaltung.Lib.HttpClient
+          dotnet pack -c Release -o out  
+
+      - name: Push generated HttpClient Library
+        run: dotnet nuget push ./src/Lib/zbw.Auftragsverwaltung.Lib.HttpClient/out/*.nupkg --skip-duplicate --no-symbols true
+        
+      - name: Build Client Library
+        run: |  
+          cd ./src/zbw.Auftragsverwaltung.Client
+          dotnet pack -c Release -o out  
+
+      - name: Push generated Client Library
+        run: dotnet nuget push ./src/zbw.Auftragsverwaltung.Client/out/*.nupkg --skip-duplicate --no-symbols true
+        
+  publish_release_backend:
+    runs-on: ubuntu-latest
+    name: Publish Backend
+    needs: [build, semantic_release]
+    steps:
+      - uses: actions/checkout@v2
+        name: Checkout
+       
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v1
+      
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+        
+      - name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          images: ghcr.io/elbeachboy/zbw.Auftragsverwaltung.backend
+      
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+       
+      - name: Build and publish
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: src/zbw.Auftragsverwaltung.Api/Dockerfile
+          platforms: linux/amd64,linux/arm64
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}

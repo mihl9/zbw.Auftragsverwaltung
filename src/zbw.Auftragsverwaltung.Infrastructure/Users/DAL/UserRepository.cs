@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using zbw.Auftragsverwaltung.Core.Common.Contracts;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
+using Microsoft.EntityFrameworkCore;
 using zbw.Auftragsverwaltung.Core.Users.Contracts;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Infrastructure.Common.Repositories;
@@ -31,6 +27,14 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Users.DAL
         public Task<bool> SetUserPassword(User user, string password)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task<User> GetUserByRefreshToken(object token)
+        {
+            var user = await _dbContext.Users.SingleOrDefaultAsync(u =>
+                u.RefreshTokens.Any(t => t.Token == token.ToString()));
+
+            return user;
         }
     }
 }

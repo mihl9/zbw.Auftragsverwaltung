@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
-using zbw.Auftragsverwaltung.Core.Common.Interfaces;
+using zbw.Auftragsverwaltung.Domain.Common;
 
 namespace zbw.Auftragsverwaltung.Core.Common.Contracts
 {

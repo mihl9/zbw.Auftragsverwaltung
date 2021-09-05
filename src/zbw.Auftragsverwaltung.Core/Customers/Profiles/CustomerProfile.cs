@@ -1,11 +1,7 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Text;
-using AutoMapper;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
-using zbw.Auftragsverwaltung.Core.Customers.Dto;
+﻿using AutoMapper;
 using zbw.Auftragsverwaltung.Core.Customers.Entities;
+using zbw.Auftragsverwaltung.Domain.Common;
+using zbw.Auftragsverwaltung.Domain.Customers;
 
 namespace zbw.Auftragsverwaltung.Core.Customers.Profiles
 {
