@@ -8,7 +8,7 @@
     <Version>1.0.0</Version>
     <Authors>zbw.Auftragsverwaltung.Lib.ErrorHandling</Authors>
     <Company>zbw.Auftragsverwaltung.Lib.ErrorHandling</Company>
-    <RepositoryUrl>https://github.com/elbeachboy/zbw.Auftragsverwaltung</RepositoryUrl>
+    <RepositoryUrl>https://github.com/mihl9/zbw.Auftragsverwaltung</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>
