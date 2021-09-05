@@ -27,7 +27,7 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.x
-        source-url: https://nuget.pkg.github.com/<organization>/index.json
+        source-url: https://nuget.pkg.github.com/mihl9/index.json
       env:
         NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
     - name: Restore dependencies
@@ -60,7 +60,7 @@ jobs:
         uses: actions/setup-dotnet@v1
         with:
           dotnet-version: 3.1.x
-          source-url: https://nuget.pkg.github.com/elbeachboy/index.json
+          source-url: https://nuget.pkg.github.com/mihl9/index.json
         env:
           NUGET_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
           
@@ -106,7 +106,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@v3
         with:
-          images: ghcr.io/elbeachboy/zbw.Auftragsverwaltung.backend
+          images: ghcr.io/mihl9/zbw.Auftragsverwaltung.backend
       
       - name: Login to GitHub Container Registry
         uses: docker/login-action@v1
