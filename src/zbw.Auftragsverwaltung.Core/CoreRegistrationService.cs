@@ -16,6 +16,8 @@ using zbw.Auftragsverwaltung.Core.Addresses.Interfaces;
 using zbw.Auftragsverwaltung.Core.Common.Configurations;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.BLL;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
+using zbw.Auftragsverwaltung.Core.Articles.BLL;
+using zbw.Auftragsverwaltung.Core.Articles.Interfaces;
 using zbw.Auftragsverwaltung.Core.Customers.BLL;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
 using zbw.Auftragsverwaltung.Core.Users.Bll;
@@ -37,6 +39,7 @@ namespace zbw.Auftragsverwaltung.Core
             services.AddScoped<IUserBll, UserBll>();
 
             services.AddScoped<IArticleGroupBll, ArticleGroupBll>();
+            services.AddScoped<IArticleBll, ArticleBll>();
 
             return services;
         }
