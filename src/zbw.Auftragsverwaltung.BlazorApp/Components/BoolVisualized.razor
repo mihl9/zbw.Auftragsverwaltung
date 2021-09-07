@@ -1,0 +1,19 @@
+﻿<div>
+    @if (Value)
+    {
+        <a class="btn-fab btn-fab-mini badge-success badge-pill">
+            <i class="material-icons logo-mini">done</i>
+        </a>
+    }
+    else
+    {
+        <a class="btn-fab badge-danger badge-pill">
+            <i class="material-icons logo-mini">close</i>
+        </a>
+    }
+</div>
+
+@code {
+    [Parameter] 
+    public bool Value { get; set; } = false;
+}
