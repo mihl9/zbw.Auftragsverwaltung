@@ -50,6 +50,9 @@ namespace zbw.Auftragsverwaltung.Api
 
             services.AddOptions();
 
+            services.AddControllersWithViews();
+            services.AddRazorPages();
+
             services.AddHttpApiExceptionMiddleware(c =>
             {
                 c.RequestPathFilter = (ctx) => "";
@@ -94,8 +97,12 @@ namespace zbw.Auftragsverwaltung.Api
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Management API V1");
-                c.RoutePrefix = string.Empty;
+                c.RoutePrefix = "api/Documentation";
             });
+            
+            app.UseBlazorFrameworkFiles();
+            app.UseStaticFiles();
+
             app.UseRouting();
             app.UseCors();
             app.UseDefaultRoles(services);
@@ -106,7 +113,9 @@ namespace zbw.Auftragsverwaltung.Api
                 
                 IdentityModelEventSource.ShowPII = true;
             }
-            
+
+           
+
             //always generate test users
             app.UseDevUser(services);
             app.UseAuthentication();
@@ -115,7 +124,9 @@ namespace zbw.Auftragsverwaltung.Api
 
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapFallbackToFile("index.html");
             });
         }
     }

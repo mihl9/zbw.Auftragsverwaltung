@@ -16,10 +16,12 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="5.0.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.1.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\Lib\zbw.Auftragsverwaltung.Lib.ErrorHandling\zbw.Auftragsverwaltung.Lib.ErrorHandling.csproj" />
+    <ProjectReference Include="..\zbw.Auftragsverwaltung.BlazorApp\zbw.Auftragsverwaltung.BlazorApp.csproj" />
     <ProjectReference Include="..\zbw.Auftragsverwaltung.Core\zbw.Auftragsverwaltung.Core.csproj" />
     <ProjectReference Include="..\zbw.Auftragsverwaltung.Infrastructure\zbw.Auftragsverwaltung.Infrastructure.csproj" />
   </ItemGroup>
