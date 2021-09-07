@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Tewr.Blazor.FileReader;
 using zbw.Auftragsverwaltung.BlazorApp.Services;
 using zbw.Auftragsverwaltung.Client;
 using zbw.Auftragsverwaltung.Client.Common.Configuration;
@@ -37,6 +38,8 @@ namespace zbw.Auftragsverwaltung.BlazorApp
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IStorageService, LocalStorageService>();
+
+            services.AddFileReaderService(options => options.UseWasmSharedBuffer = true);
 
             var host = builder.Build();
 

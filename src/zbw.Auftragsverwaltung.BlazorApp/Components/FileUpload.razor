@@ -1,0 +1,13 @@
+﻿@if (UseDropZone)
+{
+    <div class="files">
+        <input class="" type="file" @ref="_input" @onchange="@HandleSelected" multiple="@MultipleFiles" />
+    </div>
+}
+else
+{
+    <span class="btn btn-raised btn-round btn-rose btn-file">
+        <span class="fileinput-new">@Text</span>
+        <input class="" type="file" @ref="_input" @onchange="@HandleSelected" multiple="@MultipleFiles" />
+    </span>
+}
