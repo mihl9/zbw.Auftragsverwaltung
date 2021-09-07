@@ -1,0 +1,24 @@
+﻿<div class="card">
+    <div class="card-header card-header @GetCardClasses()">
+        @if (!string.IsNullOrEmpty(MaterialIcon))
+        {
+            <div class="card-icon">
+                <i class="material-icons">@MaterialIcon</i>
+            </div>
+            @Title
+        }
+        else
+        {
+            <div class="card-text">
+                @Title
+            </div>
+        }
+
+    </div>
+    <div class="card-body">
+        @Body
+    </div>
+    <div class="card-footer">
+        @Footer
+    </div>
+</div>
