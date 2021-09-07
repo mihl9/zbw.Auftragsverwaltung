@@ -51,6 +51,11 @@ $ dotnet build zbw.Auftragsverwaltung.sln --no-restore
         - username: sa
         - password: Your_password123
 
+    or you can use the following docker command
+    ```
+    $ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=Your_password123" -p 1433:1433 -d mcr.microsoft.com/mssql/server
+    ```
+
 to start the Project without any configuration you can use the [Docker](#docker-installation) approach.
 
 ## Docker installation
