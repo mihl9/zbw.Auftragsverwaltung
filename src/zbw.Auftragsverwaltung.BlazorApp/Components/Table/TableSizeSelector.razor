@@ -1,0 +1,10 @@
+﻿<div class="form-inline">
+    <label class="form-check-inline">Show</label>
+    <select @onchange="OnCountChange" value="@Value" class="selectpicker form-check-inline" data-style="btn btn-sm btn-primary btn-round">
+        @foreach (var (key, value) in AvailableSelections)
+        {
+            <option value="@key">@value</option>
+        }
+    </select>
+    <label class="form-check-inline"> entries</label>
+</div>
