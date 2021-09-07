@@ -85,7 +85,11 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
         {
             var user = await GetUser(userId);
 
-            dto.UserId = user.Id.ToString();
+            if (!await _userManager.IsInRoleAsync(user, Roles.Administrator.ToString()))
+            {
+                dto.UserId = user.Id.ToString();
+            }
+            
             dto.Id = new Guid();
             var customer = _mapper.Map<Customer>(dto);
             customer = await _customerRepository.AddAsync(customer);

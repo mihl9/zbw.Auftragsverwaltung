@@ -8,11 +8,11 @@ services:
       dockerfile: src/zbw.Auftragsverwaltung.Api/Dockerfile
     depends_on:
      - zbw.auftragsverwaltung.db
-  zbw.auftragsverwaltung.webapp:
+  zbw.auftragsverwaltung.BlazorApp:
     image: ${DOCKER_REGISTRY-}zbwauftragsverwaltungwebapp
     build:
       context: .
-      dockerfile: src/zbw.Auftragsverwaltung.WebApp/Dockerfile
+      dockerfile: src/zbw.Auftragsverwaltung.BlazorApp/Dockerfile
     depends_on:
      - zbw.auftragsverwaltung.db
      - zbw.auftragsverwaltung.api

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -148,10 +149,10 @@ namespace zbw.Auftragsverwaltung.Core.Users.Bll
                 var token = await _tokenService.GenerateAuthenticationToken(user);
                 var refreshToken = await _tokenService.GenerateRefreshToken(ipAddress);
                 
-                user.RefreshTokens.Clear();
+                await ClearExpiredRefreshToken(user);
                 user.RefreshTokens.Add(refreshToken);
                 await _userRepository.UpdateAsync(user);
-                return new AuthenticateResponse() { AuthenticationToken = token, RefreshToken = refreshToken};
+                return new AuthenticateResponse() { AuthenticationToken = token, RefreshToken = refreshToken.Token};
             }
             if (signinResult.IsNotAllowed)
             {
@@ -192,7 +193,7 @@ namespace zbw.Auftragsverwaltung.Core.Users.Bll
 
             var jwtToken = await _tokenService.GenerateAuthenticationToken(user);
 
-            return new AuthenticateResponse() { AuthenticationToken = jwtToken, RefreshToken = newRefreshToken };
+            return new AuthenticateResponse() { AuthenticationToken = jwtToken, RefreshToken = newRefreshToken.Token };
         }
 
         public async Task<bool> RevokeToken(object token, string ipAddress)
@@ -213,12 +214,23 @@ namespace zbw.Auftragsverwaltung.Core.Users.Bll
             return true;
         }
 
+        public async Task<bool> ValidateToken(object token)
+        {
+            return await _tokenService.ValidateAuthenticationToken(token);
+        }
+
         private async Task<IEnumerable<CustomerDto>> GetCustomersForUser(UserDto user)
         {
             var result = await _customer.GetForUser(user.Id, user.Id);
             return result;
         }
 
+        private async Task ClearExpiredRefreshToken(User user)
+        {
+            user.RefreshTokens.Where(x => x.IsExpired).ToList()
+                .ForEach(x => user.RefreshTokens.Remove(x));
+            await Task.CompletedTask;
+        }
 
     }
 }

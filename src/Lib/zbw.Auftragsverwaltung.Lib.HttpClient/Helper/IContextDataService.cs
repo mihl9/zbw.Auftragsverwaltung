@@ -1,13 +1,14 @@
 ﻿using System.Net.Http;
+using System.Threading.Tasks;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Model;
 
 namespace zbw.Auftragsverwaltung.Lib.HttpClient.Helper
 {
     public interface IContextDataService
     {
-        string GetAuthorizationHeader();
+        Task<string> GetAuthorizationHeader();
 
-        RequestContext GetRequestContext();
+        Task<RequestContext> GetRequestContext();
 
     }
 }

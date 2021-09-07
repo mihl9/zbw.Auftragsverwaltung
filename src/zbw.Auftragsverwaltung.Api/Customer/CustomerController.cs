@@ -67,7 +67,7 @@ namespace zbw.Auftragsverwaltung.Api.Customer
 
         [HttpPost]
         [Authorize(Policy = Policies.RequireAdministratorRole)]
-        [ProducesResponseType(typeof(PaginatedList<CustomerDto>), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(CustomerDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Add([FromBody] CustomerDto customer)
         {
             var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);

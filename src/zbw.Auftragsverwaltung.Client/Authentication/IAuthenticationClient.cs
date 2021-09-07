@@ -17,5 +17,7 @@ namespace zbw.Auftragsverwaltung.Client.Authentication
         public Task<AuthenticateResponse> RefreshToken(RefreshTokenRequest request);
 
         public Task<bool> RevokeToken(RevokeTokenRequest request);
+
+        public Task<bool> ValidateToken(ValidateTokenRequest request);
     }
 }
