@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using zbw.Auftragsverwaltung.BlazorApp.Services;
 using zbw.Auftragsverwaltung.Client;
 using zbw.Auftragsverwaltung.Client.Common.Configuration;
+using zbw.Auftragsverwaltung.Lib.HttpClient.Helper;
 
 namespace zbw.Auftragsverwaltung.BlazorApp
 {
@@ -18,7 +19,7 @@ namespace zbw.Auftragsverwaltung.BlazorApp
         public static async Task Main(string[] args)
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
-            builder.RootComponents.Add<App>("#app");
+            builder.RootComponents.Add<App>("app");
 
             var services = builder.Services;
 
