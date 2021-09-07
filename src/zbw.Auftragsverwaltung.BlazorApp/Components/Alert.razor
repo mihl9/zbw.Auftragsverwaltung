@@ -1,5 +1,12 @@
-﻿<h3>Alert</h3>
-
-@code {
-
+﻿@if (Visible)
+{
+    <div class="alert alert-@Level.Level">
+        @ChildContent
+        @if (Dismissible)
+        {
+            <button type="button" class="close" @onclick="@OnDismissClick" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>  
+        }
+    </div>
 }
