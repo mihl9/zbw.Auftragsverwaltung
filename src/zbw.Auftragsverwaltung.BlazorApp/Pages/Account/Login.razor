@@ -1,43 +1,56 @@
 ﻿@page "/Account/login"
 @using System.ComponentModel.DataAnnotations
-@inject IAuthService AuthenticationService
-@inject NavigationManager NavigationManager
-
-<div class="col-md-6 offset-md-3 mt-5">
-    <div class="alert alert-info">
+@inject IAuthService _authenticationService
+@inject NavigationManager _navigationManager
+@inject ISnackbar _snackbar
+@inject INavMenuStateService _navMenuState
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <MudAlert Severity="Severity.Info">
         Username: testuser<br />
         Password: Test@1
-    </div>
-    <div class="card">
-        <h4 class="card-header">Login</h4>
-        <div class="card-body">
-            <EditForm Model="@_model" OnValidSubmit="HandleValidSubmit">
-                <DataAnnotationsValidator />
-                <div class="form-group">
-                    <label>Username</label>
-                    <InputText @bind-Value="_model.Username" class="form-control" />
+    </MudAlert>
+
+    <EditForm Model="@_model" OnValidSubmit="@HandleValidSubmit" >
+        <DataAnnotationsValidator />
+        <MudCard>
+            <MudCardContent>
+                <div class="mud-input-control mud-input-input-control">
+                    <div class="mud-input mud-input-text mud-input-underline mud-shrink">
+                        <InputText @bind-Value="_model.Username" class="mud-input-slot mud-input-root mud-input-root-text" />
+                    </div>
+                    <label class="mud-input-label mud-input-label-animated mud-input-label-text mud-input-label-inputcontrol">
+                        Username
+                    </label>
                     <ValidationMessage For="@(() => _model.Username)" />
                 </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <InputText @bind-Value="_model.Password" type="password" class="form-control" />
+
+                <div class="mud-input-control mud-input-input-control ">
+                    <div class="mud-input mud-input-text mud-input-underline mud-shrink">
+                        <InputText @bind-Value="_model.Password" type="password" class="mud-input-slot mud-input-root mud-input-root-text"/>
+                    </div>
+                    <label class="mud-input-label mud-input-label-animated mud-input-label-text mud-input-label-inputcontrol">
+                        Password
+                    </label>
                     <ValidationMessage For="@(() => _model.Password)" />
                 </div>
-                <button class="btn btn-primary">
+            </MudCardContent>
+            <MudCardActions>
+                <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Disabled="@_loading">
                     @if (_loading)
                     {
-                        <span class="spinner-border spinner-border-sm mr-1"></span>
+                        <MudProgressCircular Class="ms-n1" Size="Size.Small" Indeterminate="true" />
+                        <MudText Class="ms-2">Logging In</MudText>
                     }
-                    Login
-                </button>
-                @if (!string.IsNullOrEmpty(_error))
-                {
-                    <div class="alert alert-danger mt-3 mb-0">@_error</div>
-                }
-            </EditForm>
-        </div>
-    </div>
-</div>
+                    else
+                    {
+                        <MudText>Login</MudText>
+                    }
+                </MudButton>
+            </MudCardActions>
+        </MudCard>
+    </EditForm>
+
+</MudContainer>
 
 @code {
     private readonly Model _model = new Model();
@@ -46,9 +59,9 @@
 
     protected override void OnInitialized()
     {
-        if (AuthenticationService.User != null)
+        if (_authenticationService.User != null)
         {
-            NavigationManager.NavigateTo("");
+            _navigationManager.NavigateTo("");
         }
     }
 
@@ -57,13 +70,16 @@
         _loading = true;
         try
         {
-            await AuthenticationService.Login(_model.Username, _model.Password);
-            var returnUrl = NavigationManager.QueryString("returnUrl") ?? "/";
-            NavigationManager.NavigateTo(returnUrl);
+            await _authenticationService.Login(_model.Username, _model.Password);
+            _navMenuState.NotifyChanged();
+            var returnUrl = _navigationManager.QueryString("returnUrl") ?? "/";
+            await Task.Delay(100);
+            _navigationManager.NavigateTo(returnUrl);
         }
         catch (Exception ex)
         {
             _error = ex.Message;
+            _snackbar.Add(_error, Severity.Warning);
             _loading = false;
             StateHasChanged();
         }

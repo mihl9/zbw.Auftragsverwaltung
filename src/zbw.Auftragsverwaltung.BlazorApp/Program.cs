@@ -7,10 +7,14 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using MudBlazor;
+using MudBlazor.Services;
 using Tewr.Blazor.FileReader;
+using zbw.Auftragsverwaltung.BlazorApp.Helpers;
 using zbw.Auftragsverwaltung.BlazorApp.Services;
 using zbw.Auftragsverwaltung.Client;
 using zbw.Auftragsverwaltung.Client.Common.Configuration;
+using zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Contracts;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Helper;
 
 namespace zbw.Auftragsverwaltung.BlazorApp
@@ -38,6 +42,12 @@ namespace zbw.Auftragsverwaltung.BlazorApp
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IStorageService, LocalStorageService>();
+            services.AddScoped<INavMenuStateService, NavMenuStateService>();
+
+            services.AddMudServices(o =>
+            {
+                o.SnackbarConfiguration.PositionClass = Defaults.Classes.Position.TopCenter;
+            });
 
             services.AddFileReaderService(options => options.UseWasmSharedBuffer = true);
 
@@ -46,6 +56,8 @@ namespace zbw.Auftragsverwaltung.BlazorApp
             var authenticationService = host.Services.GetRequiredService<IAuthService>();
             await authenticationService.Initialize();
 
+            var httpExceptionMapper = host.Services.GetRequiredService<IExceptionMapper<HttpResponseMessage>>();
+            
             await host.RunAsync();
         }
     }

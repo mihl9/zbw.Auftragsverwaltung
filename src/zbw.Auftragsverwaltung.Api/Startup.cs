@@ -107,6 +107,8 @@ namespace zbw.Auftragsverwaltung.Api
             app.UseCors();
             app.UseDefaultRoles(services);
 
+            app.UseWebAssemblyDebugging();
+
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();

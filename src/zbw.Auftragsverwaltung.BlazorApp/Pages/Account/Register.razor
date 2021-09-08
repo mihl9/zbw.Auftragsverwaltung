@@ -1,0 +1,91 @@
+﻿@page "/Account/Register"
+@using System.ComponentModel.DataAnnotations
+@using zbw.Auftragsverwaltung.Client
+@using zbw.Auftragsverwaltung.Domain.Users
+@inject ISnackbar _snackbar
+@inject IAuftragsverwaltungClient _auftragsverwaltungClient
+
+    <MudContainer MaxWidth="MaxWidth.Medium">
+        <EditForm Model="@_model" OnValidSubmit="OnValidSubmit">
+            @if (!success)
+            {
+                <DataAnnotationsValidator />
+                <MudCard>
+                    <MudCardContent>
+                        <MudTextField Label="First name" HelperText="Max. 8 characters"
+                                      @bind-Value="_model.Username" For="@(() => _model.Username)" />
+                        <MudTextField Label="Email" Class="mt-3"
+                                      @bind-Value="_model.Email" For="@(() => _model.Email)" />
+                        <MudTextField Label="Password" HelperText="Choose a strong password" Class="mt-3"
+                                      @bind-Value="_model.Password" For="@(() => _model.Password)" InputType="InputType.Password" />
+                        <MudTextField Label="Password" HelperText="Repeat the password" Class="mt-3"
+                                      @bind-Value="_model.Password2" For="@(() => _model.Password2)" InputType="InputType.Password" />
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton ButtonType="ButtonType.Submit" Variant="Variant.Filled" Color="Color.Primary" Class="ml-auto">Register</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            }
+            else
+            {
+                <MudCard>
+                    <MudCardContent>
+                        <MudContainer>
+                            <MudIcon Icon="@Icons.Custom.Uncategorized.AlertSuccess" Color="Color.Success" Size="Size.Large"></MudIcon>
+                        </MudContainer>
+                    </MudCardContent>
+                    <MudCardActions>
+                        <MudButton Color="Color.Primary" Variant="Variant.Filled" Link="/Account/Login">Login Now</MudButton>
+                    </MudCardActions>
+                </MudCard>
+            }
+
+        </EditForm>
+    </MudContainer>
+
+    @code {
+        readonly RegisterAccountForm _model = new RegisterAccountForm();
+        bool success;
+
+        public class RegisterAccountForm
+        {
+            [Required]
+            [StringLength(8, ErrorMessage = "Name length can't be more than 8.")]
+            public string Username { get; set; }
+
+            [Required]
+            [EmailAddress]
+            public string Email { get; set; }
+
+            [Required]
+            [StringLength(30, ErrorMessage = "Password must be at least 8 characters long.", MinimumLength = 8)]
+            public string Password { get; set; }
+
+            [Required]
+            [Compare(nameof(Password))]
+            public string Password2 { get; set; }
+
+        }
+
+        private async void OnValidSubmit(EditContext context)
+        {
+            try
+            {
+                success = await _auftragsverwaltungClient.Authentication().Register(new RegisterRequest()
+                {
+                    Email = _model.Email,
+                    Password = _model.Password,
+                    UserName = _model.Username
+                });
+            }
+            catch (Exception e)
+            {
+                _snackbar.Add(e.Message, Severity.Warning);
+                throw;
+            }
+            
+
+            StateHasChanged();
+        }
+
+    }

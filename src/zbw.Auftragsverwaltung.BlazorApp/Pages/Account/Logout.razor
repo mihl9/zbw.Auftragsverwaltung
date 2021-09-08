@@ -1,9 +1,11 @@
 ﻿@page "/Account/logout"
 @inject IAuthService _authenticationService
+@inject INavMenuStateService _navMenuState
 
 @code {
     protected override async void OnInitialized()
     {
         await _authenticationService.Logout();
+        _navMenuState.NotifyChanged();
     }
 }
