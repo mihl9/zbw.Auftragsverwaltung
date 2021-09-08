@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using zbw.Auftragsverwaltung.Core.Common.Interfaces;
+using zbw.Auftragsverwaltung.Core.Articles.Entities;
 
 namespace zbw.Auftragsverwaltung.Core.Positions.Entities
 {
@@ -13,7 +14,7 @@ namespace zbw.Auftragsverwaltung.Core.Positions.Entities
 
         public int Nr { get; set; }
 
-        // public Article article { get; set; }
+        public Article article { get; set; }
         public int Amount { get; set; }
     }
 }

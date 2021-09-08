@@ -1,20 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq.Expressions;
-using System.Text;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Identity;
 using AutoMapper;
 using zbw.Auftragsverwaltung.Core.Common.Contracts;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
 using zbw.Auftragsverwaltung.Core.Positions.Dto;
 using zbw.Auftragsverwaltung.Core.Positions.Entities;
 using zbw.Auftragsverwaltung.Core.Positions.Interfaces;
-using zbw.Auftragsverwaltung.Core.Users.Entities;
-using zbw.Auftragsverwaltung.Core.Common.Helpers;
-using zbw.Auftragsverwaltung.Core.Users.Dto;
-using zbw.Auftragsverwaltung.Core.Users.Enumerations;
-using zbw.Auftragsverwaltung.Core.Common.Exceptions;
+using zbw.Auftragsverwaltung.Domain.Common;
+using zbw.Auftragsverwaltung.Core.Common.Interfaces;
 
 namespace zbw.Auftragsverwaltung.Core.Positions.BLL
 {
@@ -69,6 +62,16 @@ namespace zbw.Auftragsverwaltung.Core.Positions.BLL
             await _positionRepository.UpdateAsync(position);
 
             return _mapper.Map<PositionDto>(position);
+        }
+
+        Task<PaginatedList<PositionDto>> ICrudBll<PositionDto, Position, Guid>.GetList(Expression<Func<Position, bool>> predicate, int size, int page)
+        {
+            throw new NotImplementedException();
+        }
+
+        Task<PaginatedList<PositionDto>> ICrudBll<PositionDto, Position, Guid>.GetList(bool deleted, int size, int page)
+        {
+            throw new NotImplementedException();
         }
     }
 }
