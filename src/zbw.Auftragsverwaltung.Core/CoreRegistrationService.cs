@@ -25,6 +25,8 @@ using zbw.Auftragsverwaltung.Core.Users.Contracts;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Core.Users.Interfaces;
+using zbw.Auftragsverwaltung.Core.Reports.Interfaces;
+using zbw.Auftragsverwaltung.Core.Reports.BLL;
 
 namespace zbw.Auftragsverwaltung.Core
 {
@@ -37,9 +39,12 @@ namespace zbw.Auftragsverwaltung.Core
             services.AddScoped<ICustomerBll, CustomerBll>();
             services.AddScoped<IAddressBll, AddressBll>();
             services.AddScoped<IUserBll, UserBll>();
+            
 
             services.AddScoped<IArticleGroupBll, ArticleGroupBll>();
             services.AddScoped<IArticleBll, ArticleBll>();
+
+            services.AddScoped<IReportBll, ReportBll>();
 
             return services;
         }

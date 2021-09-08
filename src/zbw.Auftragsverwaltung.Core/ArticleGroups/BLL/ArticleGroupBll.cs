@@ -7,6 +7,7 @@ using AutoMapper;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Contracts;
 using zbw.Auftragsverwaltung.Domain.ArticleGroups;
 using zbw.Auftragsverwaltung.Domain.Common;
+using System.Collections.Generic;
 
 namespace zbw.Auftragsverwaltung.Core.ArticleGroups.BLL
 {
