@@ -45,16 +45,16 @@ namespace zbw.Auftragsverwaltung.Core.Positions.BLL
 
         public async Task<PositionDto> Add(PositionDto dto)
         {
-            var order = _mapper.Map<Position>(dto);
-            order = await _positionRepository.AddAsync(order);
+            var position = _mapper.Map<Position>(dto);
+            position = await _positionRepository.AddAsync(position);
 
-            return _mapper.Map<PositionDto>(order);
+            return _mapper.Map<PositionDto>(position);
         }
 
         public async Task<bool> Delete(PositionDto dto)
         {
-            var order = _mapper.Map<Position>(dto);
-            return await _positionRepository.DeleteAsync(order);
+            var position = _mapper.Map<Position>(dto);
+            return await _positionRepository.DeleteAsync(position);
         }
 
         public async Task<PositionDto> Update(PositionDto dto)

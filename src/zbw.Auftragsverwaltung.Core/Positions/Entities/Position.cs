@@ -14,7 +14,7 @@ namespace zbw.Auftragsverwaltung.Core.Positions.Entities
 
         public int Nr { get; set; }
 
-        public Article article { get; set; }
+        public Article Article { get; set; }
         public int Amount { get; set; }
     }
 }

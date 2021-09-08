@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using zbw.Auftragsverwaltung.Core.Articles.Dto;
+using zbw.Auftragsverwaltung.Core.Articles.Entities;
 
 
 namespace zbw.Auftragsverwaltung.Core.Positions.Dto
@@ -12,7 +12,7 @@ namespace zbw.Auftragsverwaltung.Core.Positions.Dto
 
         public int Nr { get; set; }
 
-        public ArticleDto Article { get; set; }
+        public Article Article { get; set; }
 
         public int Amount { get; set; }
     }
