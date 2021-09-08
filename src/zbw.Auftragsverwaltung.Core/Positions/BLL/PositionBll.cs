@@ -6,6 +6,7 @@ using zbw.Auftragsverwaltung.Core.Common.Contracts;
 using zbw.Auftragsverwaltung.Core.Positions.Dto;
 using zbw.Auftragsverwaltung.Core.Positions.Entities;
 using zbw.Auftragsverwaltung.Core.Positions.Interfaces;
+using zbw.Auftragsverwaltung.Core.Positions.Contracts;
 using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Core.Common.Interfaces;
 
@@ -13,10 +14,10 @@ namespace zbw.Auftragsverwaltung.Core.Positions.BLL
 {
     public class PositionBll : IPositionBll
     {
-        private readonly IRepository<Position, Guid> _positionRepository;
+        private readonly IPositionRepository _positionRepository;
         private readonly IMapper _mapper;
 
-        public PositionBll(IRepository<Position, Guid> positionRepository, IMapper mapper)
+        public PositionBll(IPositionRepository positionRepository, IMapper mapper)
         {
             _positionRepository = positionRepository;
             _mapper = mapper;

@@ -5,24 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using AutoMapper;
-using zbw.Auftragsverwaltung.Core.Common.Contracts;
 using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Core.Orders.Dto;
 using zbw.Auftragsverwaltung.Core.Orders.Entities;
 using zbw.Auftragsverwaltung.Core.Orders.Interfaces;
-using zbw.Auftragsverwaltung.Core.Users.Entities;
-using zbw.Auftragsverwaltung.Core.Common.Helpers;
-using zbw.Auftragsverwaltung.Core.Users.Enumerations;
-using zbw.Auftragsverwaltung.Core.Common.Exceptions;
+using zbw.Auftragsverwaltung.Core.Orders.Contracts;
+
 
 namespace zbw.Auftragsverwaltung.Core.Orders.BLL
 {
     public class OrderBll : IOrderBll
     {
-        private readonly IRepository<Order, Guid> _orderRepository;
+        private readonly IOrderRepository _orderRepository;
         private readonly IMapper _mapper;
 
-        public OrderBll(IRepository<Order, Guid> orderRepository, IMapper mapper)
+        public OrderBll(IOrderRepository orderRepository, IMapper mapper)
         {
             _orderRepository = orderRepository;
             _mapper = mapper;

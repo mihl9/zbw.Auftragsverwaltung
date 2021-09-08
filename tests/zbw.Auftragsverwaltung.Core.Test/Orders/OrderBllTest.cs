@@ -54,7 +54,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Orders
             var configuration = new MapperConfiguration(cfg => cfg.AddProfile(profile));
             IMapper mapper = new Mapper(configuration);
 
-            _orderRepository = OrderRepositoryHelper.TestCustomerRepository(_orders);
+            _orderRepository = OrderRepositoryHelper.TestOrderRepository(_orders);
             _userManager = UserManagerTestHelper.TestUserManager<User>(_users);
 
             _userManager.Setup(x => x.IsInRoleAsync(It.IsAny<User>(), It.IsAny<string>())).ReturnsAsync(

@@ -52,7 +52,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure
 
             services.AddScoped<IArticleGroupRepository, ArticleGroupRepository>();
             services.AddScoped<IArticleRepository, ArticleRepository>();
-
+            services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IPositionRepository, PositionRepository>();
 
             services.AddDbContext<UserIdentityContext>(o =>
