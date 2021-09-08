@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using zbw.Auftragsverwaltung.Api.Common.Models;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Interfaces;
+using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Domain.ArticleGroups;
@@ -26,20 +28,41 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
         private readonly UserManager<User> _userManager;
 
 
-        public ArticleGroupController(IArticleGroupBll articleGroupBll, ILogger<ArticleGroupController> logger, UserManager<User> userManager)
+        public ArticleGroupController(IArticleGroupBll articleGroupBll, ILogger<ArticleGroupController> logger)
         {
             _articleGroupBll = articleGroupBll;
             _logger = logger;
-            _userManager = userManager;
         }
 
-        // GET: api/<ArticleGroupController>
         [HttpGet]
         [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetList(int size = 10, int page = 1, bool deleted = false)
         {
 
-            return new JsonResult(await _articleGroupBll.GetList(deleted, size, page));
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(rawUserId, out var userId))
+            {
+                return Forbid();
+            }
+
+            try
+            {
+                var result = await _articleGroupBll.GetList(deleted, size, page);
+                return Ok(result);
+            }
+            catch (InvalidRightsException)
+            {
+                return Forbid();
+            }
+            catch (UserNotFoundException)
+            {
+                return Forbid();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessage() { Message = e.Message });
+            }
         }
 
         // GET api/<ArticleGroupController>/5
@@ -47,21 +70,62 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
         [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(Guid id)
         {
-            return new JsonResult(await _articleGroupBll.Get(id));
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(rawUserId, out var userId))
+            {
+                return Forbid();
+            }
+
+            try
+            {
+                var result = await _articleGroupBll.Get(id);
+                return Ok(result);
+            }
+            catch (InvalidRightsException e)
+            {
+                return Forbid();
+            }
+            catch (UserNotFoundException e)
+            {
+                return Forbid();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessage() { Message = e.Message });
+            }
         }
 
-        // POST api/<ArticleGroupController>
+
         [HttpPost]
         [Authorize(Policy = Policies.RequireAdministratorRole)]
-        public async Task<ArticleGroupDto> Add([FromBody] ArticleGroupDto articleGroup)
+        [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
+        public async Task<IActionResult> Add([FromBody] ArticleGroupDto article)
         {
-            if (!User.IsInRole(Roles.Administrator.ToString()))
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(rawUserId, out var userId))
             {
-                var cust = await _articleGroupBll.Get(articleGroup.Id);
-                                                
+                return Forbid();
             }
-            
-            return await _articleGroupBll.Add(articleGroup);
+
+            try
+            {
+                var result = await _articleGroupBll.Add(article);
+                return Ok(result);
+            }
+            catch (InvalidRightsException)
+            {
+                return Forbid();
+            }
+            catch (UserNotFoundException)
+            {
+                return Forbid();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessage() { Message = e.Message });
+            }
         }
 
         // PUT api/<ArticleGroupController>/5
@@ -70,7 +134,30 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
         public async Task<IActionResult> Update([FromBody] ArticleGroupDto articleGroup)
         {
 
-            return new JsonResult(await _articleGroupBll.Update(articleGroup));
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(rawUserId, out var userId))
+            {
+                return Forbid();
+            }
+
+            try
+            {
+                var result = await _articleGroupBll.Update(articleGroup);
+                return Ok(result);
+            }
+            catch (InvalidRightsException)
+            {
+                return Forbid();
+            }
+            catch (UserNotFoundException)
+            {
+                return Forbid();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessage() { Message = e.Message });
+            }
         }
 
         // DELETE api/<ArticleGroupController>/5
@@ -78,13 +165,31 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
         [Authorize(Policy = Policies.RequireAdministratorRole)]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var dto = new ArticleGroupDto(){Id = id};
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var dto = new ArticleGroupDto() { Id = id };
 
-            var result = await _articleGroupBll.Delete(dto);
-            if (result)
-                return Ok(new SuccessMessage());
+            if (!Guid.TryParse(rawUserId, out var userId))
+            {
+                return Forbid();
+            }
 
-            return new BadRequestObjectResult(new ErrorMessage(){Message = $"Failed to delete the ArticleGroup with the ID: {id}"});
+            try
+            {
+                var result = await _articleGroupBll.Delete(dto);
+                return Ok();
+            }
+            catch (InvalidRightsException)
+            {
+                return Forbid();
+            }
+            catch (UserNotFoundException)
+            {
+                return Forbid();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(new ErrorMessage() { Message = e.Message });
+            }
         }
     }
 }

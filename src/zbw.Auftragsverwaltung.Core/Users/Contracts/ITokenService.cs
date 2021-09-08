@@ -10,6 +10,8 @@ namespace zbw.Auftragsverwaltung.Core.Users.Contracts
     {
         public Task<object> GenerateAuthenticationToken(User user);
 
+        public Task<bool> ValidateAuthenticationToken(object token);
+
         public Task<RefreshToken> GenerateRefreshToken(string ipAddress);
     }
 }

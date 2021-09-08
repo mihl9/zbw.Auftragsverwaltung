@@ -8,6 +8,7 @@ using zbw.Auftragsverwaltung.Client.Authentication;
 using zbw.Auftragsverwaltung.Client.Common.Configuration;
 using zbw.Auftragsverwaltung.Client.Customer;
 using zbw.Auftragsverwaltung.Client.User;
+using zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Contracts;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Helpers;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Helper;
 
@@ -19,7 +20,7 @@ namespace zbw.Auftragsverwaltung.Client
         private readonly ICustomerClient _customerClient;
 
         public AuftragsverwaltungClient(IHttpClientFactory httpClientFactory,
-            IOptions<AuftragsverwaltungClientConfiguration> configuration, IContextDataService contextDataService, HttpExceptionMapper exceptionMapper)
+            IOptions<AuftragsverwaltungClientConfiguration> configuration, IContextDataService contextDataService, IExceptionMapper<HttpResponseMessage> exceptionMapper)
         {
             var client = httpClientFactory.CreateClient(configuration.Value.ClientName);
 

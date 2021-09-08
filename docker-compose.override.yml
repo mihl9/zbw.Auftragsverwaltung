@@ -4,23 +4,20 @@ services:
   zbw.auftragsverwaltung.api:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development-Docker
-      - ASPNETCORE_URLS=https://+:443;http://+:80
+      - ASPNETCORE_URLS=http://+:80
     ports:
-      - "80"
-      - "443"
+      - "9001:80"
     volumes:
       - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
       - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-  zbw.auftragsverwaltung.webapp:
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Development-Docker
-      - ASPNETCORE_URLS=https://+:443;http://+:80
-    ports:
-      - "80"
-      - "443"
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
+  #zbw.auftragsverwaltung.BlazorApp:
+  #  environment:
+  #    - ASPNETCORE_ENVIRONMENT=Development-Docker
+  #  ports:
+  #    - "9000:80"
+  #  volumes:
+  #    - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
+  #    - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
   zbw.auftragsverwaltung.db:
     environment:
         SA_PASSWORD: "Your_password123"

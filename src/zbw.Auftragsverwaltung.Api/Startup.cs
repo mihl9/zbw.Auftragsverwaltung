@@ -37,7 +37,21 @@ namespace zbw.Auftragsverwaltung.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(o =>
+            {
+                //really unsafe
+                o.AddDefaultPolicy(p =>
+                {
+                    p.AllowAnyOrigin();
+                    p.AllowAnyHeader();
+                    p.AllowAnyMethod();
+                });
+            });
+
             services.AddOptions();
+
+            services.AddControllersWithViews();
+            services.AddRazorPages();
 
             services.AddHttpApiExceptionMiddleware(c =>
             {
@@ -53,7 +67,7 @@ namespace zbw.Auftragsverwaltung.Api
             });
 
             services.AddInfrastructurServices(Configuration);
-
+            
             services.AddCoreServices();
             services.AddAuthenticationService<DefaultTokenService>(Configuration);
             
@@ -78,30 +92,41 @@ namespace zbw.Auftragsverwaltung.Api
             app.UseHttpApiExceptionMiddleware();
             app.MigrateOrderDatabase();
             app.MigrateUserIdentityDatabase();
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Order Management API V1");
-                c.RoutePrefix = string.Empty;
+                c.RoutePrefix = "api/Documentation";
             });
-            app.UseRouting();
+            
+            app.UseBlazorFrameworkFiles();
+            app.UseStaticFiles();
 
+            app.UseRouting();
+            app.UseCors();
             app.UseDefaultRoles(services);
 
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();
-                app.UseDevUser(services);
+                
                 IdentityModelEventSource.ShowPII = true;
             }
 
+           
+
+            //always generate test users
+            app.UseDevUser(services);
             app.UseAuthentication();
             app.UseAuthorization();
 
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
+                endpoints.MapFallbackToFile("index.html");
             });
         }
     }

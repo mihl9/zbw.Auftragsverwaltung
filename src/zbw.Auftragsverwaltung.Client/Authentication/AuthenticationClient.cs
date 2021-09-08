@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using zbw.Auftragsverwaltung.Client.Common.Configuration;
 using zbw.Auftragsverwaltung.Domain.Users;
+using zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Contracts;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Helpers;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Extensions;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Helper;
@@ -19,9 +20,9 @@ namespace zbw.Auftragsverwaltung.Client.Authentication
         private readonly HttpClient _httpClient;
         private readonly string _baseUrl;
         private readonly IContextDataService _contextDataService;
-        private readonly HttpExceptionMapper _exceptionMapper;
+        private readonly IExceptionMapper<HttpResponseMessage> _exceptionMapper;
 
-        public AuthenticationClient(HttpClient httpClient, string baseUrl, IContextDataService contextDataService, HttpExceptionMapper exceptionMapper)
+        public AuthenticationClient(HttpClient httpClient, string baseUrl, IContextDataService contextDataService, IExceptionMapper<HttpResponseMessage> exceptionMapper)
         {
             _httpClient = httpClient;
             _baseUrl = baseUrl;
@@ -37,7 +38,7 @@ namespace zbw.Auftragsverwaltung.Client.Authentication
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, builder.ToString());
             httpRequest.Content = JsonContent.Create(request);
 
-            var response = await _httpClient.SendAsync(httpRequest);
+            var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
 
             await response.EnsureSuccess(_exceptionMapper);
 
@@ -52,7 +53,7 @@ namespace zbw.Auftragsverwaltung.Client.Authentication
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, builder.ToString());
             httpRequest.Content = JsonContent.Create(request);
 
-            var response = await _httpClient.SendAsync(httpRequest);
+            var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
 
             await response.EnsureSuccess(_exceptionMapper);
 
@@ -66,7 +67,7 @@ namespace zbw.Auftragsverwaltung.Client.Authentication
 
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, builder.ToString());
 
-            var response = await _httpClient.SendAsync(httpRequest);
+            var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
 
             await response.EnsureSuccess(_exceptionMapper);
 
@@ -81,11 +82,11 @@ namespace zbw.Auftragsverwaltung.Client.Authentication
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, builder.ToString());
             httpRequest.Content = JsonContent.Create(request);
 
-            var response = await _httpClient.SendAsync(httpRequest);
+            var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
 
-            await response.EnsureSuccess(_exceptionMapper);
+            await response.EnsureSuccess(_exceptionMapper).ConfigureAwait(false);
 
-            return await response.Content.ReadFromJsonAsync<AuthenticateResponse>();
+            return await response.Content.ReadFromJsonAsync<AuthenticateResponse>().ConfigureAwait(false);
         }
 
         public async Task<bool> RevokeToken(RevokeTokenRequest request)
@@ -96,10 +97,26 @@ namespace zbw.Auftragsverwaltung.Client.Authentication
             var httpRequest = new HttpRequestMessage(HttpMethod.Post, builder.ToString());
             httpRequest.Content = JsonContent.Create(request);
 
-            var response = await _httpClient.SendAsync(httpRequest);
+            var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
 
             await response.EnsureSuccess(_exceptionMapper);
 
+            return true;
+        }
+
+        public async Task<bool> ValidateToken(ValidateTokenRequest request)
+        {
+            var builder = new UriBuilder(_baseUrl) {Path = "api/auth/validate-token"};
+
+            var httpRequest = new HttpRequestMessage(HttpMethod.Post, builder.ToString())
+            {
+                Content = JsonContent.Create(request)
+            };
+
+            var response = await _httpClient.SendAsync(httpRequest).ConfigureAwait(false);
+
+            await response.EnsureSuccess(_exceptionMapper);
+            
             return true;
         }
     }

@@ -61,6 +61,28 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Users.Services
             return handler.WriteToken(token);
         }
 
+        public async Task<bool> ValidateAuthenticationToken(object token)
+        {
+            var handler = new JwtSecurityTokenHandler();
+            var key = Encoding.ASCII.GetBytes(_jwtBearerSettings.Secret);
+
+            var tokenValidationParameters = new TokenValidationParameters()
+            {
+                ValidateIssuer = true,
+                ValidIssuer = _jwtBearerSettings.Issuer,
+                ValidateAudience = true,
+                ValidAudience = _jwtBearerSettings.Audience,
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateLifetime = true,
+                ClockSkew = TimeSpan.Zero
+            };
+
+            handler.ValidateToken(token.ToString(), tokenValidationParameters, out _);
+            return await Task.FromResult(true);
+           
+        }
+
         public async Task<RefreshToken> GenerateRefreshToken(string ipAddress)
         {
             using var cryptoService = new RNGCryptoServiceProvider();

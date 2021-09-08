@@ -45,7 +45,7 @@ namespace zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Middleware
         private Task HandleProblemDetail(HttpContext httpContext, Exception exception)
         {
             var exceptionCode = Guid.NewGuid().ToString();
-            _logger.LogException(LogLevel.Error, "An unhandled exception occured", exceptionCode, httpContext, exception);
+            _logger.LogException(LogLevel.Error, "An exception occured", exceptionCode, httpContext, exception);
 
             HttpResponseExceptionHelper.RegisterExceptionCodeHeader(httpContext, exceptionCode);
 

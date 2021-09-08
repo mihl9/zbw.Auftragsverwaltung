@@ -66,6 +66,31 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                     b.ToTable("ArticleGroups");
                 });
 
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Articles.Entities.Article", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid?>("ArticleGroupId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("ArticleId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Price")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleGroupId");
+
+                    b.ToTable("Articles");
+                });
+
             modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Customers.Entities.Customer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -110,6 +135,15 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                         .HasForeignKey("ArticlegroupId");
 
                     b.Navigation("Articlegroup");
+                });
+
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Articles.Entities.Article", b =>
+                {
+                    b.HasOne("zbw.Auftragsverwaltung.Core.ArticleGroups.Entities.ArticleGroup", "ArticleGroup")
+                        .WithMany()
+                        .HasForeignKey("ArticleGroupId");
+
+                    b.Navigation("ArticleGroup");
                 });
 #pragma warning restore 612, 618
         }

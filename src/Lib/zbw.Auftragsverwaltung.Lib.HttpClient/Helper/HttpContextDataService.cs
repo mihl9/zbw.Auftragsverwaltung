@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Model;
 
@@ -14,22 +15,22 @@ namespace zbw.Auftragsverwaltung.Lib.HttpClient.Helper
             _httpContextAccessor = httpContextAccessor;
         }
 
-        private string GetHeaderValue(string headerName)
+        private async Task<string> GetHeaderValue(string headerName)
         {
             var request = _httpContextAccessor.HttpContext.Request;
-            return request.Headers[headerName].ToString();
+            return await Task.FromResult(request.Headers[headerName].ToString());
         }
 
-        public string GetAuthorizationHeader()
+        public async Task<string> GetAuthorizationHeader()
         {
-            return GetHeaderValue("Authorization");
+            return await GetHeaderValue("Authorization");
         }
 
-        public RequestContext GetRequestContext()
+        public async Task<RequestContext> GetRequestContext()
         {
             return new RequestContext
             {
-                Authorization = GetAuthorizationHeader()
+                Authorization = await GetAuthorizationHeader()
             };
 
         }

@@ -5,7 +5,7 @@
     <PackageId>zbw.Auftragsverwaltung.Lib.HttpClient</PackageId>
     <Version>1.0.0</Version>
     <Company>zbw.Auftragsverwaltung.Lib.HttpClient</Company>
-    <RepositoryUrl>https://github.com/elbeachboy/zbw.Auftragsverwaltung</RepositoryUrl>
+    <RepositoryUrl>https://github.com/mihl9/zbw.Auftragsverwaltung</RepositoryUrl>
   </PropertyGroup>
 
   <ItemGroup>

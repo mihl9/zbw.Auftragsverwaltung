@@ -16,6 +16,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using zbw.Auftragsverwaltung.Core.Addresses.Contracts;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Contracts;
+using zbw.Auftragsverwaltung.Core.Articles.Contracts;
 using zbw.Auftragsverwaltung.Core.Common.Contracts;
 using zbw.Auftragsverwaltung.Core.Customers.Contracts;
 using zbw.Auftragsverwaltung.Core.Orders.Contracts;
@@ -24,6 +25,7 @@ using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Infrastructure.Addresses.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.ArticleGroups.DAL;
+using zbw.Auftragsverwaltung.Infrastructure.Articles.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.Common.Repositories;
 using zbw.Auftragsverwaltung.Infrastructure.Customers.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.Orders.DAL;
@@ -47,6 +49,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
 
             services.AddScoped<IArticleGroupRepository, ArticleGroupRepository>();
+            services.AddScoped<IArticleRepository, ArticleRepository>();
 
             services.AddScoped<IOrderRepository, PositionRepository>();
 

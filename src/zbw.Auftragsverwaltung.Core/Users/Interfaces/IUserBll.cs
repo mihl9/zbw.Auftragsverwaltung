@@ -22,6 +22,7 @@ namespace zbw.Auftragsverwaltung.Core.Users.Interfaces
         public Task<bool> Logout();
         public Task<AuthenticateResponse> RefreshToken(object token, string ipAddress);
 
+        public Task<bool> ValidateToken(object token);
         public Task<bool> RevokeToken(object token, string ipAddress);
 
     }

@@ -92,6 +92,17 @@ namespace zbw.Auftragsverwaltung.Api.Authentication
             return BadRequest();
         }
 
+        [HttpPost("validate-token")]
+        public async Task<IActionResult> ValidateToken([FromBody] ValidateTokenRequest request)
+        {
+            var response = await _userBll.ValidateToken(request.Token);
+
+            if (response)
+                return NoContent();
+            
+            return BadRequest();
+        }
+
         #region Helpers
 
         private string GetIpAddress()

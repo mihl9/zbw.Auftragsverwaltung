@@ -8,13 +8,13 @@ services:
       dockerfile: src/zbw.Auftragsverwaltung.Api/Dockerfile
     depends_on:
      - zbw.auftragsverwaltung.db
-  zbw.auftragsverwaltung.webapp:
-    image: ${DOCKER_REGISTRY-}zbwauftragsverwaltungwebapp
-    build:
-      context: .
-      dockerfile: src/zbw.Auftragsverwaltung.WebApp/Dockerfile
-    depends_on:
-     - zbw.auftragsverwaltung.db
-     - zbw.auftragsverwaltung.api
+  #zbw.auftragsverwaltung.BlazorApp:
+  #  image: ${DOCKER_REGISTRY-}zbwauftragsverwaltungwebapp
+  #  build:
+  #    context: .
+  #    dockerfile: src/zbw.Auftragsverwaltung.BlazorApp/Dockerfile
+  #  depends_on:
+  #   - zbw.auftragsverwaltung.db
+  #   - zbw.auftragsverwaltung.api
   zbw.auftragsverwaltung.db:
     image: "mcr.microsoft.com/mssql/server"
