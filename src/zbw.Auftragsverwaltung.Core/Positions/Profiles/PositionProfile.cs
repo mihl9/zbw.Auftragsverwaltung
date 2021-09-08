@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using AutoMapper;
-using zbw.Auftragsverwaltung.Core.Common.DTO;
+using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Core.Positions.Dto;
 using zbw.Auftragsverwaltung.Core.Positions.Entities;
 
