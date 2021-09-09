@@ -1,4 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.IO;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 using zbw.Auftragsverwaltung.Core.Addresses.Entities;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
 using zbw.Auftragsverwaltung.Core.Articles.Entities;
@@ -30,6 +33,19 @@ namespace zbw.Auftragsverwaltung.Infrastructure
 
     }
 
-    
+    public class OrderManagementContextFactory : IDesignTimeDbContextFactory<OrderManagementContext>
+    {
+        public OrderManagementContext CreateDbContext(string[] args)
+        {
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json")
+                .Build();
+            var optionsBuilder = new DbContextOptionsBuilder<OrderManagementContext>();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("OrderManagementConnectionString"));
+
+            return new OrderManagementContext(optionsBuilder.Options);
+        }
+    }
 
 }

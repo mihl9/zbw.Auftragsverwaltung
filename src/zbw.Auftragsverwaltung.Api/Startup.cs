@@ -56,7 +56,7 @@ namespace zbw.Auftragsverwaltung.Api
             services.AddHttpApiExceptionMiddleware(c =>
             {
                 c.RequestPathFilter = (ctx) => "";
-                c.IncludeTraceIdentifier = (ctx) => false;
+                c.IncludeTraceIdentifier = (ctx) => true;
                 c.OverwriteExistingExtensions = ctx => false;
                 c.IncludeExceptionName = ctx => true;
                 c.Map<ArgumentException>(StatusCodes.Status400BadRequest);
@@ -107,12 +107,12 @@ namespace zbw.Auftragsverwaltung.Api
             app.UseCors();
             app.UseDefaultRoles(services);
 
-            app.UseWebAssemblyDebugging();
+            
 
             if (env.IsDevelopment())
             {
                 //app.UseDeveloperExceptionPage();
-                
+                app.UseWebAssemblyDebugging();
                 IdentityModelEventSource.ShowPII = true;
             }
 
