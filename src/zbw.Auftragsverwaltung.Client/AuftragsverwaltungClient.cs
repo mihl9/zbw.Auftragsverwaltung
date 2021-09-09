@@ -7,6 +7,7 @@ using zbw.Auftragsverwaltung.Client.ArticleGroup;
 using zbw.Auftragsverwaltung.Client.Authentication;
 using zbw.Auftragsverwaltung.Client.Common.Configuration;
 using zbw.Auftragsverwaltung.Client.Customer;
+using zbw.Auftragsverwaltung.Client.Report;
 using zbw.Auftragsverwaltung.Client.User;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Contracts;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Helpers;
@@ -18,6 +19,7 @@ namespace zbw.Auftragsverwaltung.Client
     {
         private readonly IAuthenticationClient _authenticationClient;
         private readonly ICustomerClient _customerClient;
+        private readonly IReportClient _reportClient;
 
         public AuftragsverwaltungClient(IHttpClientFactory httpClientFactory,
             IOptions<AuftragsverwaltungClientConfiguration> configuration, IContextDataService contextDataService, IExceptionMapper<HttpResponseMessage> exceptionMapper)
@@ -28,6 +30,8 @@ namespace zbw.Auftragsverwaltung.Client
                 contextDataService, exceptionMapper);
 
             _customerClient = new CustomerClient(client, configuration.Value.BackendServiceEndpoint, contextDataService,
+                exceptionMapper);
+            _reportClient = new ReportClient(client, configuration.Value.BackendServiceEndpoint, contextDataService,
                 exceptionMapper);
         }
 
@@ -49,6 +53,11 @@ namespace zbw.Auftragsverwaltung.Client
         public IUserClient User()
         {
             throw new NotImplementedException();
+        }
+
+        public IReportClient Report()
+        {
+            return _reportClient;
         }
     }
 }
