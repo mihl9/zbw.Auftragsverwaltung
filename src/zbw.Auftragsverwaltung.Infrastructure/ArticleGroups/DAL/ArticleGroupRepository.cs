@@ -16,9 +16,9 @@ namespace zbw.Auftragsverwaltung.Infrastructure.ArticleGroups.DAL
         public ArticleGroupRepository(OrderManagementContext dbContext) : base(dbContext)
         {
         }
-        public async Task<PaginatedList<ArticleGroup>> GetCTERecursive(int size, int page)
+        public async Task<IReadOnlyList<ArticleGroup>> GetCTERecursive()
         {
-            return PaginatedList<ArticleGroup>.ToPagedResult(await _dbContext.ArticleGroups.FromSqlRaw(CTE_SQL_COMMAND).ToListAsync(),page,size);
+            return await _dbContext.ArticleGroups.FromSqlRaw(CTE_SQL_COMMAND).ToListAsync();
         }
     }
 }

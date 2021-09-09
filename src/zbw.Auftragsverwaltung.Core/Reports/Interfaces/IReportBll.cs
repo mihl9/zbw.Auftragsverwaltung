@@ -9,6 +9,6 @@ namespace zbw.Auftragsverwaltung.Core.Reports.Interfaces
 {
     public interface IReportBll
     {
-        Task<PaginatedList<ArticleGroupDto>> GetCTERecursiveArticleGroup(int size = 10, int page = 1);
+        Task<IReadOnlyList<ArticleGroupDto>> GetCTERecursiveArticleGroup();
     }
 }
