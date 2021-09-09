@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Contracts;
@@ -20,10 +21,10 @@ namespace zbw.Auftragsverwaltung.Core.Reports.BLL
 
         }
 
-        public async Task<PaginatedList<ArticleGroupDto>> GetCTERecursiveArticleGroup(int size = 10, int page = 1)
+        public async Task<IReadOnlyList<ArticleGroupDto>> GetCTERecursiveArticleGroup()
         {
-            var cteArticleGroups = await _articleGroupRepository.GetCTERecursive(size,page);
-            return _mapper.Map<PaginatedList<ArticleGroupDto>>(cteArticleGroups);
+            var cteArticleGroups = await _articleGroupRepository.GetCTERecursive();
+            return _mapper.Map<IReadOnlyList<ArticleGroupDto>>(cteArticleGroups);
 
         }
 
