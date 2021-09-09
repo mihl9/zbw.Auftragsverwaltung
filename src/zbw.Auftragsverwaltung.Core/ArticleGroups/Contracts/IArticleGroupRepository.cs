@@ -10,6 +10,6 @@ namespace zbw.Auftragsverwaltung.Core.ArticleGroups.Contracts
 {
     public interface IArticleGroupRepository : IRepository<ArticleGroup, Guid>
     {
-        Task<PaginatedList<ArticleGroup>> GetCTERecursive(int size, int page);
+        Task<IReadOnlyList<ArticleGroup>> GetCTERecursive();
     }
 }

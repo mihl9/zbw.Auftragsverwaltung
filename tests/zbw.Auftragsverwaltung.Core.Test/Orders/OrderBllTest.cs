@@ -44,8 +44,8 @@ namespace zbw.Auftragsverwaltung.Core.Test.Orders
 
         private readonly List<Order> _orders = new List<Order>()
         {
-            new Order(){Customer = new Customer(){CustomerNr = 1, Firstname = "Max", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id001, Id = GuidCollection.Id001}, OrderNr = 3, Date = DateTime.Parse("20.11.2008"),Id = GuidCollection.Id001},
-            new Order(){Customer = new Customer(){CustomerNr = 2, Firstname = "Lisa", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002}, OrderNr = 2, Date = DateTime.Parse("15.03.2017"), Id = GuidCollection.Id002}
+            new Order(){Customer = new Customer(){CustomerNr = 1, Firstname = "Max", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id001, Id = GuidCollection.Id001}, OrderNr = 3, Date = new DateTime(2008,11,20),Id = GuidCollection.Id001},
+            new Order(){Customer = new Customer(){CustomerNr = 2, Firstname = "Lisa", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002}, OrderNr = 2, Date = new DateTime(2017,03,15), Id = GuidCollection.Id002}
         };
 
         public OrderBllTest()
@@ -92,7 +92,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Orders
         [Fact]
         public void Delete_Order_As_User_Not_Throw()
         {
-            var orderDto = new OrderDto() { Customer = new Customer() { CustomerNr = 1, Firstname = "Max", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id001, Id = GuidCollection.Id001 }, OrderNr = 3, Date = DateTime.Parse("20.11.2008"), Id = GuidCollection.Id001 };
+            var orderDto = new OrderDto() { Customer = new Customer() { CustomerNr = 1, Firstname = "Max", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id001, Id = GuidCollection.Id001 }, OrderNr = 3, Date = new DateTime(2008,11,20), Id = GuidCollection.Id001 };
             Func<Task> delete = async () => { await _order.Delete(orderDto); };
             delete.Should().NotThrow<Exception>();
          }
@@ -100,7 +100,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Orders
         [Fact]
         public void Add_Order_As_User_Not_Throw_And_Not_Null()
         {
-            var orderDto = new OrderDto() { Customer = new Customer() { CustomerNr = 3, Firstname = "Minnie", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id003, Id = GuidCollection.Id003 }, OrderNr = 3, Date = DateTime.Parse("21.07.2015"), Id = GuidCollection.Id003 };
+            var orderDto = new OrderDto() { Customer = new Customer() { CustomerNr = 3, Firstname = "Minnie", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id003, Id = GuidCollection.Id003 }, OrderNr = 3, Date = new DateTime(2017,03,15), Id = GuidCollection.Id003 };
             Func<Task> add = async () => { await _order.Add(orderDto); };
             add.Should().NotThrow<Exception>();
             Func<Task> get = async () => { await _order.Get(GuidCollection.Id003); };
@@ -110,7 +110,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Orders
         [Fact]
         public void Update_Order_As_User_Not_Throw_And_Not_Null()
         {
-            var orderDto = new OrderDto(){ Customer = new Customer() { CustomerNr = 2, Firstname = "Lisa", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002 }, OrderNr = 2, Date = DateTime.Parse("15.04.2017"), Id = GuidCollection.Id002};
+            var orderDto = new OrderDto(){ Customer = new Customer() { CustomerNr = 2, Firstname = "Lisa", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002 }, OrderNr = 2, Date = new DateTime(2017,04,15), Id = GuidCollection.Id002};
             Func<Task> update = async () => { await _order.Update(orderDto); };
             update.Should().NotThrow<Exception>();
             update.Should().NotBeNull();

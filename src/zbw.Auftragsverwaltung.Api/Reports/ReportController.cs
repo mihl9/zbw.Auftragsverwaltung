@@ -26,10 +26,10 @@ namespace zbw.Auftragsverwaltung.Api.Reports
 
         [HttpGet]
         [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetCteRecursiveData(int size = 10, int page = 1, bool deleted = false)
+        public async Task<IActionResult> GetCteRecursiveData()
         {
 
-            var result = await reportBll.GetCTERecursiveArticleGroup(size, page);
+            var result = await reportBll.GetCTERecursiveArticleGroup();
             return Ok(result);
 
         }
