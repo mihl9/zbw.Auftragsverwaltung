@@ -7,6 +7,7 @@ using zbw.Auftragsverwaltung.Client.ArticleGroup;
 using zbw.Auftragsverwaltung.Client.Authentication;
 using zbw.Auftragsverwaltung.Client.Common.Configuration;
 using zbw.Auftragsverwaltung.Client.Customer;
+using zbw.Auftragsverwaltung.Client.Invoices;
 using zbw.Auftragsverwaltung.Client.Report;
 using zbw.Auftragsverwaltung.Client.User;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Contracts;
@@ -20,6 +21,7 @@ namespace zbw.Auftragsverwaltung.Client
         private readonly IAuthenticationClient _authenticationClient;
         private readonly ICustomerClient _customerClient;
         private readonly IReportClient _reportClient;
+        private readonly IInvoiceClient _invoiceClient;
 
         public AuftragsverwaltungClient(IHttpClientFactory httpClientFactory,
             IOptions<AuftragsverwaltungClientConfiguration> configuration, IContextDataService contextDataService, IExceptionMapper<HttpResponseMessage> exceptionMapper)
@@ -32,6 +34,9 @@ namespace zbw.Auftragsverwaltung.Client
             _customerClient = new CustomerClient(client, configuration.Value.BackendServiceEndpoint, contextDataService,
                 exceptionMapper);
             _reportClient = new ReportClient(client, configuration.Value.BackendServiceEndpoint, contextDataService,
+                exceptionMapper);
+
+            _invoiceClient = new InvoiceClient(client, configuration.Value.BackendServiceEndpoint, contextDataService,
                 exceptionMapper);
         }
 
@@ -58,6 +63,11 @@ namespace zbw.Auftragsverwaltung.Client
         public IReportClient Report()
         {
             return _reportClient;
+        }
+
+        public IInvoiceClient Invoice()
+        {
+            return _invoiceClient;
         }
     }
 }
