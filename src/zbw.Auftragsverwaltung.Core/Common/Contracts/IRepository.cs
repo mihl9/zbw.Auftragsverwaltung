@@ -9,6 +9,9 @@ namespace zbw.Auftragsverwaltung.Core.Common.Contracts
     public interface IRepository<TI, TKey> where TI : class
     {
         Task<TI> GetByIdAsync(TKey id);
+
+        Task<TI> GetByCompositeAsync(params object[] keys);
+
         Task<IReadOnlyList<TI>> ListAsync();
         Task<IReadOnlyList<TI>> ListAsync(Expression<Func<TI, bool>> predicate);
         Task<TI> AddAsync(TI entity);

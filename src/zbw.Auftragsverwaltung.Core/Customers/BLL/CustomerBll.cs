@@ -85,7 +85,7 @@ namespace zbw.Auftragsverwaltung.Core.Customers.BLL
         {
             var user = await GetUser(userId);
 
-            if (!await _userManager.IsInRoleAsync(user, Roles.Administrator.ToString()))
+            if (!await _userManager.IsInRoleAsync(user, Roles.Administrator.ToString()) || dto.UserId == null)
             {
                 dto.UserId = user.Id.ToString();
             }

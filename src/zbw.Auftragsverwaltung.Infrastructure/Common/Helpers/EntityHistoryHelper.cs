@@ -30,11 +30,19 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Common.Helpers
 
         private static async Task<IEntityHistorized> CreateHistory(DbContext context, EntityEntry entry)
         {
-
             //only activate if changes are made
-            if (!(entry.Entity is IEntityHistorized newEntry) || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged || entry.State == EntityState.Added)
+            if (!(entry.Entity is IEntityHistorized newEntry) || entry.State == EntityState.Detached || entry.State == EntityState.Unchanged)
                 return null;
-            
+
+            if (entry.State == EntityState.Added)
+            {
+                if (newEntry.ValidFrom == DateTime.MinValue)
+                {
+                    newEntry.ValidFrom = DateTime.UtcNow;
+                }
+
+                return null;
+            }
             //ensure that the entity is not a history element
             if (newEntry.ValidTo != null)
                 return null;

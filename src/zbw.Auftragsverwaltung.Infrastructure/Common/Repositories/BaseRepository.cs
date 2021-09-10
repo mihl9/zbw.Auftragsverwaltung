@@ -24,6 +24,11 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Common.Repositories
             return await _dbContext.Set<TI>().FindAsync(id);
         }
 
+        public async Task<TI> GetByCompositeAsync(params object[] keys)
+        {
+            return await _dbContext.Set<TI>().FindAsync(keys);
+        }
+
         public virtual async Task<IReadOnlyList<TI>> ListAsync()
         {
             return await _dbContext.Set<TI>().ToListAsync();

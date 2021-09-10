@@ -96,7 +96,7 @@ namespace zbw.Auftragsverwaltung.Core.Addresses.BLL
 
             await _addressRepository.UpdateAsync(address);
 
-            address = await _addressRepository.GetByIdAsync(address.Id);
+            //address = await _addressRepository.GetByCompositeAsync(address.Id);
 
             return _mapper.Map<AddressDto>(address);
         }
