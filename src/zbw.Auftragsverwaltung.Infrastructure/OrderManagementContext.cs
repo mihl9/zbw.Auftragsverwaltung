@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Threading;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -9,6 +11,8 @@ using zbw.Auftragsverwaltung.Core.Customers.Entities;
 using zbw.Auftragsverwaltung.Core.Invoices.Entities;
 using zbw.Auftragsverwaltung.Core.Orders.Entities;
 using zbw.Auftragsverwaltung.Core.Positions.Entities;
+using zbw.Auftragsverwaltung.Infrastructure.Common;
+using zbw.Auftragsverwaltung.Infrastructure.Common.Helpers;
 
 namespace zbw.Auftragsverwaltung.Infrastructure
 {
@@ -30,9 +34,33 @@ namespace zbw.Auftragsverwaltung.Infrastructure
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Address>().HasKey(x => new { x.Id, x.ValidFrom });
             base.OnModelCreating(modelBuilder);
         }
 
+        public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
+        {
+            await EntityHistoryHelper.CreateHistory(this);
+            return await base.SaveChangesAsync(cancellationToken);
+        }
+
+        public override async Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = new CancellationToken())
+        {
+            await EntityHistoryHelper.CreateHistory(this);
+            return await base.SaveChangesAsync(acceptAllChangesOnSuccess, cancellationToken);
+        }
+
+        public override int SaveChanges()
+        {
+            EntityHistoryHelper.CreateHistory(this).Wait();
+            return base.SaveChanges();
+        }
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
+        {
+            EntityHistoryHelper.CreateHistory(this).Wait();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
+        }
     }
 
     public class OrderManagementContextFactory : IDesignTimeDbContextFactory<OrderManagementContext>
@@ -50,4 +78,5 @@ namespace zbw.Auftragsverwaltung.Infrastructure
         }
     }
 
+    
 }

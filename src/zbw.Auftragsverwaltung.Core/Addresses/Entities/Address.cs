@@ -8,9 +8,8 @@ using zbw.Auftragsverwaltung.Core.Customers.Entities;
 
 namespace zbw.Auftragsverwaltung.Core.Addresses.Entities
 {
-    public class Address : IEntity
+    public class Address : IEntityHistorized
     {
-        [Key]
         public Guid Id { get; set; }
 
         public virtual Guid CustomerId { get; set; }
@@ -25,5 +24,7 @@ namespace zbw.Auftragsverwaltung.Core.Addresses.Entities
 
         public string Location { get; set; }
 
+        public DateTime ValidFrom { get; set; }
+        public DateTime? ValidTo { get; set; }
     }
 }
