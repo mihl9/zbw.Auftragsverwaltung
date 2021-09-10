@@ -24,6 +24,8 @@ using zbw.Auftragsverwaltung.Core.Articles.BLL;
 using zbw.Auftragsverwaltung.Core.Articles.Interfaces;
 using zbw.Auftragsverwaltung.Core.Customers.BLL;
 using zbw.Auftragsverwaltung.Core.Customers.Interfaces;
+using zbw.Auftragsverwaltung.Core.Invoices.BLL;
+using zbw.Auftragsverwaltung.Core.Invoices.Interfaces;
 using zbw.Auftragsverwaltung.Core.Users.Bll;
 using zbw.Auftragsverwaltung.Core.Users.Contracts;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
@@ -47,6 +49,7 @@ namespace zbw.Auftragsverwaltung.Core
             services.AddScoped<IPositionBll, PositionBll>();
             services.AddScoped<IArticleGroupBll, ArticleGroupBll>();
             services.AddScoped<IArticleBll, ArticleBll>();
+            services.AddScoped<IInvoiceBll, InvoiceBll>();
 
             services.AddScoped<IReportBll, ReportBll>();
 

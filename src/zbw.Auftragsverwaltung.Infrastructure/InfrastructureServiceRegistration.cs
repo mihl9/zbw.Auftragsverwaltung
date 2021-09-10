@@ -19,6 +19,7 @@ using zbw.Auftragsverwaltung.Core.ArticleGroups.Contracts;
 using zbw.Auftragsverwaltung.Core.Articles.Contracts;
 using zbw.Auftragsverwaltung.Core.Common.Contracts;
 using zbw.Auftragsverwaltung.Core.Customers.Contracts;
+using zbw.Auftragsverwaltung.Core.Invoices.Contracts;
 using zbw.Auftragsverwaltung.Core.Orders.Contracts;
 using zbw.Auftragsverwaltung.Core.Positions.Contracts;
 using zbw.Auftragsverwaltung.Core.Users.Contracts;
@@ -30,6 +31,7 @@ using zbw.Auftragsverwaltung.Infrastructure.Articles.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.Positions.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.Common.Repositories;
 using zbw.Auftragsverwaltung.Infrastructure.Customers.DAL;
+using zbw.Auftragsverwaltung.Infrastructure.Invoices.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.Orders.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.Users.DAL;
 
@@ -54,6 +56,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure
             services.AddScoped<IArticleRepository, ArticleRepository>();
             services.AddScoped<IOrderRepository, OrderRepository>();
             services.AddScoped<IPositionRepository, PositionRepository>();
+            services.AddScoped<IInvoiceRepository, InvoiceRepository>();
 
             services.AddDbContext<UserIdentityContext>(o =>
             {
