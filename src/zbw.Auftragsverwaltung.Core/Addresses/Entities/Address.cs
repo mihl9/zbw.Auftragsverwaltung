@@ -23,6 +23,8 @@ namespace zbw.Auftragsverwaltung.Core.Addresses.Entities
         
         public string Zip { get; set; }
 
+        public string Recipient { get; set; }
+
         public string Location { get; set; }
 
     }

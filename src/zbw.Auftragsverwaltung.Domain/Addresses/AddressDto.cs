@@ -16,6 +16,8 @@ namespace zbw.Auftragsverwaltung.Domain.Addresses
 
         public string Zip { get; set; }
 
+        public string Recipient { get; set; }
+
         public string Location { get; set; }
 
         public string FullAddress { get; set; }
