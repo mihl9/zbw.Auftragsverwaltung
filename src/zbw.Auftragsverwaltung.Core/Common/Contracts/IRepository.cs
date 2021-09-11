@@ -6,18 +6,18 @@ using zbw.Auftragsverwaltung.Domain.Common;
 
 namespace zbw.Auftragsverwaltung.Core.Common.Contracts
 {
-    public interface IRepository<TI, TKey> where TI : class
+    public interface IRepository<TEntity, TKey> where TEntity : class
     {
-        Task<TI> GetByIdAsync(TKey id);
+        Task<TEntity> GetByIdAsync(TKey id);
 
-        Task<TI> GetByCompositeAsync(params object[] keys);
+        Task<TEntity> GetByCompositeAsync(params object[] keys);
 
-        Task<IReadOnlyList<TI>> ListAsync();
-        Task<IReadOnlyList<TI>> ListAsync(Expression<Func<TI, bool>> predicate);
-        Task<TI> AddAsync(TI entity);
-        Task<bool> UpdateAsync(TI entity);
-        Task<bool> DeleteAsync(TI entity);
-        Task<PaginatedList<TI>> GetPagedResponseAsync(int page, int size);
-        Task<PaginatedList<TI>> GetPagedResponseAsync(int page, int size, Expression<Func<TI, bool>> predicate);
+        Task<IReadOnlyList<TEntity>> ListAsync(bool deleted = false);
+        Task<IReadOnlyList<TEntity>> ListAsync(Expression<Func<TEntity, bool>> predicate, bool deleted = false);
+        Task<TEntity> AddAsync(TEntity entity);
+        Task<bool> UpdateAsync(TEntity entity);
+        Task<bool> DeleteAsync(TEntity entity);
+        Task<PaginatedList<TEntity>> GetPagedResponseAsync(int page, int size, bool deleted = false);
+        Task<PaginatedList<TEntity>> GetPagedResponseAsync(int page, int size, Expression<Func<TEntity, bool>> predicate, bool deleted = false);
     }
 }

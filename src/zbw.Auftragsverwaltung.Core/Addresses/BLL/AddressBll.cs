@@ -42,7 +42,9 @@ namespace zbw.Auftragsverwaltung.Core.Addresses.BLL
             var user = await _userManager.GetUser(userId);
 
             var address = await _addressRepository.GetByIdAsync(id);
+            
             var customer = await _customerBll.Get(address.CustomerId, userId);
+            
             var dto = _mapper.Map<AddressDto>(address);
             CalculateFields(dto);
             return dto;

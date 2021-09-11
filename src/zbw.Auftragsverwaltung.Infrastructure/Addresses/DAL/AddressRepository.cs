@@ -7,7 +7,7 @@ using zbw.Auftragsverwaltung.Infrastructure.Common.Repositories;
 
 namespace zbw.Auftragsverwaltung.Infrastructure.Addresses.DAL
 {
-    public class AddressRepository : BaseRepository<Address, Guid, OrderManagementContext>, IAddressRepository
+    public class AddressRepository : HistorizedRepository<Address, Guid, OrderManagementContext>, IAddressRepository
     {
         public AddressRepository(OrderManagementContext dbContext) : base(dbContext)
         {

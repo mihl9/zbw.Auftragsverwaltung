@@ -9,7 +9,7 @@ using zbw.Auftragsverwaltung.Domain.Common;
 
 namespace zbw.Auftragsverwaltung.Infrastructure.Common.Repositories
 {
-    public class BaseRepository<TI, TKey, TDbContext> : IRepository<TI, TKey> where TI : class where TDbContext : DbContext
+    public class BaseRepository<TEntity, TKey, TDbContext> : IRepository<TEntity, TKey> where TEntity : class where TDbContext : DbContext
     {
 
         protected readonly TDbContext _dbContext;
@@ -19,35 +19,35 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Common.Repositories
             _dbContext = dbContext;
         }
 
-        public virtual async Task<TI> GetByIdAsync(TKey id)
+        public virtual async Task<TEntity> GetByIdAsync(TKey id)
         {
-            return await _dbContext.Set<TI>().FindAsync(id);
+            return await _dbContext.Set<TEntity>().FindAsync(id);
         }
 
-        public async Task<TI> GetByCompositeAsync(params object[] keys)
+        public async Task<TEntity> GetByCompositeAsync(params object[] keys)
         {
-            return await _dbContext.Set<TI>().FindAsync(keys);
+            return await _dbContext.Set<TEntity>().FindAsync(keys);
         }
 
-        public virtual async Task<IReadOnlyList<TI>> ListAsync()
+        public virtual async Task<IReadOnlyList<TEntity>> ListAsync(bool deleted = false)
         {
-            return await _dbContext.Set<TI>().ToListAsync();
+            return await _dbContext.Set<TEntity>().ToListAsync();
         }
 
-        public virtual async Task<IReadOnlyList<TI>> ListAsync(Expression<Func<TI, bool>> predicate)
+        public virtual async Task<IReadOnlyList<TEntity>> ListAsync(Expression<Func<TEntity, bool>> predicate, bool deleted = false)
         {
-            return await _dbContext.Set<TI>().Where(predicate).ToListAsync();
+            return await _dbContext.Set<TEntity>().Where(predicate).ToListAsync();
         }
 
-        public virtual async Task<TI> AddAsync(TI entity)
+        public virtual async Task<TEntity> AddAsync(TEntity entity)
         {
-            await _dbContext.Set<TI>().AddAsync(entity);
+            await _dbContext.Set<TEntity>().AddAsync(entity);
             await _dbContext.SaveChangesAsync();
 
             return entity;
         }
 
-        public virtual async Task<bool> UpdateAsync(TI entity)
+        public virtual async Task<bool> UpdateAsync(TEntity entity)
         {
             try
             {
@@ -61,11 +61,11 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Common.Repositories
             }
         }
 
-        public virtual async Task<bool> DeleteAsync(TI entity)
+        public virtual async Task<bool> DeleteAsync(TEntity entity)
         {
             try
             {
-                _dbContext.Set<TI>().Remove(entity);
+                _dbContext.Set<TEntity>().Remove(entity);
                 await _dbContext.SaveChangesAsync();
                 return true;
             }
@@ -75,15 +75,15 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Common.Repositories
             }
         }
 
-        public virtual async Task<PaginatedList<TI>> GetPagedResponseAsync(int page, int size)
+        public virtual async Task<PaginatedList<TEntity>> GetPagedResponseAsync(int page, int size, bool deleted = false)
         {
-            return PaginatedList<TI>.ToPagedResult(await _dbContext.Set<TI>().AsNoTracking().ToListAsync(), page, size);
+            return PaginatedList<TEntity>.ToPagedResult(await _dbContext.Set<TEntity>().AsNoTracking().ToListAsync(), page, size);
         }
 
-        public virtual async Task<PaginatedList<TI>> GetPagedResponseAsync(int page, int size, Expression<Func<TI, bool>> predicate)
+        public virtual async Task<PaginatedList<TEntity>> GetPagedResponseAsync(int page, int size, Expression<Func<TEntity, bool>> predicate, bool deleted = false)
         {
-            return PaginatedList<TI>.ToPagedResult(
-                await _dbContext.Set<TI>().Where(predicate).AsNoTracking().ToListAsync(), page, size);
+            return PaginatedList<TEntity>.ToPagedResult(
+                await _dbContext.Set<TEntity>().Where(predicate).AsNoTracking().ToListAsync(), page, size);
         }
     }
 }

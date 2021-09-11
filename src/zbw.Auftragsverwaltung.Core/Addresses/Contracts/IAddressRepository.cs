@@ -6,7 +6,7 @@ using zbw.Auftragsverwaltung.Core.Common.Contracts;
 
 namespace zbw.Auftragsverwaltung.Core.Addresses.Contracts
 {
-    public interface IAddressRepository : IRepository<Address, Guid>
+    public interface IAddressRepository : IHistorizedRepository<Address, Guid>
     {
     }
 }
