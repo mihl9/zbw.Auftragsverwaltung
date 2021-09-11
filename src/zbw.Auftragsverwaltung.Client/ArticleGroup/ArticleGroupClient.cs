@@ -20,7 +20,15 @@ namespace zbw.Auftragsverwaltung.Client.ArticleGroup
         private readonly IContextDataService _contextDataService;
         private readonly IExceptionMapper<HttpResponseMessage> _exceptionMapper;
 
-        private UriBuilder GetDefaultPath => new UriBuilder(_baseUrl) { Path = "api/customer" };
+        private UriBuilder GetDefaultPath => new UriBuilder(_baseUrl) { Path = "api/articlegroup" };
+
+        public ArticleGroupClient(HttpClient httpClient, string baseUrl, IContextDataService contextDataService, IExceptionMapper<HttpResponseMessage> exceptionMapper)
+        {
+            _httpClient = httpClient;
+            _baseUrl = baseUrl;
+            _contextDataService = contextDataService;
+            _exceptionMapper = exceptionMapper;
+        }
 
         public async Task<ArticleGroupDto> Get(Guid id)
         {

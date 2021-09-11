@@ -7,7 +7,7 @@ namespace zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Exceptions
     public sealed class HttpUnauthorizedException : HttpDomainException
     {
         public HttpUnauthorizedException(string title, string detail = null) 
-            : base(DomainErrorTypeEnumeration.InternalServerError, title, 401, detail, null, null, new KeyValuePair<string, object>())
+            : base(DomainErrorTypeEnumeration.CustomServerError, title, 401, detail, null, null, new KeyValuePair<string, object>())
         {
         }
 

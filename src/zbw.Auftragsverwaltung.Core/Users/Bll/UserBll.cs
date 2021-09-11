@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -122,12 +123,14 @@ namespace zbw.Auftragsverwaltung.Core.Users.Bll
             if (!result.Succeeded)
             {
                 var states = new ModelStateDictionary();
+                var message = new StringBuilder();
                 foreach (var identityError in result.Errors)
                 {
                     states.AddModelError(identityError.Code, identityError.Description);
+                    message.AppendLine($"{identityError.Description}");
                 }
-
-                throw new HttpRegistrationFailedException("Registration Failed", states: states);
+                
+                throw new HttpRegistrationFailedException("Registration Failed", states: states, detail: message.ToString());
             }
 
             await _userManager.AddToRoleAsync(user, Roles.User.ToString());

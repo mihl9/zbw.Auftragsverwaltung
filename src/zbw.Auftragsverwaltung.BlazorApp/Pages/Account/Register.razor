@@ -1,7 +1,9 @@
 ﻿@page "/Account/Register"
 @using System.ComponentModel.DataAnnotations
+@using Microsoft.AspNetCore.Mvc.ModelBinding
 @using zbw.Auftragsverwaltung.Client
 @using zbw.Auftragsverwaltung.Domain.Users
+@using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Exceptions
 @inject ISnackbar _snackbar
 @inject IAuftragsverwaltungClient _auftragsverwaltungClient
 
@@ -12,7 +14,7 @@
                 <DataAnnotationsValidator />
                 <MudCard>
                     <MudCardContent>
-                        <MudTextField Label="First name" HelperText="Max. 8 characters"
+                        <MudTextField Label="Benutzername" HelperText="Max. 8 characters"
                                       @bind-Value="_model.Username" For="@(() => _model.Username)" />
                         <MudTextField Label="Email" Class="mt-3"
                                       @bind-Value="_model.Email" For="@(() => _model.Email)" />
@@ -78,10 +80,18 @@
                     UserName = _model.Username
                 });
             }
+            catch (HttpDomainException e)
+            {
+                if (e.Details.Extensions.TryGetValue("states", out var message))
+                {
+                    var modelStateDictionary = (ModelStateDictionary)message;
+                    _snackbar.Add(modelStateDictionary.ToString(), Severity.Warning);
+                }
+                _snackbar.Add(e.Message, Severity.Warning);
+            }
             catch (Exception e)
             {
                 _snackbar.Add(e.Message, Severity.Warning);
-                throw;
             }
             
 
