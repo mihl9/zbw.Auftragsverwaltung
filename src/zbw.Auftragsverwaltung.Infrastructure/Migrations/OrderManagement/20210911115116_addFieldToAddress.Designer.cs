@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using zbw.Auftragsverwaltung.Infrastructure;
 
 namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
 {
     [DbContext(typeof(OrderManagementContext))]
-    partial class OrderManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20210911115116_addFieldToAddress")]
+    partial class addFieldToAddress
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,10 +24,8 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
             modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Addresses.Entities.Address", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime>("ValidFrom")
-                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
@@ -42,13 +42,10 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<DateTime?>("ValidTo")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("Zip")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id", "ValidFrom");
+                    b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
 
@@ -134,9 +131,6 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                     b.Property<Guid?>("AddressId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("AddressValidFrom")
-                        .HasColumnType("datetime2");
-
                     b.Property<double>("Brutto")
                         .HasColumnType("float");
 
@@ -154,7 +148,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId", "AddressValidFrom");
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Invoices");
                 });
@@ -236,7 +230,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                 {
                     b.HasOne("zbw.Auftragsverwaltung.Core.Addresses.Entities.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId", "AddressValidFrom");
+                        .HasForeignKey("AddressId");
 
                     b.Navigation("Address");
                 });
