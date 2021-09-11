@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using Microsoft.Extensions.Options;
+using zbw.Auftragsverwaltung.Client.Address;
 using zbw.Auftragsverwaltung.Client.ArticleGroup;
 using zbw.Auftragsverwaltung.Client.Authentication;
 using zbw.Auftragsverwaltung.Client.Common.Configuration;
@@ -22,6 +23,7 @@ namespace zbw.Auftragsverwaltung.Client
         private readonly ICustomerClient _customerClient;
         private readonly IReportClient _reportClient;
         private readonly IInvoiceClient _invoiceClient;
+        private readonly IAddressClient _addressClient;
 
         public AuftragsverwaltungClient(IHttpClientFactory httpClientFactory,
             IOptions<AuftragsverwaltungClientConfiguration> configuration, IContextDataService contextDataService, IExceptionMapper<HttpResponseMessage> exceptionMapper)
@@ -37,6 +39,9 @@ namespace zbw.Auftragsverwaltung.Client
                 exceptionMapper);
 
             _invoiceClient = new InvoiceClient(client, configuration.Value.BackendServiceEndpoint, contextDataService,
+                exceptionMapper);
+
+            _addressClient = new AddressClient(client, configuration.Value.BackendServiceEndpoint, contextDataService,
                 exceptionMapper);
         }
 
@@ -68,6 +73,11 @@ namespace zbw.Auftragsverwaltung.Client
         public IInvoiceClient Invoice()
         {
             return _invoiceClient;
+        }
+
+        public IAddressClient Address()
+        {
+            return _addressClient;
         }
     }
 }

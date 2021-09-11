@@ -12,7 +12,6 @@ using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 using zbw.Auftragsverwaltung.Core.Positions.BLL;
 using zbw.Auftragsverwaltung.Core.Positions.Contracts;
 using zbw.Auftragsverwaltung.Core.Positions.Entities;
-using zbw.Auftragsverwaltung.Core.Positions.Dto;
 using zbw.Auftragsverwaltung.Core.Positions.Profiles;
 using zbw.Auftragsverwaltung.Core.Test.Helpers;
 using zbw.Auftragsverwaltung.Core.Test.Users;
@@ -22,6 +21,7 @@ using zbw.Auftragsverwaltung.Core.Articles.Entities;
 using zbw.Auftragsverwaltung.Core.Articles.Dto;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
 using zbw.Auftragsverwaltung.Domain.ArticleGroups;
+using zbw.Auftragsverwaltung.Domain.Positions;
 
 namespace zbw.Auftragsverwaltung.Core.Test.Positions
 {

@@ -3,12 +3,12 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using AutoMapper;
 using zbw.Auftragsverwaltung.Core.Common.Contracts;
-using zbw.Auftragsverwaltung.Core.Positions.Dto;
 using zbw.Auftragsverwaltung.Core.Positions.Entities;
 using zbw.Auftragsverwaltung.Core.Positions.Interfaces;
 using zbw.Auftragsverwaltung.Core.Positions.Contracts;
 using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Core.Common.Interfaces;
+using zbw.Auftragsverwaltung.Domain.Positions;
 
 namespace zbw.Auftragsverwaltung.Core.Positions.BLL
 {

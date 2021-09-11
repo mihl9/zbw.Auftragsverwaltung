@@ -12,13 +12,13 @@ using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 using zbw.Auftragsverwaltung.Core.Orders.BLL;
 using zbw.Auftragsverwaltung.Core.Orders.Contracts;
 using zbw.Auftragsverwaltung.Core.Orders.Entities;
-using zbw.Auftragsverwaltung.Core.Orders.Dto;
 using zbw.Auftragsverwaltung.Core.Orders.Profiles;
 using zbw.Auftragsverwaltung.Core.Test.Helpers;
 using zbw.Auftragsverwaltung.Core.Test.Users;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Core.Customers.Entities;
+using zbw.Auftragsverwaltung.Domain.Orders;
 
 namespace zbw.Auftragsverwaltung.Core.Test.Orders
 {

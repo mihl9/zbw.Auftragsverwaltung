@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using zbw.Auftragsverwaltung.Client.Address;
 using zbw.Auftragsverwaltung.Client.ArticleGroup;
 using zbw.Auftragsverwaltung.Client.Authentication;
 using zbw.Auftragsverwaltung.Client.Customer;
@@ -23,5 +24,7 @@ namespace zbw.Auftragsverwaltung.Client
         IReportClient Report();
 
         IInvoiceClient Invoice();
+
+        IAddressClient Address();
     }
 }

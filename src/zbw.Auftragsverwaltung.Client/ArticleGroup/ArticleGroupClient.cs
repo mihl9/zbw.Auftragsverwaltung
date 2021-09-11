@@ -5,20 +5,16 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Microsoft.Extensions.Options;
-using zbw.Auftragsverwaltung.Client.Common.Configuration;
+using zbw.Auftragsverwaltung.Domain.ArticleGroups;
 using zbw.Auftragsverwaltung.Domain.Common;
-using zbw.Auftragsverwaltung.Domain.Customers;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Contracts;
-using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Helpers;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Extensions;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Helper;
 
-namespace zbw.Auftragsverwaltung.Client.Customer
+namespace zbw.Auftragsverwaltung.Client.ArticleGroup
 {
-    public class CustomerClient : ICustomerClient
+    public class ArticleGroupClient : IArticleGroupClient
     {
-
         private readonly HttpClient _httpClient;
         private readonly string _baseUrl;
         private readonly IContextDataService _contextDataService;
@@ -26,15 +22,7 @@ namespace zbw.Auftragsverwaltung.Client.Customer
 
         private UriBuilder GetDefaultPath => new UriBuilder(_baseUrl) { Path = "api/customer" };
 
-        public CustomerClient(HttpClient httpClient, string baseUrl, IContextDataService contextDataService, IExceptionMapper<HttpResponseMessage> exceptionMapper)
-        {
-            _httpClient = httpClient;
-            _contextDataService = contextDataService;
-            _exceptionMapper = exceptionMapper;
-            _baseUrl = baseUrl;
-        }
-
-        public async Task<CustomerDto> Get(Guid id)
+        public async Task<ArticleGroupDto> Get(Guid id)
         {
             var builder = GetDefaultPath;
 
@@ -44,14 +32,13 @@ namespace zbw.Auftragsverwaltung.Client.Customer
             var request = new HttpRequestMessage(HttpMethod.Get, builder.Uri);
             await request.AddAuthenticationHeaders(_contextDataService);
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
-            
-            await response.EnsureSuccess(_exceptionMapper);
-            
-            return await response.Content.ReadFromJsonAsync<CustomerDto>();
 
+            await response.EnsureSuccess(_exceptionMapper);
+
+            return await response.Content.ReadFromJsonAsync<ArticleGroupDto>();
         }
 
-        public async Task<PaginatedList<CustomerDto>> List(int size = 10, int page = 1, bool deleted = false)
+        public async Task<PaginatedList<ArticleGroupDto>> List(int size = 10, int page = 1, bool deleted = false)
         {
             var builder = GetDefaultPath;
 
@@ -67,37 +54,37 @@ namespace zbw.Auftragsverwaltung.Client.Customer
 
             await response.EnsureSuccess(_exceptionMapper);
 
-            return await response.Content.ReadFromJsonAsync<PaginatedList<CustomerDto>>();
+            return await response.Content.ReadFromJsonAsync<PaginatedList<ArticleGroupDto>>();
         }
 
-        public async Task<CustomerDto> Add(CustomerDto customer)
+        public async Task<ArticleGroupDto> Add(ArticleGroupDto articleGroup)
         {
             var builder = GetDefaultPath;
 
             var request = new HttpRequestMessage(HttpMethod.Post, builder.Uri);
             await request.AddAuthenticationHeaders(_contextDataService);
-            request.Content = JsonContent.Create(customer);
+            request.Content = JsonContent.Create(articleGroup);
 
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
 
             await response.EnsureSuccess(_exceptionMapper);
 
-            return await response.Content.ReadFromJsonAsync<CustomerDto>();
+            return await response.Content.ReadFromJsonAsync<ArticleGroupDto>();
         }
 
-        public async Task<CustomerDto> Update(CustomerDto customer)
+        public async Task<ArticleGroupDto> Update(ArticleGroupDto articleGroup)
         {
             var builder = GetDefaultPath;
 
             var request = new HttpRequestMessage(HttpMethod.Patch, builder.Uri);
             await request.AddAuthenticationHeaders(_contextDataService);
-            request.Content = JsonContent.Create(customer);
+            request.Content = JsonContent.Create(articleGroup);
 
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
 
             await response.EnsureSuccess(_exceptionMapper);
 
-            return await response.Content.ReadFromJsonAsync<CustomerDto>();
+            return await response.Content.ReadFromJsonAsync<ArticleGroupDto>();
         }
 
         public async Task<bool> Delete(Guid id)
@@ -110,7 +97,7 @@ namespace zbw.Auftragsverwaltung.Client.Customer
 
             var request = new HttpRequestMessage(HttpMethod.Delete, builder.Uri);
             await request.AddAuthenticationHeaders(_contextDataService);
-            
+
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
 
             await response.EnsureSuccess(_exceptionMapper);

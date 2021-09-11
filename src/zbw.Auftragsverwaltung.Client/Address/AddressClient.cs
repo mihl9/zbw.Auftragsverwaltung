@@ -5,36 +5,33 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
-using Microsoft.Extensions.Options;
-using zbw.Auftragsverwaltung.Client.Common.Configuration;
+using zbw.Auftragsverwaltung.Domain.Addresses;
 using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Domain.Customers;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Contracts;
-using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Helpers;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Extensions;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Helper;
 
-namespace zbw.Auftragsverwaltung.Client.Customer
+namespace zbw.Auftragsverwaltung.Client.Address
 {
-    public class CustomerClient : ICustomerClient
+    public class AddressClient : IAddressClient
     {
-
         private readonly HttpClient _httpClient;
         private readonly string _baseUrl;
         private readonly IContextDataService _contextDataService;
         private readonly IExceptionMapper<HttpResponseMessage> _exceptionMapper;
 
-        private UriBuilder GetDefaultPath => new UriBuilder(_baseUrl) { Path = "api/customer" };
+        private UriBuilder GetDefaultPath => new UriBuilder(_baseUrl) { Path = "api/address" };
 
-        public CustomerClient(HttpClient httpClient, string baseUrl, IContextDataService contextDataService, IExceptionMapper<HttpResponseMessage> exceptionMapper)
+        public AddressClient(HttpClient httpClient, string baseUrl, IContextDataService contextDataService, IExceptionMapper<HttpResponseMessage> exceptionMapper)
         {
             _httpClient = httpClient;
+            _baseUrl = baseUrl;
             _contextDataService = contextDataService;
             _exceptionMapper = exceptionMapper;
-            _baseUrl = baseUrl;
         }
 
-        public async Task<CustomerDto> Get(Guid id)
+        public async Task<AddressDto> Get(Guid id)
         {
             var builder = GetDefaultPath;
 
@@ -44,14 +41,13 @@ namespace zbw.Auftragsverwaltung.Client.Customer
             var request = new HttpRequestMessage(HttpMethod.Get, builder.Uri);
             await request.AddAuthenticationHeaders(_contextDataService);
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
-            
-            await response.EnsureSuccess(_exceptionMapper);
-            
-            return await response.Content.ReadFromJsonAsync<CustomerDto>();
 
+            await response.EnsureSuccess(_exceptionMapper);
+
+            return await response.Content.ReadFromJsonAsync<AddressDto>();
         }
 
-        public async Task<PaginatedList<CustomerDto>> List(int size = 10, int page = 1, bool deleted = false)
+        public async Task<PaginatedList<AddressDto>> List(int size = 10, int page = 1, bool deleted = false)
         {
             var builder = GetDefaultPath;
 
@@ -67,37 +63,37 @@ namespace zbw.Auftragsverwaltung.Client.Customer
 
             await response.EnsureSuccess(_exceptionMapper);
 
-            return await response.Content.ReadFromJsonAsync<PaginatedList<CustomerDto>>();
+            return await response.Content.ReadFromJsonAsync<PaginatedList<AddressDto>>();
         }
 
-        public async Task<CustomerDto> Add(CustomerDto customer)
+        public async Task<AddressDto> Add(AddressDto address)
         {
             var builder = GetDefaultPath;
 
             var request = new HttpRequestMessage(HttpMethod.Post, builder.Uri);
             await request.AddAuthenticationHeaders(_contextDataService);
-            request.Content = JsonContent.Create(customer);
+            request.Content = JsonContent.Create(address);
 
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
 
             await response.EnsureSuccess(_exceptionMapper);
 
-            return await response.Content.ReadFromJsonAsync<CustomerDto>();
+            return await response.Content.ReadFromJsonAsync<AddressDto>();
         }
 
-        public async Task<CustomerDto> Update(CustomerDto customer)
+        public async Task<AddressDto> Update(AddressDto address)
         {
             var builder = GetDefaultPath;
 
             var request = new HttpRequestMessage(HttpMethod.Patch, builder.Uri);
             await request.AddAuthenticationHeaders(_contextDataService);
-            request.Content = JsonContent.Create(customer);
+            request.Content = JsonContent.Create(address);
 
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
 
             await response.EnsureSuccess(_exceptionMapper);
 
-            return await response.Content.ReadFromJsonAsync<CustomerDto>();
+            return await response.Content.ReadFromJsonAsync<AddressDto>();
         }
 
         public async Task<bool> Delete(Guid id)
@@ -110,7 +106,7 @@ namespace zbw.Auftragsverwaltung.Client.Customer
 
             var request = new HttpRequestMessage(HttpMethod.Delete, builder.Uri);
             await request.AddAuthenticationHeaders(_contextDataService);
-            
+
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
 
             await response.EnsureSuccess(_exceptionMapper);

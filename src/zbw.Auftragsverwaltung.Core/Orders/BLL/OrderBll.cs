@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using AutoMapper;
 using zbw.Auftragsverwaltung.Domain.Common;
-using zbw.Auftragsverwaltung.Core.Orders.Dto;
 using zbw.Auftragsverwaltung.Core.Orders.Entities;
 using zbw.Auftragsverwaltung.Core.Orders.Interfaces;
 using zbw.Auftragsverwaltung.Core.Orders.Contracts;
+using zbw.Auftragsverwaltung.Domain.Orders;
 
 
 namespace zbw.Auftragsverwaltung.Core.Orders.BLL
