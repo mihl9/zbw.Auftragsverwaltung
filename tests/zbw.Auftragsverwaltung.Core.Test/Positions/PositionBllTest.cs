@@ -18,7 +18,6 @@ using zbw.Auftragsverwaltung.Core.Test.Users;
 using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Core.Articles.Entities;
-using zbw.Auftragsverwaltung.Core.Articles.Dto;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
 using zbw.Auftragsverwaltung.Domain.ArticleGroups;
 using zbw.Auftragsverwaltung.Domain.Positions;
@@ -106,14 +105,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Positions
                 Amount = 3,
                 Nr = 1,
                 Id = GuidCollection.Id001,
-                Article = new Article()
-                {
-                    Id = GuidCollection.Id003,
-                    ArticleId = "TestId",
-                    Name = "TestName",
-                    Price = 15,
-                    ArticleGroup = new ArticleGroup() { Id = GuidCollection.Id005, Name = "Test", Articlegroup = null }
-                }
+                ArticleId = Guid.NewGuid()
             };
             Func<Task> delete = async () => { await _position.Delete(positionDto); };
             delete.Should().NotThrow<Exception>();
@@ -127,14 +119,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Positions
                 Amount = 4,
                 Nr = 3,
                 Id = GuidCollection.Id006,
-                Article = new Article()
-                {
-                    Id = GuidCollection.Id003,
-                    ArticleId = "TestId",
-                    Name = "TestName",
-                    Price = 15,
-                    ArticleGroup = new ArticleGroup() { Id = GuidCollection.Id005, Name = "Test", Articlegroup = null }
-                }
+                ArticleId = Guid.NewGuid()
             };
             Func<Task> add = async () => { await _position.Add(positionDto); };
             add.Should().NotThrow<Exception>();
@@ -149,14 +134,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Positions
                 Amount = 6,
                 Nr = 3,
                 Id = GuidCollection.Id006,
-                Article = new Article()
-                {
-                    Id = GuidCollection.Id003,
-                    ArticleId = "TestId",
-                    Name = "TestName",
-                    Price = 15,
-                    ArticleGroup = new ArticleGroup() { Id = GuidCollection.Id005, Name = "Test", Articlegroup = null }
-                }
+                ArticleId = Guid.NewGuid()
             };
             Func<Task> update = async () => { await _position.Update(positionDto); };
             update.Should().NotThrow<Exception>();

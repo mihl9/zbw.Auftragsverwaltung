@@ -5,9 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
 using zbw.Auftragsverwaltung.Core.Articles.Contracts;
-using zbw.Auftragsverwaltung.Core.Articles.Dto;
 using zbw.Auftragsverwaltung.Core.Articles.Entities;
 using zbw.Auftragsverwaltung.Core.Articles.Interfaces;
+using zbw.Auftragsverwaltung.Domain.Articles;
 using zbw.Auftragsverwaltung.Domain.Common;
 
 namespace zbw.Auftragsverwaltung.Core.Articles.BLL

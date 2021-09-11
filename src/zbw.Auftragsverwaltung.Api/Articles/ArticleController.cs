@@ -8,10 +8,10 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
 using zbw.Auftragsverwaltung.Api.Common.Models;
-using zbw.Auftragsverwaltung.Core.Articles.Dto;
 using zbw.Auftragsverwaltung.Core.Articles.Interfaces;
 using zbw.Auftragsverwaltung.Core.Common.Exceptions;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
+using zbw.Auftragsverwaltung.Domain.Articles;
 using zbw.Auftragsverwaltung.Domain.Common;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860

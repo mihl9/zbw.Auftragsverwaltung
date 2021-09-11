@@ -9,11 +9,11 @@ using Xunit;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
 using zbw.Auftragsverwaltung.Core.Articles.BLL;
 using zbw.Auftragsverwaltung.Core.Articles.Contracts;
-using zbw.Auftragsverwaltung.Core.Articles.Dto;
 using zbw.Auftragsverwaltung.Core.Articles.Entities;
 using zbw.Auftragsverwaltung.Core.Articles.Profiles;
 using zbw.Auftragsverwaltung.Core.Test.Helpers;
 using zbw.Auftragsverwaltung.Domain.ArticleGroups;
+using zbw.Auftragsverwaltung.Domain.Articles;
 
 namespace zbw.Auftragsverwaltung.Core.Test.Articles
 {
