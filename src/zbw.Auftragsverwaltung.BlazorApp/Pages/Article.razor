@@ -50,7 +50,7 @@
 
     private async Task<TableData<ArticleDto>> ServerReload(TableState state)
     {
-        _pagedData = await auftragsverwaltungClient.Article().List("ArticleGroup",state.PageSize, state.Page);
+        _pagedData = await auftragsverwaltungClient.Article().List(state.PageSize, state.Page);
         return new TableData<ArticleDto>() { TotalItems = _pagedData.TotalCount, Items = _pagedData.Results };
     }
 
