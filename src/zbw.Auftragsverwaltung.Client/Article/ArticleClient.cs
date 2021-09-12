@@ -49,7 +49,7 @@ namespace zbw.Auftragsverwaltung.Client.Article
         public async Task<PaginatedList<ArticleDto>> List(int size = 10, int page = 1, bool deleted = false)
         {
             var builder = GetDefaultPath;
-
+            
             var query = HttpUtility.ParseQueryString(builder.Query);
             query.Add("size", size.ToString());
             query.Add("page", page.ToString());
@@ -57,9 +57,9 @@ namespace zbw.Auftragsverwaltung.Client.Article
             builder.Query = query.ToString();
 
             var request = new HttpRequestMessage(HttpMethod.Get, builder.Uri);
+            
             await request.AddAuthenticationHeaders(_contextDataService);
             var response = await _httpClient.SendAsync(request).ConfigureAwait(false);
-
             await response.EnsureSuccess(_exceptionMapper);
 
             return await response.Content.ReadFromJsonAsync<PaginatedList<ArticleDto>>();

@@ -57,7 +57,17 @@ namespace zbw.Auftragsverwaltung.Core.Addresses.BLL
             if (!await _userManager.IsInRoleAsync(user, Roles.Administrator.ToString()))
             {
                 var customers = await _customerBll.GetForUser(userId, user.Id);
-                predicate = predicate.And(x => customers.Any(y => y.Id.Equals(x.CustomerId)));
+                var tempPredicate = PredicateBuilder.True<Address>();
+
+
+
+                foreach (var customerDto in customers)
+                {
+                    tempPredicate = tempPredicate.And(x => x.CustomerId.Equals(customerDto.Id));
+                }
+
+
+                predicate = predicate.Or(tempPredicate);
             }
 
             var addresses = await _addressRepository.GetPagedResponseAsync(page, size, predicate);

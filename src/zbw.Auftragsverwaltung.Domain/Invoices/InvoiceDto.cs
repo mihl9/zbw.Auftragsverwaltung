@@ -8,9 +8,7 @@ namespace zbw.Auftragsverwaltung.Domain.Invoices
     public class InvoiceDto
     {
         public Guid Id { get; set; }
-
-        public AddressDto Address { get; set; }
-
+        
         public Guid AddressId { get; set; }
 
         public DateTime Date { get; set; }
@@ -22,6 +20,8 @@ namespace zbw.Auftragsverwaltung.Domain.Invoices
         public double Brutto { get; set; }
 
         public double Tax { get; set; }
+
+        public DateTime AdressValidFrom { get; set; }
 
     }
 }

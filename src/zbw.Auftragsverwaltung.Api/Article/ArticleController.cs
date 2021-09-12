@@ -6,30 +6,34 @@ using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using zbw.Auftragsverwaltung.Api.Common.Models;
 using zbw.Auftragsverwaltung.Core.Articles.Interfaces;
 using zbw.Auftragsverwaltung.Core.Common.Exceptions;
+using zbw.Auftragsverwaltung.Core.Users.Entities;
 using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Domain.Articles;
 using zbw.Auftragsverwaltung.Domain.Common;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace zbw.Auftragsverwaltung.Api.Articles
+namespace zbw.Auftragsverwaltung.Api.Article
 {
     [Authorize]
-    [Route("api/[controller]")]
     [ApiController]
+    [Route("api/[controller]")]
     public class ArticleController : ControllerBase
     {
         private readonly ILogger<ArticleController> _logger;
         private readonly IArticleBll _articleBll;
+        private readonly UserManager<User> _userManager;
 
-        public ArticleController(ILogger<ArticleController> logger, IArticleBll articleBll)
+        public ArticleController(ILogger<ArticleController> logger, IArticleBll articleBll, UserManager<User> userManager)
         {
             _logger = logger;
             _articleBll = articleBll;
+            _userManager = userManager;
         }
 
 
@@ -44,23 +48,8 @@ namespace zbw.Auftragsverwaltung.Api.Articles
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _articleBll.Get(id);
-                return Ok(result);
-            }
-            catch (InvalidRightsException e)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException e)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _articleBll.Get(id);
+            return Ok(result);
             
         }
 
@@ -75,23 +64,8 @@ namespace zbw.Auftragsverwaltung.Api.Articles
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _articleBll.GetList(deleted, size, page);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _articleBll.GetList( deleted, size, page);
+            return Ok(result);
 
         }
 
@@ -107,23 +81,8 @@ namespace zbw.Auftragsverwaltung.Api.Articles
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _articleBll.Add(article);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _articleBll.Add(article);
+            return Ok(result);
         }
 
         [HttpPatch]
@@ -137,23 +96,8 @@ namespace zbw.Auftragsverwaltung.Api.Articles
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _articleBll.Update(article);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _articleBll.Update(article);
+            return Ok(result);
         }
 
         [HttpDelete]
@@ -168,23 +112,10 @@ namespace zbw.Auftragsverwaltung.Api.Articles
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _articleBll.Delete(dto);
-                return Ok();
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _articleBll.Delete(dto);
+            return Ok();
+
         }
     }
 }
+

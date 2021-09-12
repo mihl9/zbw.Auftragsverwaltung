@@ -12,7 +12,7 @@ namespace zbw.Auftragsverwaltung.Core.Invoices.Entities
         [Key]
         public Guid Id { get; set; }
 
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
         public virtual Guid AddressId { get; set; }
 
@@ -25,6 +25,8 @@ namespace zbw.Auftragsverwaltung.Core.Invoices.Entities
         public double Brutto { get; set; }
 
         public double Tax { get; set; }
+
+        public virtual DateTime AdressValidFrom { get; set; }
 
     }
 }

@@ -20,7 +20,7 @@ namespace zbw.Auftragsverwaltung.Client.Invoices
        private readonly IContextDataService _contextDataService;
        private readonly IExceptionMapper<HttpResponseMessage> _exceptionMapper;
 
-       private UriBuilder GetDefaultPath => new UriBuilder(_baseUrl) { Path = "api/customer" };
+       private UriBuilder GetDefaultPath => new UriBuilder(_baseUrl) { Path = "api/invoice" };
 
        public InvoiceClient(HttpClient httpClient, string baseUrl, IContextDataService contextDataService, IExceptionMapper<HttpResponseMessage> exceptionMapper)
        {

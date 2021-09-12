@@ -35,6 +35,10 @@ namespace zbw.Auftragsverwaltung.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Address>().HasKey(x => new { x.Id, x.ValidFrom });
+            modelBuilder.Entity<Invoice>(x =>
+            {
+                x.HasOne(x => x.Address).WithMany().HasForeignKey(f=>new {f.AddressId,f.AdressValidFrom});
+            });
             base.OnModelCreating(modelBuilder);
         }
 

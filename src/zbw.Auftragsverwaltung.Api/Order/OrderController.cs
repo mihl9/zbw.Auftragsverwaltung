@@ -13,7 +13,7 @@ using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Domain.Orders;
 
-namespace zbw.Auftragsverwaltung.Api
+namespace zbw.Auftragsverwaltung.Api.Order
 {
     [Authorize]
     [ApiController]
@@ -36,18 +36,35 @@ namespace zbw.Auftragsverwaltung.Api
         [ProducesResponseType(typeof(OrderDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(Guid id)
         {
-            return new JsonResult(await _orderBll.Get(id));
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(rawUserId, out var userId))
+            {
+                return Forbid();
+            }
+
+            var result = await _orderBll.Get(id);
+            return Ok(result);
         }
 
         [HttpGet]
         [ProducesResponseType(typeof(PaginatedList<OrderDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetList(int size = 10, int page = 1, bool deleted = false)
         {
-            return new JsonResult(await _orderBll.GetList(deleted, size, page));
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(rawUserId, out var userId))
+            {
+                return Forbid();
+            }
+
+            var result = await _orderBll.GetList( deleted, size, page);
+            return Ok(result);
         }
 
         [HttpPost]
         [Authorize(Policy = Policies.RequireAdministratorRole)]
+        [ProducesResponseType(typeof(OrderDto), (int)HttpStatusCode.OK)]
         public async Task<OrderDto> Add([FromBody] OrderDto order)
         {
             if (!User.IsInRole(Roles.Administrator.ToString()))
@@ -63,20 +80,31 @@ namespace zbw.Auftragsverwaltung.Api
         [ProducesResponseType(typeof(OrderDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Update([FromBody] OrderDto order)
         {
-            return new JsonResult(await _orderBll.Update(order));
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(rawUserId, out var userId))
+            {
+                return Forbid();
+            }
+
+            var result = await _orderBll.Update(order);
+            return Ok(result);
         }
 
         [HttpDelete]
         [Authorize(Policy = Policies.RequireAdministratorRole)]
         public async Task<IActionResult> Delete(Guid id)
         {
+            var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             var dto = new OrderDto() { Id = id };
 
-            var result = await _orderBll.Delete(dto);
-            if (result)
-                return Ok(new SuccessMessage());
+            if (!Guid.TryParse(rawUserId, out var userId))
+            {
+                return Forbid();
+            }
 
-            return new BadRequestObjectResult(new ErrorMessage() { Message = $"Failed to delete the Order with the ID: {id}" });
+            var result = await _orderBll.Delete(dto);
+            return Ok();
         }
     }
 }

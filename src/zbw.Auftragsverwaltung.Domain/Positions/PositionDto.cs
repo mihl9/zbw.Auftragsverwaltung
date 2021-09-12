@@ -1,4 +1,5 @@
 ﻿using System;
+using zbw.Auftragsverwaltung.Domain.Articles;
 
 namespace zbw.Auftragsverwaltung.Domain.Positions
 {

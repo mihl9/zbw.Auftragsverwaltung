@@ -1,4 +1,4 @@
-﻿@page "/fetchdata"
+﻿@page "/customer"
 @using Microsoft.AspNetCore.Authorization
 @using zbw.Auftragsverwaltung.Client
 @using zbw.Auftragsverwaltung.Domain.Common
@@ -41,6 +41,7 @@
         try
         {
             //_customers = await auftragsverwaltungClient.Customer().List();
+
         }
         catch (Exception e)
         {
@@ -53,7 +54,6 @@
     private async Task<TableData<CustomerDto>> ServerReload(TableState state)
     {
         _pagedData = await auftragsverwaltungClient.Customer().List(state.PageSize, state.Page);
-
         return new TableData<CustomerDto>() { TotalItems = _pagedData.TotalCount, Items = _pagedData.Results };
     }
 

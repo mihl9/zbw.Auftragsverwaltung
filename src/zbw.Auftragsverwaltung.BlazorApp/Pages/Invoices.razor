@@ -1,0 +1,67 @@
+﻿@page "/invoice"
+@using Microsoft.AspNetCore.Authorization
+@using zbw.Auftragsverwaltung.Client
+@using zbw.Auftragsverwaltung.Domain.Common
+@using zbw.Auftragsverwaltung.Domain.Invoices
+@inject IAuftragsverwaltungClient auftragsverwaltungClient
+@attribute [Authorize]
+
+<MudTable ServerData="@(new Func<TableState, Task<TableData<InvoiceDto>>>(ServerReload))"
+          Dense="true" Hover="true" @ref="_table">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">Invoices</MudText>
+        <MudToolBarSpacer />
+        <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortLabel="number_field" T="InvoiceDto">InvoiceNr</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="invoicedate_field" T="InvoiceDto">Invoicedate</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="netto_field" T="InvoiceDto">Netto</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="brutto_field" T="InvoiceDto">Brutto</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="tax_field" T="InvoiceDto">Tax</MudTableSortLabel></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="InvoiceNr">@context.Number</MudTd>
+        <MudTd DataLabel="Invoicedate">@context.Date</MudTd>
+        <MudTd DataLabel="Netto">@context.Netto</MudTd>
+        <MudTd DataLabel="Brutto">@context.Brutto</MudTd>
+        <MudTd DataLabel="Tax">@context.Tax</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+@code {
+    private PaginatedList<InvoiceDto> _pagedData;
+    private MudTable<InvoiceDto> _table;
+    private string _searchString = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            //_customers = await auftragsverwaltungClient.Customer().List();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+    }
+
+    private async Task<TableData<InvoiceDto>> ServerReload(TableState state)
+    {
+        _pagedData = await auftragsverwaltungClient.Invoice().List(state.PageSize, state.Page);
+
+        return new TableData<InvoiceDto>() { TotalItems = _pagedData.TotalCount, Items = _pagedData.Results };
+    }
+
+    private void OnSearch(string text)
+    {
+        _searchString = text;
+        _table.ReloadServerData();
+    }
+}

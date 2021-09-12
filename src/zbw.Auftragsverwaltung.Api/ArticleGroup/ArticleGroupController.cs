@@ -46,26 +46,10 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _articleGroupBll.GetList(deleted, size, page);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _articleGroupBll.GetList(deleted, size, page);
+            return Ok(result);
         }
 
-        // GET api/<ArticleGroupController>/5
         [HttpGet("{id}")]
         [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Get(Guid id)
@@ -77,30 +61,15 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _articleGroupBll.Get(id);
-                return Ok(result);
-            }
-            catch (InvalidRightsException e)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException e)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _articleGroupBll.Get(id);
+            return Ok(result);
         }
 
 
         [HttpPost]
         [Authorize(Policy = Policies.RequireAdministratorRole)]
         [ProducesResponseType(typeof(PaginatedList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> Add([FromBody] ArticleGroupDto article)
+        public async Task<IActionResult> Add([FromBody] ArticleGroupDto articleGroup)
         {
             var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
@@ -109,23 +78,8 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _articleGroupBll.Add(article);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _articleGroupBll.Add(articleGroup);
+            return Ok(result);
         }
 
         // PUT api/<ArticleGroupController>/5
@@ -141,23 +95,8 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _articleGroupBll.Update(articleGroup);
-                return Ok(result);
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _articleGroupBll.Update(articleGroup);
+            return Ok(result);
         }
 
         // DELETE api/<ArticleGroupController>/5
@@ -173,23 +112,8 @@ namespace zbw.Auftragsverwaltung.Api.ArticleGroup
                 return Forbid();
             }
 
-            try
-            {
-                var result = await _articleGroupBll.Delete(dto);
-                return Ok();
-            }
-            catch (InvalidRightsException)
-            {
-                return Forbid();
-            }
-            catch (UserNotFoundException)
-            {
-                return Forbid();
-            }
-            catch (Exception e)
-            {
-                return BadRequest(new ErrorMessage() { Message = e.Message });
-            }
+            var result = await _articleGroupBll.Delete(dto);
+            return Ok();
         }
     }
 }

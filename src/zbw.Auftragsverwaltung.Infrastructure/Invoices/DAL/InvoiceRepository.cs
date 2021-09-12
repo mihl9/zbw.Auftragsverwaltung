@@ -12,7 +12,6 @@ using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Domain.Reports;
 using zbw.Auftragsverwaltung.Infrastructure.Addresses.DAL;
 using zbw.Auftragsverwaltung.Infrastructure.Common.Repositories;
-using zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement;
 
 namespace zbw.Auftragsverwaltung.Infrastructure.Invoices.DAL
 {
