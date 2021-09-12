@@ -44,7 +44,23 @@ namespace zbw.Auftragsverwaltung.Core.Test.Orders
 
         private readonly List<Order> _orders = new List<Order>()
         {
-            new Order(){Customer = new Customer(){CustomerNr = 1, Firstname = "Max", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id001, Id = GuidCollection.Id001}, OrderNr = 3, Date = new DateTime(2008,11,20),Id = GuidCollection.Id001},
+            new Order
+            {
+                Customer = new Customer()
+                {
+                    CustomerNr = 1,
+                    Firstname = "Max",
+                    Lastname = "Muster",
+                    Website = string.Empty,
+                    UserId = GuidCollection.Id001,
+                    Id = GuidCollection.Id001
+                },
+                OrderNr = 3,
+                Date = new DateTime(2008,
+                    11,
+                    20),
+                Id = GuidCollection.Id001
+            },
             new Order(){Customer = new Customer(){CustomerNr = 2, Firstname = "Lisa", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002}, OrderNr = 2, Date = new DateTime(2017,03,15), Id = GuidCollection.Id002}
         };
 

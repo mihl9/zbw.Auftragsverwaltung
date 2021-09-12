@@ -3,17 +3,15 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using zbw.Auftragsverwaltung.Infrastructure;
 
-namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
+namespace zbw.Auftragsverwaltung.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderManagementContext))]
-    [Migration("20210905192027_AddedArticle")]
-    partial class AddedArticle
+    partial class OrderManagementContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,8 +22,10 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
             modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Addresses.Entities.Address", b =>
                 {
                     b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("ValidFrom")
+                        .HasColumnType("datetime2");
 
                     b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
@@ -36,13 +36,19 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                     b.Property<int>("Number")
                         .HasColumnType("int");
 
+                    b.Property<string>("Recipient")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Street")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ValidTo")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Zip")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("Id", "ValidFrom");
 
                     b.HasIndex("CustomerId");
 
@@ -119,6 +125,84 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                     b.ToTable("Customers");
                 });
 
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Invoices.Entities.Invoice", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AddressId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("AdressValidFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Brutto")
+                        .HasColumnType("float");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<double>("Netto")
+                        .HasColumnType("float");
+
+                    b.Property<int>("Number")
+                        .HasColumnType("int");
+
+                    b.Property<double>("Tax")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AddressId", "AdressValidFrom");
+
+                    b.ToTable("Invoices");
+                });
+
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Orders.Entities.Order", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("CustomerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("OrderNr")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CustomerId");
+
+                    b.ToTable("Orders");
+                });
+
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Positions.Entities.Position", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Amount")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("ArticleId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("Nr")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ArticleId");
+
+                    b.ToTable("Positions");
+                });
+
             modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Addresses.Entities.Address", b =>
                 {
                     b.HasOne("zbw.Auftragsverwaltung.Core.Customers.Entities.Customer", "Customer")
@@ -146,6 +230,39 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                         .HasForeignKey("ArticleGroupId");
 
                     b.Navigation("ArticleGroup");
+                });
+
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Invoices.Entities.Invoice", b =>
+                {
+                    b.HasOne("zbw.Auftragsverwaltung.Core.Addresses.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId", "AdressValidFrom")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
+                });
+
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Orders.Entities.Order", b =>
+                {
+                    b.HasOne("zbw.Auftragsverwaltung.Core.Customers.Entities.Customer", "Customer")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Customer");
+                });
+
+            modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Positions.Entities.Position", b =>
+                {
+                    b.HasOne("zbw.Auftragsverwaltung.Core.Articles.Entities.Article", "Article")
+                        .WithMany()
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Article");
                 });
 #pragma warning restore 612, 618
         }

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using zbw.Auftragsverwaltung.Infrastructure;
 
-namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
+namespace zbw.Auftragsverwaltung.Infrastructure.Migrations
 {
     [DbContext(typeof(OrderManagementContext))]
-    partial class OrderManagementContextModelSnapshot : ModelSnapshot
+    [Migration("20210912193842_NormalizeDataModel")]
+    partial class NormalizeDataModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -131,10 +133,10 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("AddressId")
+                    b.Property<Guid>("AddressId")
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<DateTime?>("AddressValidFrom")
+                    b.Property<DateTime>("AdressValidFrom")
                         .HasColumnType("datetime2");
 
                     b.Property<double>("Brutto")
@@ -154,7 +156,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId", "AddressValidFrom");
+                    b.HasIndex("AddressId", "AdressValidFrom");
 
                     b.ToTable("Invoices");
                 });
@@ -165,7 +167,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("CustomerId")
+                    b.Property<Guid>("CustomerId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("Date")
@@ -190,7 +192,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
-                    b.Property<Guid?>("ArticleId")
+                    b.Property<Guid>("ArticleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("Nr")
@@ -236,7 +238,9 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                 {
                     b.HasOne("zbw.Auftragsverwaltung.Core.Addresses.Entities.Address", "Address")
                         .WithMany()
-                        .HasForeignKey("AddressId", "AddressValidFrom");
+                        .HasForeignKey("AddressId", "AdressValidFrom")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Address");
                 });
@@ -245,7 +249,9 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                 {
                     b.HasOne("zbw.Auftragsverwaltung.Core.Customers.Entities.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustomerId");
+                        .HasForeignKey("CustomerId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Customer");
                 });
@@ -254,7 +260,9 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations.OrderManagement
                 {
                     b.HasOne("zbw.Auftragsverwaltung.Core.Articles.Entities.Article", "Article")
                         .WithMany()
-                        .HasForeignKey("ArticleId");
+                        .HasForeignKey("ArticleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Article");
                 });

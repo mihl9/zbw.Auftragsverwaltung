@@ -9,8 +9,6 @@ namespace zbw.Auftragsverwaltung.Domain.Orders
 
         public int OrderNr { get; set; }
 
-        public CustomerDto Customer{ get; set; }
-
         public Guid CustomerId { get; set; }
 
         public DateTime Date { get; set; }
