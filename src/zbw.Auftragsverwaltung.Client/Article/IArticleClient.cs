@@ -11,7 +11,7 @@ namespace zbw.Auftragsverwaltung.Client.Article
     {
         public Task<ArticleDto> Get(Guid id);
 
-        public Task<PaginatedList<ArticleDto>> List(string include,int size = 10, int page = 1, bool deleted = false);
+        public Task<PaginatedList<ArticleDto>> List(int size = 10, int page = 1, bool deleted = false);
 
         public Task<ArticleDto> Add(ArticleDto article);
 
