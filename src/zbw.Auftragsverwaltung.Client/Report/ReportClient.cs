@@ -10,6 +10,7 @@ using zbw.Auftragsverwaltung.Client.Common.Configuration;
 using zbw.Auftragsverwaltung.Domain.ArticleGroups;
 using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Domain.Customers;
+using zbw.Auftragsverwaltung.Domain.Reports;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Contracts;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Http.Helpers;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Extensions;
@@ -47,18 +48,21 @@ namespace zbw.Auftragsverwaltung.Client.Report
 
             return await response.Content.ReadFromJsonAsync<IReadOnlyList<ArticleGroupDto>>();
         }
-
-        public async Task<PaginatedList<CustomerDto>> List(int size = 10, int page = 1, bool deleted = false)
+        
+        public async Task<IReadOnlyList<FacturaDto>> GetFactura(int? customerNr, DateTime invoiceDate, int? invoiceNumber, string zipCode, string street, string name)
         {
             var builder = new UriBuilder(_baseUrl)
             {
-                Path = "api/customer"
+                Path = "api/reports"
             };
 
             var query = HttpUtility.ParseQueryString(builder.Query);
-            query.Add("size", size.ToString());
-            query.Add("page", page.ToString());
-            query.Add("deleted", deleted.ToString());
+            query.Add("customerNr",customerNr.ToString());
+            query.Add("invoiceDate",invoiceDate.ToString());
+            query.Add("invoiceNumber",invoiceNumber.ToString());
+            query.Add("zipCode",zipCode);
+            query.Add("street",street);
+            query.Add("name",name);
 
             var request = new HttpRequestMessage(HttpMethod.Get, builder.Uri);
             await request.AddAuthenticationHeaders(_contextDataService);
@@ -66,7 +70,9 @@ namespace zbw.Auftragsverwaltung.Client.Report
 
             await response.EnsureSuccess(_exceptionMapper);
 
-            return await response.Content.ReadFromJsonAsync<PaginatedList<CustomerDto>>();
+            return await response.Content.ReadFromJsonAsync<IReadOnlyList<FacturaDto>>();
         }
+
+
     }
 }
