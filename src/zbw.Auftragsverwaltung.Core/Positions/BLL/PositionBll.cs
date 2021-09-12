@@ -64,15 +64,5 @@ namespace zbw.Auftragsverwaltung.Core.Positions.BLL
 
             return _mapper.Map<PositionDto>(position);
         }
-
-        Task<PaginatedList<PositionDto>> ICrudBll<PositionDto, Position, Guid>.GetList(Expression<Func<Position, bool>> predicate, int size, int page)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task<PaginatedList<PositionDto>> ICrudBll<PositionDto, Position, Guid>.GetList(bool deleted, int size, int page)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

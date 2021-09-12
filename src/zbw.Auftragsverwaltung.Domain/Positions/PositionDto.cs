@@ -1,4 +1,5 @@
 ﻿using System;
+using zbw.Auftragsverwaltung.Domain.Articles;
 
 namespace zbw.Auftragsverwaltung.Domain.Positions
 {
@@ -7,6 +8,8 @@ namespace zbw.Auftragsverwaltung.Domain.Positions
         public Guid Id { get; set; }
 
         public int Nr { get; set; }
+
+        public ArticleDto Article { get; set; }
 
         public Guid ArticleId { get; set; }
 

@@ -1,0 +1,60 @@
+﻿@page "/articlegroup"
+@using Microsoft.AspNetCore.Authorization
+@using zbw.Auftragsverwaltung.Client
+@using zbw.Auftragsverwaltung.Domain.Common
+@using zbw.Auftragsverwaltung.Domain.ArticleGroups
+@inject IAuftragsverwaltungClient auftragsverwaltungClient
+@attribute [Authorize]
+
+<MudTable ServerData="@(new Func<TableState, Task<TableData<ArticleGroupDto>>>(ServerReload))"
+          Dense="true" Hover="true" @ref="_table">
+    <ToolBarContent>
+        <MudText Typo="Typo.h6">ArticleGroups</MudText>
+        <MudToolBarSpacer />
+        <MudTextField T="string" ValueChanged="@(s=>OnSearch(s))" Placeholder="Search" Adornment="Adornment.Start"
+                      AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh><MudTableSortLabel SortLabel="articlegroupname_field" T="ArticleGroupDto">Name</MudTableSortLabel></MudTh>
+        <MudTh><MudTableSortLabel SortLabel="articlegroup_field" T="ArticleGroupDto">ArticleGroup</MudTableSortLabel></MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nr">@context.Name</MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+@code {
+    private PaginatedList<ArticleGroupDto> _pagedData;
+    private MudTable<ArticleGroupDto> _table;
+    private string _searchString = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            //_customers = await auftragsverwaltungClient.Customer().List();
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
+    }
+
+    private async Task<TableData<ArticleGroupDto>> ServerReload(TableState state)
+    {
+        _pagedData = await auftragsverwaltungClient.ArticleGroup().List(state.PageSize, state.Page);
+
+        return new TableData<ArticleGroupDto>() { TotalItems = _pagedData.TotalCount, Items = _pagedData.Results };
+    }
+
+    private void OnSearch(string text)
+    {
+        _searchString = text;
+        _table.ReloadServerData();
+    }
+}

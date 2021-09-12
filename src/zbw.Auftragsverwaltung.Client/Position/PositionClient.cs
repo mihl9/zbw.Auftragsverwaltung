@@ -5,13 +5,14 @@ using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using zbw.Auftragsverwaltung.Client.Position;
 using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Domain.Positions;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Contracts;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Extensions;
 using zbw.Auftragsverwaltung.Lib.HttpClient.Helper;
 
-namespace zbw.Auftragsverwaltung.Client.Positions
+namespace zbw.Auftragsverwaltung.Client.Position
 {
     public class PositionClient : IPositionClient
     {

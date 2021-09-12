@@ -11,7 +11,7 @@ using zbw.Auftragsverwaltung.Client.Common.Configuration;
 using zbw.Auftragsverwaltung.Client.Customer;
 using zbw.Auftragsverwaltung.Client.Invoices;
 using zbw.Auftragsverwaltung.Client.Order;
-using zbw.Auftragsverwaltung.Client.Positions;
+using zbw.Auftragsverwaltung.Client.Position;
 using zbw.Auftragsverwaltung.Client.Report;
 using zbw.Auftragsverwaltung.Client.User;
 using zbw.Auftragsverwaltung.Lib.ErrorHandling.Common.Contracts;

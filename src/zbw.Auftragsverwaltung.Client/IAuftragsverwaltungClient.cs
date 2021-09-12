@@ -8,7 +8,7 @@ using zbw.Auftragsverwaltung.Client.Authentication;
 using zbw.Auftragsverwaltung.Client.Customer;
 using zbw.Auftragsverwaltung.Client.Invoices;
 using zbw.Auftragsverwaltung.Client.Order;
-using zbw.Auftragsverwaltung.Client.Positions;
+using zbw.Auftragsverwaltung.Client.Position;
 using zbw.Auftragsverwaltung.Client.Report;
 using zbw.Auftragsverwaltung.Client.User;
 

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using zbw.Auftragsverwaltung.Domain.Common;
 using zbw.Auftragsverwaltung.Domain.Positions;
 
-namespace zbw.Auftragsverwaltung.Client.Positions
+namespace zbw.Auftragsverwaltung.Client.Position
 {
     public interface IPositionClient
     {
