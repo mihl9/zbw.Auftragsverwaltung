@@ -9,7 +9,7 @@
     <Folder Include="Common\Configurations\" />
     <Folder Include="Common\Services\" />
     <Folder Include="Customers\Services\" />
-    <Folder Include="Migrations\OrderManagement\" />
+    <Folder Include="Seedings\" />
   </ItemGroup>
 
   <ItemGroup>
