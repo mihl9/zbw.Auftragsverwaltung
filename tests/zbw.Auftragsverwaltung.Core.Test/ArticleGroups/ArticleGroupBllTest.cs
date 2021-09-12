@@ -12,11 +12,7 @@ using zbw.Auftragsverwaltung.Core.ArticleGroups.BLL;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Contracts;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Entities;
 using zbw.Auftragsverwaltung.Core.ArticleGroups.Profiles;
-using zbw.Auftragsverwaltung.Core.Customers.Contracts;
-using zbw.Auftragsverwaltung.Core.Customers.Profiles;
 using zbw.Auftragsverwaltung.Core.Test.Helpers;
-using zbw.Auftragsverwaltung.Core.Users.Entities;
-using zbw.Auftragsverwaltung.Core.Users.Enumerations;
 using zbw.Auftragsverwaltung.Domain.ArticleGroups;
 
 namespace zbw.Auftragsverwaltung.Core.Test.ArticleGroups
