@@ -18,6 +18,9 @@ namespace zbw.Auftragsverwaltung.Core.Articles.Entities
 
         public int Price { get; set; }
 
-        public ArticleGroup ArticleGroup { get; set; }
+        public virtual Guid ArticleGroupId { get; set; }
+
+        public virtual ArticleGroup ArticleGroup { get; set; }
+
     }
 }

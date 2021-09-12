@@ -25,7 +25,7 @@ namespace zbw.Auftragsverwaltung.Api.Reports
             this.reportBll = reportBll;
         }
 
-        [HttpGet]
+        [HttpGet("CTE")]
         [ProducesResponseType(typeof(IReadOnlyList<ArticleGroupDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetCteRecursiveData()
         {
@@ -35,7 +35,7 @@ namespace zbw.Auftragsverwaltung.Api.Reports
 
         }
 
-        [HttpGet]
+        [HttpGet("Faktura")]
         [ProducesResponseType(typeof(IReadOnlyList<FacturaDto>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> GetFactura(int? customerNr, DateTime invoiceDate, int? invoiceNumber, string zipCode, string street, string name)
         {

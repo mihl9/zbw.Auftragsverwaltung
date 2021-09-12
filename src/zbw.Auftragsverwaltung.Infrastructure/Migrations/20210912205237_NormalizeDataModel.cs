@@ -13,14 +13,14 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ArticlegroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ParentId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_ArticleGroups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ArticleGroups_ArticleGroups_ArticlegroupId",
-                        column: x => x.ArticlegroupId,
+                        name: "FK_ArticleGroups_ArticleGroups_ParentId",
+                        column: x => x.ParentId,
                         principalTable: "ArticleGroups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -50,7 +50,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations
                     ArticleId = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Price = table.Column<int>(type: "int", nullable: false),
-                    ArticleGroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    ArticleGroupId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,7 +60,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations
                         column: x => x.ArticleGroupId,
                         principalTable: "ArticleGroups",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -158,9 +158,9 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ArticleGroups_ArticlegroupId",
+                name: "IX_ArticleGroups_ParentId",
                 table: "ArticleGroups",
-                column: "ArticlegroupId");
+                column: "ParentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Articles_ArticleGroupId",

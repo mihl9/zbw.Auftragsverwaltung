@@ -8,7 +8,7 @@ namespace zbw.Auftragsverwaltung.Domain.ArticleGroups
 
         public string Name { get; set; }
 
-        public ArticleGroupDto Articlegroupdto { get; set; }
+        public Guid? ParentId { get; set; }
 
     }
 }

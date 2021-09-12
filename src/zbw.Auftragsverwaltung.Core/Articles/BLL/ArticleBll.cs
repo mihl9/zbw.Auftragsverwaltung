@@ -52,18 +52,17 @@ namespace zbw.Auftragsverwaltung.Core.Articles.BLL
 
         public async Task<bool> Delete(ArticleDto dto)
         {
-
             var article = _mapper.Map<Article>(dto);
-            return await _articleRepository.UpdateAsync(article);
-
+            await _articleRepository.DeleteAsync(article);
+            return true;
         }
 
         public async Task<ArticleDto> Update(ArticleDto dto)
         {
             var article = _mapper.Map<Article>(dto);
-            await _articleRepository.DeleteAsync(article);
-
+            await _articleRepository.UpdateAsync(article);
             return _mapper.Map<ArticleDto>(article);
+
         }
     }
 }

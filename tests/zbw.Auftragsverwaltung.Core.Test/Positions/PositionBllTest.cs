@@ -49,11 +49,11 @@ namespace zbw.Auftragsverwaltung.Core.Test.Positions
            new Position() {
             Amount = 3, Nr = 1, Id = GuidCollection.Id001, 
             Article = new Article() { Id = GuidCollection.Id003, ArticleId = "TestId", Name = "TestName", Price = 15, 
-                ArticleGroup = new ArticleGroup() { Id = GuidCollection.Id005, Name = "Test", Articlegroup = null }}},
+                ArticleGroup = new ArticleGroup() { Id = GuidCollection.Id005, Name = "Test", ParentId = null }}},
            new Position() {
             Amount = 7, Nr = 2, Id = GuidCollection.Id002,
             Article = new Article() { Id = GuidCollection.Id003, ArticleId = "TestId", Name = "TestName", Price = 15,
-            ArticleGroup = new ArticleGroup() { Id = GuidCollection.Id005, Name = "Test", Articlegroup = null }}}
+            ArticleGroup = new ArticleGroup() { Id = GuidCollection.Id005, Name = "Test", ParentId = null }}}
         };
 
         public PositionBllTest()

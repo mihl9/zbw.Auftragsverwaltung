@@ -33,25 +33,25 @@ namespace zbw.Auftragsverwaltung.Core.Test.ArticleGroups
         {
             Id = GuidCollection.Id010,
             Name = "Eisenwaren",
-            Articlegroup = null
+            ParentId = null
         };
         private static ArticleGroup _articleGroup2 = new ArticleGroup()
         {
             Id = GuidCollection.Id009,
             Name = "Nägel",
-            Articlegroup = _articleGroup1
+            ParentId = _articleGroup1.Id
         };
         private static ArticleGroup _articleGroup3 = new ArticleGroup()
         {
             Id = GuidCollection.Id008,
             Name = "Schrauben",
-            Articlegroup = _articleGroup1
+            ParentId = _articleGroup1.Id
         };
         private static ArticleGroup _articleGroup4 = new ArticleGroup()
         {
             Id = GuidCollection.Id007,
             Name = "Holzwaren",
-            Articlegroup = null
+            ParentId = null
         };
 
 
@@ -84,8 +84,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.ArticleGroups
             var articleGroupDto = new ArticleGroupDto
             {
                 Id = GuidCollection.Id007,
-                Name = "Holzwaren",
-                Articlegroupdto = null
+                Name = "Holzwaren"
             };
             Func<Task> delete = async () => { await _articleGroup.Delete(articleGroupDto); };
             delete.Should().NotThrow<Exception>();
@@ -98,12 +97,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.ArticleGroups
             {
                 Id = GuidCollection.Id005,
                 Name = "Bretter",
-                Articlegroupdto = new ArticleGroupDto
-                {
-                    Id = GuidCollection.Id007,
-                    Name = "Holzwaren",
-                    Articlegroupdto = null
-                }
+                ParentId = GuidCollection.Id007
             };
             Func<Task> add = async () => { await _articleGroup.Add(articleGroupDto); };
             add.Should().NotThrow<Exception>();
@@ -118,12 +112,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.ArticleGroups
             {
                 Id = GuidCollection.Id005,
                 Name = "BretterBlubb",
-                Articlegroupdto = new ArticleGroupDto
-                {
-                    Id = GuidCollection.Id007,
-                    Name = "Holzwaren",
-                    Articlegroupdto = null
-                }
+                ParentId = GuidCollection.Id007
             };
             Func<Task> update = async () => { await _articleGroup.Update(articleGroupDto); };
             update.Should().NotThrow<Exception>();

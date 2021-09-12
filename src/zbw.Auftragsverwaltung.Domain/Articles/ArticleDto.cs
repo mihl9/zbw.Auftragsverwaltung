@@ -13,6 +13,6 @@ namespace zbw.Auftragsverwaltung.Domain.Articles
 
         public int Price { get; set; }
 
-        public ArticleGroupDto ArticleGroupDto { get; set; }
+        public Guid? ArticleGroupId { get; set; }
     }
 }

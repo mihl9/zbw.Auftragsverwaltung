@@ -80,8 +80,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Articles
                 Id = GuidCollection.Id004,
                 ArticleId = "2",
                 Name = "Scherer",
-                Price = 20,
-                ArticleGroupDto = null
+                Price = 20
 
             };
             Func<Task> delete = async () => { await _article.Delete(articleDto); };
@@ -96,8 +95,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Articles
                 Id = GuidCollection.Id004,
                 ArticleId = "5",
                 Name = "Schraubenzieher",
-                Price = 50,
-                ArticleGroupDto = null
+                Price = 50
 
             };
 
@@ -116,8 +114,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Articles
                 Id = GuidCollection.Id003,
                 ArticleId = "3",
                 Name = "Säge",
-                Price = 100,
-                ArticleGroupDto = null
+                Price = 100
             };
             Func<Task> update = async () => { await _article.Update(ArticleDto); };
             update.Should().NotThrow<Exception>();

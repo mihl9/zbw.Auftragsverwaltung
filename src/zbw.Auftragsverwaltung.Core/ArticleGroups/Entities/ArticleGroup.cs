@@ -11,6 +11,9 @@ namespace zbw.Auftragsverwaltung.Core.ArticleGroups.Entities
 
         public string Name { get; set; }
 
-        public ArticleGroup Articlegroup { get; set; }
+        public Guid? ParentId { get; set; }
+        public virtual ArticleGroup Parent { get; set; }
+
+        
     }
 }

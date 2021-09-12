@@ -61,15 +61,15 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ArticlegroupId")
-                        .HasColumnType("uniqueidentifier");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<Guid?>("ParentId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ArticlegroupId");
+                    b.HasIndex("ParentId");
 
                     b.ToTable("ArticleGroups");
                 });
@@ -80,7 +80,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid?>("ArticleGroupId")
+                    b.Property<Guid>("ArticleGroupId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("ArticleId")
@@ -216,18 +216,20 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Migrations
 
             modelBuilder.Entity("zbw.Auftragsverwaltung.Core.ArticleGroups.Entities.ArticleGroup", b =>
                 {
-                    b.HasOne("zbw.Auftragsverwaltung.Core.ArticleGroups.Entities.ArticleGroup", "Articlegroup")
+                    b.HasOne("zbw.Auftragsverwaltung.Core.ArticleGroups.Entities.ArticleGroup", "Parent")
                         .WithMany()
-                        .HasForeignKey("ArticlegroupId");
+                        .HasForeignKey("ParentId");
 
-                    b.Navigation("Articlegroup");
+                    b.Navigation("Parent");
                 });
 
             modelBuilder.Entity("zbw.Auftragsverwaltung.Core.Articles.Entities.Article", b =>
                 {
                     b.HasOne("zbw.Auftragsverwaltung.Core.ArticleGroups.Entities.ArticleGroup", "ArticleGroup")
                         .WithMany()
-                        .HasForeignKey("ArticleGroupId");
+                        .HasForeignKey("ArticleGroupId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ArticleGroup");
                 });
