@@ -48,7 +48,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Orders
             {
                 Customer = new Customer()
                 {
-                    CustomerNr = 1,
+                    CustomerNr = "CU00001",
                     Firstname = "Max",
                     Lastname = "Muster",
                     Website = string.Empty,
@@ -61,7 +61,7 @@ namespace zbw.Auftragsverwaltung.Core.Test.Orders
                     20),
                 Id = GuidCollection.Id001
             },
-            new Order(){Customer = new Customer(){CustomerNr = 2, Firstname = "Lisa", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002}, OrderNr = 2, Date = new DateTime(2017,03,15), Id = GuidCollection.Id002}
+            new Order(){Customer = new Customer(){CustomerNr = "CU00002", Firstname = "Lisa", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002}, OrderNr = 2, Date = new DateTime(2017,03,15), Id = GuidCollection.Id002}
         };
 
         public OrderBllTest()

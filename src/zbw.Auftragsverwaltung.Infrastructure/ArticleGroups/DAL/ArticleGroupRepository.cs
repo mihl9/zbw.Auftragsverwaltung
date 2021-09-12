@@ -11,7 +11,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure.ArticleGroups.DAL
 {
     public class ArticleGroupRepository : BaseRepository<ArticleGroup, Guid, OrderManagementContext>, IArticleGroupRepository
     {
-        private const string CTE_SQL_COMMAND = "WITH CTE_ARTICLEGROUPS (Id, ArticleGroupName, ArticleGroupId ) AS (SELECT Id, Name, ArticlegroupId FROM dbo.ArticleGroups WHERE ArticlegroupId IS NULL UNION ALL SELECT pn.Id,pn.Name, pn.ArticlegroupId FROM dbo.ArticleGroups AS pn INNER JOIN CTE_ARTICLEGROUPS AS p1 ON p1.Id = pn.ArticlegroupId) SELECT	Id,ArticleGroupName, ArticlegroupId FROM CTE_ARTICLEGROUPS ORDER BY ArticlegroupId";
+        private const string CTE_SQL_COMMAND = "WITH CTE_ARTICLEGROUPS (Id, Name, ParentId ) AS (SELECT Id, Name, ParentId FROM dbo.ArticleGroups WHERE ParentId IS NULL UNION ALL SELECT pn.Id,pn.Name, pn.ParentId FROM dbo.ArticleGroups AS pn INNER JOIN CTE_ARTICLEGROUPS AS p1 ON p1.Id = pn.ParentId) SELECT	Id,Name, ParentId FROM CTE_ARTICLEGROUPS ORDER BY ParentId";
 
         public ArticleGroupRepository(OrderManagementContext dbContext) : base(dbContext)
         {

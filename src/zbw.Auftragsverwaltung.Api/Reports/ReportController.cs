@@ -37,7 +37,7 @@ namespace zbw.Auftragsverwaltung.Api.Reports
 
         [HttpGet("Faktura")]
         [ProducesResponseType(typeof(IReadOnlyList<FacturaDto>), (int)HttpStatusCode.OK)]
-        public async Task<IActionResult> GetFactura(int? customerNr, DateTime invoiceDate, int? invoiceNumber, string zipCode, string street, string name)
+        public async Task<IActionResult> GetFactura(string? customerNr, DateTime invoiceDate, int? invoiceNumber, string zipCode, string street, string name)
         {
 
             var result = await reportBll.GetFactura(customerNr, invoiceDate, invoiceNumber, zipCode, street, name);

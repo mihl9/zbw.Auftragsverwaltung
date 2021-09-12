@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 using System.Net;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -70,6 +71,10 @@ namespace zbw.Auftragsverwaltung.Api.Customer
         [ProducesResponseType(typeof(CustomerDto), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> Add([FromBody] CustomerDto customer)
         {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
             var rawUserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
             if (!Guid.TryParse(rawUserId, out var userId))

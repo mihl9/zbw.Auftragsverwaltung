@@ -10,7 +10,7 @@ namespace zbw.Auftragsverwaltung.Core.Invoices.Contracts
 {
     public interface IInvoiceRepository : IRepository<Invoice,Guid>
     {
-        Task<IReadOnlyList<FacturaDto>> GetFactura(int? customerNr, DateTime invoiceDate, int? invoiceNumber,
+        Task<IReadOnlyList<FacturaDto>> GetFactura(string? customerNr, DateTime invoiceDate, int? invoiceNumber,
             string zipCode, string street, string name);
     }
 }

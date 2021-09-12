@@ -21,7 +21,7 @@ namespace zbw.Auftragsverwaltung.Infrastructure.Invoices.DAL
         {
         }
 
-        public async Task<IReadOnlyList<FacturaDto>> GetFactura(int? customerNr, DateTime invoiceDate, int? invoiceNumber, string zipCode, string street, string name)
+        public async Task<IReadOnlyList<FacturaDto>> GetFactura(string? customerNr, DateTime invoiceDate, int? invoiceNumber, string zipCode, string street, string name)
         {
             var query = await _dbContext.Invoices
                 .Join(_dbContext.Addresses, i => i.AddressId, adr => adr.Id, (i, adr) => new { i, adr })

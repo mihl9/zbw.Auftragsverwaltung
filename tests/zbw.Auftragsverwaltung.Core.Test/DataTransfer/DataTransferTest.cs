@@ -31,8 +31,8 @@ namespace zbw.Auftragsverwaltung.Core.Test.DataTransfer
         private readonly Mock<IUserRepository> _userRepository;
         private readonly Mock<ICustomerRepository> _customerRepository;
         private readonly Mock<UserManager<User>> _userManager;
-        private static Customer cust1 = new Customer() { CustomerNr = 1, Firstname = "Max", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id001, Id = GuidCollection.Id001 };
-        private static Customer cust2 = new Customer() { CustomerNr = 2, Firstname = "Lisa", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002 };
+        private static Customer cust1 = new Customer() { CustomerNr = "CU00001", Firstname = "Max", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id001, Id = GuidCollection.Id001 };
+        private static Customer cust2 = new Customer() { CustomerNr = "CU00002", Firstname = "Lisa", Lastname = "Muster", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002 };
 
         private readonly List<User> _users = new List<User>()
         {

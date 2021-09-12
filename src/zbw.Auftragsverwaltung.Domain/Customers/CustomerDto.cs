@@ -8,7 +8,7 @@ namespace zbw.Auftragsverwaltung.Domain.Customers
         public Guid Id { get; set; }
 
         [RegularExpression(@"CU\d{5}")]
-        public int CustomerNr { get; set; }
+        public string CustomerNr { get; set; }
 
         public string Firstname { get; set; }
 

@@ -32,7 +32,7 @@ namespace zbw.Auftragsverwaltung.Core.Reports.BLL
 
         }
 
-        public async Task<IReadOnlyList<FacturaDto>> GetFactura(int? customerNr, DateTime invoiceDate, int? invoiceNumber,
+        public async Task<IReadOnlyList<FacturaDto>> GetFactura(string? customerNr, DateTime invoiceDate, int? invoiceNumber,
             string zipCode, string street, string name)
         {
             var facturas = await _invoiceRepository.GetFactura(customerNr, invoiceDate, invoiceNumber, zipCode, street, name);

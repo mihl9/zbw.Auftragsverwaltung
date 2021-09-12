@@ -9,7 +9,7 @@ namespace zbw.Auftragsverwaltung.Core.Customers.Entities
         [Key]
         public Guid Id { get; set; }
 
-        public int CustomerNr { get; set; }
+        public string CustomerNr { get; set; }
 
         public string Firstname { get; set; }
 

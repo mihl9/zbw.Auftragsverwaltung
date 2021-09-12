@@ -69,7 +69,7 @@ namespace zbw.Auftragsverwaltung.Core.Common.DataTransfer
             {
                 Customer customer = new Customer();
                 Address address = new Address();
-                customer.CustomerNr = Convert.ToInt32(data.customerNr.Remove(0, 2));
+                customer.CustomerNr = data.customerNr;
                 customer.Firstname = data.name.Split(" ")[0];
                 customer.Lastname = data.name.Split(" ")[1];
                 customer.UserId = data.userId;

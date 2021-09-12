@@ -81,8 +81,8 @@ namespace zbw.Auftragsverwaltung.Core.Test.Addresses
 
         private readonly List<Customer> _customers = new List<Customer>()
         {
-            new Customer(){CustomerNr = 1, Firstname = "Michael", Lastname = "Huber", Website = string.Empty, UserId = GuidCollection.Id001, Id = GuidCollection.Id001},
-            new Customer(){CustomerNr = 2, Firstname = "Test", Lastname = "Test", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002}
+            new Customer(){CustomerNr = "CU0001", Firstname = "Michael", Lastname = "Huber", Website = string.Empty, UserId = GuidCollection.Id001, Id = GuidCollection.Id001},
+            new Customer(){CustomerNr = "CU0002", Firstname = "Test", Lastname = "Test", Website = string.Empty, UserId = GuidCollection.Id002, Id = GuidCollection.Id002}
         };
 
         public InvoiceBllTest()

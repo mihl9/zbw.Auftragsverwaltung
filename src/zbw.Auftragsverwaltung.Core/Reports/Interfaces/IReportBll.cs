@@ -12,6 +12,6 @@ namespace zbw.Auftragsverwaltung.Core.Reports.Interfaces
     {
         Task<IReadOnlyList<ArticleGroupDto>> GetCTERecursiveArticleGroup();
 
-        Task<IReadOnlyList<FacturaDto>> GetFactura(int? customerNr, DateTime invoiceDate, int? invoiceNumber, string zipCode, string street, string name);
+        Task<IReadOnlyList<FacturaDto>> GetFactura(string? customerNr, DateTime invoiceDate, int? invoiceNumber, string zipCode, string street, string name);
     }
 }
