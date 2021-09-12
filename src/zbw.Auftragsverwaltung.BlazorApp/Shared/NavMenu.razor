@@ -4,14 +4,15 @@
 
 @if (_authService.Validate())
 {
-    <MudNavMenu>
-        <MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
-        <MudNavLink Href="/fetchdata">test</MudNavLink>
-        <MudNavGroup Title="Settings" Expanded="false">
-            <MudNavLink Href="/users">Users</MudNavLink>
-        </MudNavGroup>
-        <MudNavLink Href="/Account/Logout">Logout</MudNavLink>
-    </MudNavMenu>
+<MudNavMenu>
+    <MudNavLink Href="/" Match="NavLinkMatch.All">Home</MudNavLink>
+    <MudNavLink Href="/fetchdata">test</MudNavLink>
+    <MudNavGroup Title="Settings" Expanded="false">
+        <MudNavLink Href="/users">Users</MudNavLink>
+    </MudNavGroup>
+    <MudNavLink Href="/dataTransfer">Kunden Export / Import</MudNavLink>
+    <MudNavLink Href="/Account/Logout">Logout</MudNavLink>
+</MudNavMenu>
 }
 else
 {

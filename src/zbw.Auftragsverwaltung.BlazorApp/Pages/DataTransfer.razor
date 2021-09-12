@@ -1,0 +1,43 @@
+﻿@page "/dataTransfer"
+@using Microsoft.AspNetCore.Authorization
+@using zbw.Auftragsverwaltung.Client
+@using zbw.Auftragsverwaltung.Domain.Common
+@inject IAuftragsverwaltungClient auftragsverwaltungClient
+@attribute [Authorize]
+<MudGrid>
+    <MudItem xs="12" sm="12" md="12">
+        <MudPaper Elevation="2" Class="pa-4" Style="height: 200px;">
+            <h1>Import / Export der Kundendaten</h1>
+            <h2> Hier können Sie alle Kundendaten importieren und exportieren. Bitte wählen Sie Ihre Action aus:</h2>
+            <MudButton>Import JSON</MudButton>
+            <MudButton>Import XML</MudButton>
+            <MudButton>Export JSON</MudButton>
+            <MudButton>Export Xml</MudButton>
+        </MudPaper>
+    </MudItem>
+</MudGrid>
+
+
+
+@code {
+
+
+    private void OnClickImportJson()
+    {
+
+    }
+
+    private void OnClickImportXml()
+    {
+
+    }
+    private void OnClickExportJson()
+    {
+
+    }
+
+    private void OnClickExportXml()
+    {
+
+    }
+}
