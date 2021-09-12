@@ -11,6 +11,8 @@ namespace zbw.Auftragsverwaltung.Domain.Invoices
 
         public AddressDto Address { get; set; }
 
+        public Guid AddressId { get; set; }
+
         public DateTime Date { get; set; }
 
         public int Number { get; set; }

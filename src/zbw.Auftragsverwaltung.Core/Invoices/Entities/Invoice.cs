@@ -14,6 +14,8 @@ namespace zbw.Auftragsverwaltung.Core.Invoices.Entities
 
         public Address Address { get; set; }
 
+        public virtual Guid AddressId { get; set; }
+
         public DateTime Date { get; set; }
 
         public int Number { get; set; }
