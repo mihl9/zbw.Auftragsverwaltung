@@ -1,0 +1,24 @@
+_id: req_71ab9b4e105f48799415f4eb03ad598f
+type: Request
+parentId: fld_bc673ea5c4ab413db23ad9505a9bea32
+modified: 1631479054923
+created: 1631477613336
+url: "{{ _.FullUrl }}/ArticleGroup/{% prompt 'Address Id', 'Address Id', '', '',
+  false, true %}"
+name: ById
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1630224017928.625
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

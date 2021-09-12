@@ -1,0 +1,23 @@
+_id: req_d130b1b9b5cb4e078111718e2445965c
+type: Request
+parentId: fld_bbcd77fbba7d4966885a646b764dc964
+modified: 1631478134311
+created: 1631477472886
+url: "{{ _.FullUrl }}/Article/{% prompt 'Id', 'Id', '', '', false, true %}"
+name: ById
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629863701972.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

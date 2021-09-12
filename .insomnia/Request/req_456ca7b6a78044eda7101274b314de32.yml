@@ -1,0 +1,23 @@
+_id: req_456ca7b6a78044eda7101274b314de32
+type: Request
+parentId: fld_0bc5ce0659674bd08f2488c415c3a2cc
+modified: 1631483202335
+created: 1631477866437
+url: "{{ _.FullUrl }}/Report/Faktura"
+name: Faktura
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629863701987.875
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

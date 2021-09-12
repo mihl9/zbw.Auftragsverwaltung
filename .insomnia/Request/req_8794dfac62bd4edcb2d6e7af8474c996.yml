@@ -1,0 +1,34 @@
+_id: req_8794dfac62bd4edcb2d6e7af8474c996
+type: Request
+parentId: fld_bbcd77fbba7d4966885a646b764dc964
+modified: 1631480816572
+created: 1631477488721
+url: "{{ _.FullUrl }}/Article"
+name: Add
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "articleId": "007",
+      "name": "TetsArticle",
+      "price": 0,
+      "articleGroupId": "7c22500e-a265-48ee-1930-08d9762fa039"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d6fb76e561e04373b5a7587de7d03b49
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629863701872.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

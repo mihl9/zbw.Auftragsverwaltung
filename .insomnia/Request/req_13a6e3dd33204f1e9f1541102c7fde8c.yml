@@ -1,0 +1,24 @@
+_id: req_13a6e3dd33204f1e9f1541102c7fde8c
+type: Request
+parentId: fld_a394f8eab17f4fb8a592de97c9236c5d
+modified: 1631482685018
+created: 1631477776913
+url: "{{ _.FullUrl }}/Order/{% prompt 'Address Id', 'Address Id', '', '', false,
+  true %}"
+name: ById
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629698641758.4766
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

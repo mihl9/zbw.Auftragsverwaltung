@@ -1,0 +1,23 @@
+_id: req_e3299dfee4984021963b2d969811a1b8
+type: Request
+parentId: fld_bc673ea5c4ab413db23ad9505a9bea32
+modified: 1631479056499
+created: 1631477608638
+url: "{{ _.FullUrl }}/ArticleGroup"
+name: List
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1630224017878.625
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

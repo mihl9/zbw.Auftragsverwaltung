@@ -1,0 +1,25 @@
+_id: env_28900db254353dc1291e02c305f0840509756016
+type: Environment
+parentId: wrk_b9cd374b67564d4487ced925cd82548f
+modified: 1631026033197
+created: 1629316767314
+name: Base Environment
+data:
+  BaseUrl: ""
+  ApiEndpoint: /api
+  FullUrl: "{{ _.BaseUrl }}{{ _.ApiEndpoint }}"
+  Username: ""
+  Password: ""
+  Token: "{% response 'body', 'req_fc181eba39a64d838385b728bf5e55f0',
+    'b64::JC5hdXRoZW50aWNhdGlvblRva2Vu::46b', 'when-expired', 60 %}"
+dataPropertyOrder:
+  "&":
+    - BaseUrl
+    - ApiEndpoint
+    - FullUrl
+    - Username
+    - Password
+    - Token
+color: null
+isPrivate: false
+metaSortKey: 1629316767314

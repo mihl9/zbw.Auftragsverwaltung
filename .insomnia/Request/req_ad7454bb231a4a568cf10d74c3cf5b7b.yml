@@ -1,0 +1,33 @@
+_id: req_ad7454bb231a4a568cf10d74c3cf5b7b
+type: Request
+parentId: fld_a394f8eab17f4fb8a592de97c9236c5d
+modified: 1631482681803
+created: 1631477766502
+url: "{{ _.FullUrl }}/Order"
+name: Add
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "orderNr": 1,
+      "customerId": "d6c98ff2-e376-4209-3a78-08d9763477f0",
+      "date": "2021-09-12T21:35:52.936Z"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d6fb76e561e04373b5a7587de7d03b49
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629698641658.4766
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,23 @@
+_id: req_252c10c2f4d94643824c30a6e04eb25a
+type: Request
+parentId: fld_a394f8eab17f4fb8a592de97c9236c5d
+modified: 1631482699743
+created: 1631477772197
+url: "{{ _.FullUrl }}/Order"
+name: List
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629698641708.4766
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

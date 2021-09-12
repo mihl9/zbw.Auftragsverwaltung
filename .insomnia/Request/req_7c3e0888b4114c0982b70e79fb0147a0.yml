@@ -1,0 +1,34 @@
+_id: req_7c3e0888b4114c0982b70e79fb0147a0
+type: Request
+parentId: fld_90a44de19d5b414fa9004eeefe10fd05
+modified: 1631483116042
+created: 1631477833944
+url: "{{ _.FullUrl }}/Position"
+name: Update
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "id": "1b4dfdb2-1d47-427d-5fbd-08d976369757",
+      "nr": 2,
+      "articleId": "05168acd-6709-498e-8f9d-08d97631804d",
+      "amount": 1
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d6fb76e561e04373b5a7587de7d03b49
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629863701834.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

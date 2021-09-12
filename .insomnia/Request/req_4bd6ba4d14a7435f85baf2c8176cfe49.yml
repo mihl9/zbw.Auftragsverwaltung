@@ -1,0 +1,23 @@
+_id: req_4bd6ba4d14a7435f85baf2c8176cfe49
+type: Request
+parentId: fld_45b42ee2ba2f45c69c5b21407601d7dc
+modified: 1631482505395
+created: 1631477694060
+url: "{{ _.FullUrl }}/Invoice"
+name: List
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629692949867.4844
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

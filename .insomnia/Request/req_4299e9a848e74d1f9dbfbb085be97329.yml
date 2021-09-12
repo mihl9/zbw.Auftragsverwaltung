@@ -1,0 +1,33 @@
+_id: req_4299e9a848e74d1f9dbfbb085be97329
+type: Request
+parentId: fld_90a44de19d5b414fa9004eeefe10fd05
+modified: 1631483089335
+created: 1631477829539
+url: "{{ _.FullUrl }}/Position"
+name: Add
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "nr": 1,
+      "articleId": "05168acd-6709-498e-8f9d-08d97631804d",
+      "amount": 1
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d6fb76e561e04373b5a7587de7d03b49
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629863701884.75
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,18 @@
+_id: env_697e7cf2ec5e4ab78d01b434dcf19c6e
+type: Environment
+parentId: env_28900db254353dc1291e02c305f0840509756016
+modified: 1631025945675
+created: 1631025927942
+name: Development - Administrator
+data:
+  Username: testadministrator
+  Password: Test@1
+  BaseUrl: http://localhost:5000
+dataPropertyOrder:
+  "&":
+    - Username
+    - Password
+    - BaseUrl
+color: "#e024c1"
+isPrivate: false
+metaSortKey: 1629317330556

@@ -1,0 +1,39 @@
+_id: req_400e6dfc38fb406cab3808a24f9ef036
+type: Request
+parentId: fld_486ec8bb64ee43c593b617af0f67420c
+modified: 1631483147575
+created: 1631477900104
+url: "{{ _.FullUrl }}/User"
+name: Update
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "id": "3ce735e2-7f81-4a08-a373-04e31bade7e3",
+      "customerId": "17269cf3-39b8-4022-0987-08d97227a08b",
+      "street": "string",
+      "number": 0,
+      "zip": "string",
+      "recipient": "string",
+      "location": "string",
+      "fullAddress": null,
+      "validFrom": "2021-09-12T18:35:08.9717285Z"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d6fb76e561e04373b5a7587de7d03b49
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629863701944.125
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

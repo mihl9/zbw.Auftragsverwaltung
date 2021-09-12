@@ -1,0 +1,35 @@
+_id: req_fd37ff1c46eb40cfa9eb16cf55651e05
+type: Request
+parentId: fld_c27c5dd830e84bf3bbb30d2b332ee6cf
+modified: 1631482196254
+created: 1631025960198
+url: "{{ _.FullUrl }}/Customer"
+name: Add
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "customerNr": "CU00000",
+      "firstname": "test",
+      "lastname": "test",
+      "website": "http://www.google.ch",
+      "userId": "1AD8487A-E600-41CA-A1C6-08D9722263C8"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_496dd23f677e4bd98ba194588ced5e7c
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629681566235.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

@@ -1,0 +1,29 @@
+_id: req_d68808461922460b90c779b5d2b93f8f
+type: Request
+parentId: fld_05eb7a3a96674010ae5aade400ba630d
+modified: 1631020892643
+created: 1630863996489
+url: "{{ _.FullUrl }}/Auth/refresh-token"
+name: Refresh-Token
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"Token": "OV2D4xXheftIbDiwNVCJraHogjg6EyH2Ms2iLgQIuqCyd9lQCyNytGdCHSXQLeNCbl/P6O7iCyBEeewckHTJ9w=="
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_1c4418cf6ed14970bac81aecf04016dc
+authentication: {}
+metaSortKey: -1629317294762
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

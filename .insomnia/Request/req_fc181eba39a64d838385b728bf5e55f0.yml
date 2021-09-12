@@ -1,0 +1,30 @@
+_id: req_fc181eba39a64d838385b728bf5e55f0
+type: Request
+parentId: fld_05eb7a3a96674010ae5aade400ba630d
+modified: 1631036871790
+created: 1629317294812
+url: "{{ _.FullUrl }}/Auth/Login"
+name: Login
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"username": "{{ _.Username }}",
+    	"password": "{{ _.Password }}"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_1c4418cf6ed14970bac81aecf04016dc
+authentication: {}
+metaSortKey: -1629317294812
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

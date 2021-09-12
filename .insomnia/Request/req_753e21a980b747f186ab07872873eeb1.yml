@@ -1,0 +1,23 @@
+_id: req_753e21a980b747f186ab07872873eeb1
+type: Request
+parentId: fld_0bc5ce0659674bd08f2488c415c3a2cc
+modified: 1631483175766
+created: 1631477858604
+url: "{{ _.FullUrl }}/Report/CTE"
+name: CTE
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629863701991
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

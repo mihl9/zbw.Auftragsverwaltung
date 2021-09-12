@@ -1,0 +1,24 @@
+_id: req_7334db7855ec4de6b1d15ccb71eae6ff
+type: Request
+parentId: fld_45b42ee2ba2f45c69c5b21407601d7dc
+modified: 1631482502279
+created: 1631477697782
+url: "{{ _.FullUrl }}/Invoice/{% prompt 'Address Id', 'Address Id', '', '',
+  false, true %}"
+name: ById
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629692949917.4844
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

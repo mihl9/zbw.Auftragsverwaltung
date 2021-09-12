@@ -1,0 +1,32 @@
+_id: req_cc0246b7ef0e4455b050c8a27a4472c5
+type: Request
+parentId: fld_bc673ea5c4ab413db23ad9505a9bea32
+modified: 1631479051596
+created: 1631477598892
+url: "{{ _.FullUrl }}/ArticleGroup"
+name: Add
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+     	"id": "26935dda-99ed-4185-88b8-522a1af5f05a",
+      "name": "testGroup1"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d6fb76e561e04373b5a7587de7d03b49
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1630224017828.625
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

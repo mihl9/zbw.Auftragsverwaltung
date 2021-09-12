@@ -1,0 +1,35 @@
+_id: req_2b2e09db4aa246a5b3ac0a6e32bea068
+type: Request
+parentId: fld_bbcd77fbba7d4966885a646b764dc964
+modified: 1631480933233
+created: 1631477493722
+url: "{{ _.FullUrl }}/Article"
+name: Update
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "id": "05168acd-6709-498e-8f9d-08d97631804d",
+      "articleId": "007",
+      "name": "TetsArticle1",
+      "price": 0,
+      "articleGroupId": "7c22500e-a265-48ee-1930-08d9762fa039"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d6fb76e561e04373b5a7587de7d03b49
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629863701822.25
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

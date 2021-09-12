@@ -1,0 +1,24 @@
+_id: req_2b80844157b841d08e949aa28b6920e4
+type: Request
+parentId: fld_c27c5dd830e84bf3bbb30d2b332ee6cf
+modified: 1631026235536
+created: 1630045837659
+url: "{{ _.FullUrl }}/Customer/{% prompt 'Customer ID', 'ID', '', '', false,
+  true %}"
+name: ById
+description: ""
+method: GET
+body: {}
+parameters: []
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1630045837659
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

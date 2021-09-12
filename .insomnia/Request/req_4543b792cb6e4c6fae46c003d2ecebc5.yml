@@ -1,0 +1,27 @@
+_id: req_4543b792cb6e4c6fae46c003d2ecebc5
+type: Request
+parentId: fld_bc673ea5c4ab413db23ad9505a9bea32
+modified: 1631479060142
+created: 1631477586244
+url: "{{ _.FullUrl }}/ArticleGroup"
+name: Delete
+description: ""
+method: DELETE
+body: {}
+parameters:
+  - id: pair_6b6d7c8e6a2d4b319cc2e8ed50760a84
+    name: id
+    value: "{% prompt 'Address Id', 'Address Id', '', '', false, true %}"
+    description: ""
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1630224017728.625
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

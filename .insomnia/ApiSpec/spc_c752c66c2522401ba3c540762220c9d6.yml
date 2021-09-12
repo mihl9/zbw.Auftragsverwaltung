@@ -1,0 +1,874 @@
+_id: spc_c752c66c2522401ba3c540762220c9d6
+type: ApiSpec
+parentId: wrk_b9cd374b67564d4487ced925cd82548f
+modified: 1629316796915
+created: 1629316767174
+fileName: zbw.Auftragsverwaltung.Api.yaml
+contents: >-
+  {
+    "openapi": "3.0.1",
+    "info": {
+      "title": "zbw.Auftragsverwaltung.Api",
+      "version": "1.0"
+    },
+    "paths": {
+      "/api/ArticleGroup": {
+        "get": {
+          "tags": [
+            "ArticleGroup"
+          ],
+          "parameters": [
+            {
+              "name": "size",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "format": "int32",
+                "default": 10
+              }
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "format": "int32",
+                "default": 1
+              }
+            },
+            {
+              "name": "deleted",
+              "in": "query",
+              "schema": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDtoPaginatedList"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDtoPaginatedList"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDtoPaginatedList"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "ArticleGroup"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleGroupDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleGroupDto"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleGroupDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDto"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDto"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch": {
+          "tags": [
+            "ArticleGroup"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleGroupDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleGroupDto"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ArticleGroupDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDto"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDto"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "ArticleGroup"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/api/ArticleGroup/{id}": {
+        "get": {
+          "tags": [
+            "ArticleGroup"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDtoPaginatedList"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDtoPaginatedList"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/ArticleGroupDtoPaginatedList"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/Auth/Register": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetails"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetails"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDetails"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessMessage"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessMessage"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/SuccessMessage"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/Auth/Login": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Credentials"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Credentials"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Credentials"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AuthenticatedMessage"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AuthenticatedMessage"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/AuthenticatedMessage"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/Auth/Logout": {
+        "post": {
+          "tags": [
+            "Auth"
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/api/Customer/{id}": {
+        "get": {
+          "tags": [
+            "Customer"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "path",
+              "required": true,
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDto"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDto"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "/api/Customer": {
+        "get": {
+          "tags": [
+            "Customer"
+          ],
+          "parameters": [
+            {
+              "name": "size",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "format": "int32",
+                "default": 10
+              }
+            },
+            {
+              "name": "page",
+              "in": "query",
+              "schema": {
+                "type": "integer",
+                "format": "int32",
+                "default": 1
+              }
+            },
+            {
+              "name": "deleted",
+              "in": "query",
+              "schema": {
+                "type": "boolean",
+                "default": false
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDtoPaginatedList"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDtoPaginatedList"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDtoPaginatedList"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "tags": [
+            "Customer"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerDto"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDtoPaginatedList"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDtoPaginatedList"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDtoPaginatedList"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "patch": {
+          "tags": [
+            "Customer"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerDto"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CustomerDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success",
+              "content": {
+                "text/plain": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDto"
+                  }
+                },
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDto"
+                  }
+                },
+                "text/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/CustomerDto"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "Customer"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query",
+              "schema": {
+                "type": "string",
+                "format": "uuid"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      },
+      "/api/User": {
+        "get": {
+          "tags": [
+            "User"
+          ],
+          "parameters": [
+            {
+              "name": "id",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        },
+        "patch": {
+          "tags": [
+            "User"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        },
+        "delete": {
+          "tags": [
+            "User"
+          ],
+          "requestBody": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              },
+              "application/*+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/UserDto"
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Success"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "ArticleGroupDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": {
+              "type": "string",
+              "nullable": true
+            },
+            "articlegroupdto": {
+              "$ref": "#/components/schemas/ArticleGroupDto"
+            }
+          },
+          "additionalProperties": false
+        },
+        "ArticleGroupDtoPaginatedList": {
+          "type": "object",
+          "properties": {
+            "currentPage": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "totalPages": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "totalCount": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "firstRowOnPage": {
+              "type": "integer",
+              "format": "int32",
+              "readOnly": true
+            },
+            "lastRowOnPage": {
+              "type": "integer",
+              "format": "int32",
+              "readOnly": true
+            },
+            "hasPrevious": {
+              "type": "boolean",
+              "readOnly": true
+            },
+            "hasNext": {
+              "type": "boolean",
+              "readOnly": true
+            },
+            "results": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/ArticleGroupDto"
+              },
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "AuthenticatedMessage": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "nullable": true
+            },
+            "status": {
+              "type": "string",
+              "nullable": true,
+              "readOnly": true
+            },
+            "token": {
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "Credentials": {
+          "type": "object",
+          "properties": {
+            "username": {
+              "type": "string",
+              "nullable": true
+            },
+            "password": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "CustomerDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "customerNr": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "firstname": {
+              "type": "string",
+              "nullable": true
+            },
+            "lastname": {
+              "type": "string",
+              "nullable": true
+            },
+            "website": {
+              "type": "string",
+              "nullable": true
+            },
+            "userId": {
+              "type": "string",
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "CustomerDtoPaginatedList": {
+          "type": "object",
+          "properties": {
+            "currentPage": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "totalPages": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "pageSize": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "totalCount": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "firstRowOnPage": {
+              "type": "integer",
+              "format": "int32",
+              "readOnly": true
+            },
+            "lastRowOnPage": {
+              "type": "integer",
+              "format": "int32",
+              "readOnly": true
+            },
+            "hasPrevious": {
+              "type": "boolean",
+              "readOnly": true
+            },
+            "hasNext": {
+              "type": "boolean",
+              "readOnly": true
+            },
+            "results": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CustomerDto"
+              },
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "SuccessMessage": {
+          "type": "object",
+          "properties": {
+            "message": {
+              "type": "string",
+              "nullable": true
+            },
+            "status": {
+              "type": "string",
+              "nullable": true,
+              "readOnly": true
+            }
+          },
+          "additionalProperties": false
+        },
+        "UserDetails": {
+          "required": [
+            "email",
+            "password",
+            "userName"
+          ],
+          "type": "object",
+          "properties": {
+            "userName": {
+              "type": "string"
+            },
+            "password": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            }
+          },
+          "additionalProperties": false
+        },
+        "UserDto": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "userName": {
+              "type": "string",
+              "nullable": true
+            },
+            "email": {
+              "type": "string",
+              "nullable": true
+            },
+            "password": {
+              "type": "string",
+              "nullable": true
+            },
+            "assignedCustomers": {
+              "type": "array",
+              "items": {
+                "$ref": "#/components/schemas/CustomerDto"
+              },
+              "nullable": true
+            }
+          },
+          "additionalProperties": false
+        }
+      },
+      "securitySchemes": {
+        "Bearer": {
+          "type": "apiKey",
+          "description": "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+          "name": "Authorization",
+          "in": "header"
+        }
+      }
+    },
+    "security": [
+      { }
+    ]
+  }
+contentType: yaml

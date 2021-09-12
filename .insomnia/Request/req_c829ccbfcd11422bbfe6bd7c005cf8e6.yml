@@ -1,0 +1,29 @@
+_id: req_c829ccbfcd11422bbfe6bd7c005cf8e6
+type: Request
+parentId: fld_05eb7a3a96674010ae5aade400ba630d
+modified: 1630864195652
+created: 1630864188598
+url: "{{ _.FullUrl }}/Auth/revoke-token"
+name: Revoke-Token
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: >-
+    {
+    	"Token": "8Y3Sb61jKhB5VOGfwe0qZaq+NRnhbBYsfL6OCm00b6UZQxajaLWHgYpvzmsgeNcLWRDkIETFe6Jxn9BawAJ/Qg=="
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_1c4418cf6ed14970bac81aecf04016dc
+authentication: {}
+metaSortKey: -1629317294712
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

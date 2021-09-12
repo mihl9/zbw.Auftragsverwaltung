@@ -1,0 +1,35 @@
+_id: req_68ba761cc6d84055ae50809088ad69b1
+type: Request
+parentId: fld_c27c5dd830e84bf3bbb30d2b332ee6cf
+modified: 1631481193254
+created: 1631477661309
+url: "{{ _.FullUrl }}/Customer"
+name: Update
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "customerNr": 0,
+      "firstname": "test",
+      "lastname": "test",
+      "website": "test",
+      "userId": "1AD8487A-E600-41CA-A1C6-08D9722263C8"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d6fb76e561e04373b5a7587de7d03b49
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629681566185.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

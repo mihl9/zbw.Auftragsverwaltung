@@ -1,0 +1,37 @@
+_id: req_7f34c560e2064892bc2b5eea0bbc4313
+type: Request
+parentId: fld_45b42ee2ba2f45c69c5b21407601d7dc
+modified: 1631482514834
+created: 1631477690331
+url: "{{ _.FullUrl }}/Invoice"
+name: Add
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "addressId": "f4d19710-17f2-47c2-ba36-12758ecc16c4",
+      "date": "2021-09-12T21:32:16.147Z",
+      "number": 100,
+      "netto": 100,
+      "brutto": 100,
+      "tax": 2,
+      "adressValidFrom": "2021-09-12T21:30:19.1703573"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d6fb76e561e04373b5a7587de7d03b49
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629692949817.4844
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

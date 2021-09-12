@@ -1,0 +1,27 @@
+_id: req_b9a569f531f34db8a4e0110221fe5ed9
+type: Request
+parentId: fld_c27c5dd830e84bf3bbb30d2b332ee6cf
+modified: 1631480735807
+created: 1631477666051
+url: "{{ _.FullUrl }}/Customer"
+name: Delete
+description: ""
+method: DELETE
+body: {}
+parameters:
+  - id: pair_6b6d7c8e6a2d4b319cc2e8ed50760a84
+    name: id
+    value: "{% prompt 'Address Id', 'Address Id', '', '', false, true %}"
+    description: ""
+headers: []
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1629681566135.5
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

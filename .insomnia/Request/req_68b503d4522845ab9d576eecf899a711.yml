@@ -1,0 +1,33 @@
+_id: req_68b503d4522845ab9d576eecf899a711
+type: Request
+parentId: fld_bc673ea5c4ab413db23ad9505a9bea32
+modified: 1631480749122
+created: 1631477594143
+url: "{{ _.FullUrl }}/ArticleGroup"
+name: Update
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: |-
+    {
+      "id": "7c22500e-a265-48ee-1930-08d9762fa039",
+      "name": "testGroup01",
+      "parentId": null
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+    id: pair_d6fb76e561e04373b5a7587de7d03b49
+authentication:
+  type: bearer
+  token: "{{ _.Token }}"
+metaSortKey: -1630224017778.625
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
