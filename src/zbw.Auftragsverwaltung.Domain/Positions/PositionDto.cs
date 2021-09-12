@@ -9,8 +9,6 @@ namespace zbw.Auftragsverwaltung.Domain.Positions
 
         public int Nr { get; set; }
 
-        public ArticleDto Article { get; set; }
-
         public Guid ArticleId { get; set; }
 
         public int Amount { get; set; }
